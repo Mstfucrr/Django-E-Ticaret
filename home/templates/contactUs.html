@@ -1,0 +1,109 @@
+{% extends 'homebase.html' %}
+{% load static %}
+{% block head %}
+{% include 'head.html' %}
+{% endblock head %}
+
+{% block content %}
+
+<section id="aa-catg-head-banner">
+    <img src="{% static 'img/fashion/fashion-header-bg-8.jpg' %}" alt="fashion img">
+    <!-- <img src="{% static 'img/fashion/fashion-header-bg-8.jpg' %}" alt="fashion img"> -->
+    <div class="aa-catg-head-banner-area">
+        <div class="container">
+            <div class="aa-catg-head-banner-content">
+                <h2>Contact</h2>
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li class="active">Contact</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <section id="checkout" style="margin: 5rem 0 9rem 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="checkout-area">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="checkout-left">
+                                        <div class="panel-group" id="accordion">
+
+
+                                            <!-- Billing Details -->
+                                            <div class="panel panel-default aa-checkout-billaddress">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion"
+                                                            href="#collapseThree">
+                                                            <h2>Bizimle İletişime Geçin</h2>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseThree" class="panel-collapse collapse in">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-7">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    {{form.name}}
+                                                                    <!-- <input type="text" placeholder="Name*" required> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    {{form.email}}
+                                                                    <!-- <input type="email" placeholder="Email Address*" required> -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    {{form.subject}}
+                                                                    <!-- <input type="text" placeholder="Subject*" required> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-10">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    {{form.message}}
+                                                                    <!-- <textarea style="resize: none;" rows="" cols="" required></textarea> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-danger"
+                                                            style="transition:0.3s;">Gönder</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+{% endblock content %}
+
+
+
+{% block footer %}
+{% include 'footer.html' %}
+
+{% endblock footer %}

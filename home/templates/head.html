@@ -1,0 +1,18 @@
+{% extends 'homebase.html' %}
+
+
+{% block head %}
+
+<!-- title -->
+{% block title %} {{setting.title}} {% endblock %}
+
+<!-- keywords -->
+{% block keywords %} {{setting.keywords}} {% endblock %}
+
+<!-- Description -->
+{% block description %} {{setting.description}} {% endblock %}
+
+<!-- icon -->
+{% block icon %} {{setting.icon.url}} {% endblock %}
+
+{% endblock head %}
