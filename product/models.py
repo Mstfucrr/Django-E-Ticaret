@@ -31,14 +31,12 @@ class Category(MPTTModel):
     update_at = DateTimeField(auto_now=True)
 
     def slugify_function(self, content):
-        return str(str(self.parent).replace('  --> ','/')+"/"+ content.replace(' ', '-')).lower()
+        return str(str(self.parent).replace('  --> ','-')+"-"+ content.replace(' ', '-')).lower()
     
     
     class MPTTMeta:
         level_attr = 'mptt_level'
         order_insertion_by=['title']
-
-    
 
     def __str__(self):
         full_path = [self.title]
@@ -76,7 +74,7 @@ class Product(models.Model):
     slug = AutoSlugField(populate_from='title')
 
     def slugify_function(self, content):
-        return str(str(self.category).replace('  --> ','/')+"/"+ content.replace(' ', '-')).lower()
+        return str(content.replace(' ', '-')).lower()
     
     created_at = DateTimeField(auto_now_add=True)
     update_at = DateTimeField(auto_now=True)
