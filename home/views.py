@@ -1,8 +1,9 @@
 from product.models import Category, Product
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
-
 from home.models import Contact, ContactForm, Setting
+
+
 
 
 # Create your views here.
@@ -20,7 +21,8 @@ def SettingsFunc():
 
 def index(request):
     context = SettingsFunc()
-    
+
+
 
     manCategory = Category.objects.get(title = "Erkek")
     womenCategory = Category.objects.get(title = "Kadın")
@@ -40,46 +42,10 @@ def index(request):
 
     return render(request,'index.html',context)
 
-def PullProducts(category):
-    lastlen = 0
-    Mycategor = []
-    ListCategory = []
-    for cate in Category.objects.all():
-        ListCategory.append(cate)
-        if str(category) in str(ListCategory[lastlen::]):
-            lastlen = len(ListCategory)
-            Mycategor.append(cate)
-            
-
-    productslist = []
-    
-    for idm in Mycategor:
-        try:
-            for index in Product.objects.filter(category_id = idm.id):
-                productslist.append(index)
-            
-        except Exception as e:
-            print(e)
-    return productslist
-
-
-
-
-def about(request):
-    context = SettingsFunc()
-    return render(request,'about.html',context)
-
-def references(request):
-    context = SettingsFunc()
-    return render(request,'references.html',context)
-
-
 def category_product(request,id,slug):
     context = SettingsFunc()
     categories = Category.objects.filter(id=id)
     category = Category.objects.get(id=id)
-    
-    # products = Product.objects.filter(category_id = id)
 
     current_category = Category.objects.get(pk=id)
     category_children = current_category.get_children()
@@ -93,6 +59,27 @@ def category_product(request,id,slug):
     
 
     return render(request,'products.html',context)
+
+
+def PullProducts(category):
+    lastlen = 0
+    Mycategor = []
+    ListCategory = []
+    for cate in Category.objects.all():
+        ListCategory.append(cate)
+        if str(category) in str(ListCategory[lastlen::]):
+            lastlen = len(ListCategory)
+            Mycategor.append(cate)
+
+    productslist = []
+    for idm in Mycategor:
+        try:
+            for index in Product.objects.filter(category_id = idm.id):
+                productslist.append(index)
+            
+        except Exception as e:
+            print(e)
+    return productslist
 
 
 def contactUs(request):
@@ -112,4 +99,15 @@ def contactUs(request):
     context['form'] = form
     request.methot = 'GET'
     return render(request,'contactUs.html',context)
+
+
+def about(request):
+    context = SettingsFunc()
+    return render(request,'about.html',context)
+
+def references(request):
+    context = SettingsFunc()
+    return render(request,'references.html',context)
+
+
 

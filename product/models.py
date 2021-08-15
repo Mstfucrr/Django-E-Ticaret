@@ -7,6 +7,8 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django_extensions.db.fields import AutoSlugField
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
+import unidecode
+from unidecode import unidecode
 # Create your models here.
 
 class Category(MPTTModel):
@@ -31,8 +33,10 @@ class Category(MPTTModel):
     update_at = DateTimeField(auto_now=True)
 
     def slugify_function(self, content):
-        return str(str(self.parent).replace('  --> ','-')+"-"+ content.replace(' ', '-')).lower()
-    
+        if self.parent:
+            return (str(self.parent.slug)+"-"+unidecode(str(content.replace(' ', '-')).lower()))
+        return str(unidecode(str(content.replace(' ', '-')).lower()))
+
     
     class MPTTMeta:
         level_attr = 'mptt_level'
@@ -74,7 +78,7 @@ class Product(models.Model):
     slug = AutoSlugField(populate_from='title')
 
     def slugify_function(self, content):
-        return str(content.replace(' ', '-')).lower()
+        return str(unidecode(str(content.replace(' ', '-')).lower()))
     
     created_at = DateTimeField(auto_now_add=True)
     update_at = DateTimeField(auto_now=True)
