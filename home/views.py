@@ -21,12 +21,17 @@ def SettingsFunc():
 def index(request):
     context = SettingsFunc()
     
-    manProducts = ManProducts()
-    womenProducts = WomenProducts()
+
     manCategory = Category.objects.get(title = "Erkek")
     womenCategory = Category.objects.get(title = "Kadın")
+
+
     slideritems = Product.objects.order_by('?')[:4]
 
+    manProducts = PullProducts(manCategory)
+    womenProducts = PullProducts(womenCategory)
+
+    
     context['manCategory'] = manCategory
     context['womenCategory'] = womenCategory
     context['manProducts'] = manProducts
@@ -35,37 +40,27 @@ def index(request):
 
     return render(request,'index.html',context)
 
-def ManProducts():
-    manCategoryChild = Category.objects.get(title = "Erkek").get_children()
-    # for ids in manCategoryChild:
-    listem = []
-    for idm in manCategoryChild:
+def PullProducts(category):
+    lastlen = 0
+    Mycategor = []
+    ListCategory = []
+    for cate in Category.objects.all():
+        ListCategory.append(cate)
+        if str(category) in str(ListCategory[lastlen::]):
+            lastlen = len(ListCategory)
+            Mycategor.append(cate)
+            
+
+    productslist = []
+    
+    for idm in Mycategor:
         try:
-            manProducts = Product.objects.filter(category_id = idm.id)
-            listem.append(manProducts)             
-        except:
-            listem = []
-
-    return listem
-
-
-def WomenProducts():
-    womenCategoryChild = Category.objects.get(title = "Kadın").get_children()
-    listem = []
-    for ids in womenCategoryChild:
-        womenProducts = []
-        try:
-            womenProducts = Product.objects.filter(category_id = ids.id)
-            listem.append(womenProducts)
-        except:
-            listem = []
-
-    return listem
-
-
-
-
-
+            for index in Product.objects.filter(category_id = idm.id):
+                productslist.append(index)
+            
+        except Exception as e:
+            print(e)
+    return productslist
 
 
 
@@ -81,8 +76,10 @@ def references(request):
 
 def category_product(request,id,slug):
     context = SettingsFunc()
-    categories = Category.objects.filter(id=id)            
-    products = Product.objects.filter(category_id = id)
+    categories = Category.objects.filter(id=id)
+    category = Category.objects.get(id=id)
+    
+    # products = Product.objects.filter(category_id = id)
 
     current_category = Category.objects.get(pk=id)
     category_children = current_category.get_children()
@@ -90,8 +87,9 @@ def category_product(request,id,slug):
     context['categories'] = categories
     context['category_children'] = category_children
 
+    products = PullProducts(category)
     context['products'] = products
-    context['slug'] = slug
+
     
 
     return render(request,'products.html',context)

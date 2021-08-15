@@ -22,12 +22,9 @@
                                     <ul class="aa-product-catg">
                                         <!-- start single product item -->
 
-                                        {% for manProduct in manProducts %}
-
-                                        {% for manItem in manProduct %}
-
-
-
+                                        {% for manItem in manProducts %}
+                                        
+                                        
                                         <li>
                                             <figure>
                                                 <a class="aa-product-img" href="#"><img src="{{manItem.image.url}}"
@@ -54,7 +51,6 @@
                                             <span class="aa-badge aa-sale" href="#">SALE!</span>
                                         </li>
                                         {% endfor %}
-                                        {% endfor %}
                                         <!-- start single product item -->
 
 
@@ -77,8 +73,8 @@
                                         <!-- start single product item -->
 
 
-                                        {% for womenProduct in womenProducts %}
-                                        {% for womenitem in womenProduct %}
+                                        {% for womenitem in womenProducts %}
+                                        
 
 
                                         <li>
@@ -109,7 +105,7 @@
                                         </li>
 
 
-                                        {% endfor %}
+                                        
                                         {% endfor %}
 
                                     </ul>
