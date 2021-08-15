@@ -25,13 +25,17 @@ def index(request):
     womenProducts = WomenProducts()
     manCategory = Category.objects.get(title = "Erkek")
     womenCategory = Category.objects.get(title = "Kadın")
-    slideritems = Product.objects.all()[:4]
-    
+    slideritems = Product.objects.order_by('?')[:4]
+
+    promoitems = Category.objects.order_by('?')[:4]
+    promooneitem = Product.objects.order_by('?')[:1]
     context['manCategory'] = manCategory
     context['womenCategory'] = womenCategory
     context['manProducts'] = manProducts
     context['womenProducts'] = womenProducts
     context['slideritems'] = slideritems
+    context['promoitems'] = promoitems
+    context['promooneitem'] = promooneitem
 
     return render(request,'index.html',context)
 
