@@ -1,4 +1,4 @@
-from product.models import Category, Product
+from product.models import Category, Images, Product
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from home.models import Contact, ContactForm, Setting
@@ -26,18 +26,21 @@ def index(request):
 
     manCategory = Category.objects.get(title = "Erkek")
     womenCategory = Category.objects.get(title = "Kadın")
-
+    sportsCategory = Category.objects.get(title = "Spor")
+    electronicCategory = Category.objects.get(title = "Elektronik")
+    images = Images.objects.all()
 
     slideritems = Product.objects.order_by('?')[:4]
-
-    manProducts = PullProducts(manCategory)
-    womenProducts = PullProducts(womenCategory)
-
     
+    context['images'] = images
     context['manCategory'] = manCategory
     context['womenCategory'] = womenCategory
-    context['manProducts'] = manProducts
-    context['womenProducts'] = womenProducts
+    context['sportsProducts'] = PullProducts(sportsCategory)[:4]
+    context['sportsCategory'] = sportsCategory
+    context['electronicCategory'] = electronicCategory
+    context['electronicProducts'] = PullProducts(electronicCategory)[:4]
+    context['manProducts'] = PullProducts(manCategory)[:4]
+    context['womenProducts'] = PullProducts(womenCategory)[:4]
     context['slideritems'] = slideritems
 
     return render(request,'index.html',context)
@@ -49,8 +52,9 @@ def category_product(request,id,slug):
 
     current_category = Category.objects.get(pk=id)
     category_children = current_category.get_children()
-    
+    images = Images.objects.all()
     context['categories'] = categories
+    context['images'] = images
     context['category_children'] = category_children
 
     products = PullProducts(category)
@@ -80,6 +84,30 @@ def PullProducts(category):
         except Exception as e:
             print(e)
     return productslist
+
+def PullCategory(category):
+    lastlen = 0
+    Mycategor = []
+    ListCategory = []
+    for cate in Category.objects.all():
+        ListCategory.append(cate)
+        if str(category) in str(ListCategory[lastlen::]):
+            lastlen = len(ListCategory)
+            Mycategor.append(cate)
+    
+    print(Mycategor)
+    return Mycategor
+
+def product_detail(request,id,slug):
+    context = SettingsFunc()
+    product = Product.objects.get(pk=id)
+    images = Images.objects.filter(product_id = id)
+
+    context['product'] = product
+    context['images'] = images
+
+    return render(request,"product_detail.html",context)
+
 
 
 def contactUs(request):

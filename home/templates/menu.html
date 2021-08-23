@@ -43,7 +43,7 @@
 var allDropAltLiAlta = document.querySelectorAll(".dropdown-menu li a")
 
 for (let a of allDropAltLiAlta){
-    if (a.text.trim().length == 0) 
+    if (a.text.trim().length == 0 && a.children.length == 0) 
     {
         a.parentElement.remove()
     }
