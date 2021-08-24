@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.db.models.fields import CharField, DateTimeField, FloatField, IntegerField, SlugField, TextField
 from django.db.models.fields.files import ImageField
 from django.db.models.fields.related import ForeignKey
@@ -8,7 +9,9 @@ from django_extensions.db.fields import AutoSlugField
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 import unidecode
+from django.forms import ModelForm
 from unidecode import unidecode
+
 # Create your models here.
 
 class Category(MPTTModel):
@@ -20,15 +23,13 @@ class Category(MPTTModel):
     
     title = CharField(max_length=200)
     keywords = CharField(blank = True,max_length=255)
-    description = CharField(blank = True,max_length=255)
+    description = CharField(blank = True,max_length=260)
     
     image = ImageField(blank = True,upload_to = "images/")
     status = CharField(max_length=10,choices=STATUS)
     
     slug = AutoSlugField(populate_from='title')
 
-    
-    
     created_at = DateTimeField(auto_now_add=True)
     update_at = DateTimeField(auto_now=True)
 
@@ -63,7 +64,7 @@ class Product(models.Model):
         ('False','Hayır'),
     )
 
-    category = ForeignKey(Category,on_delete=models.CASCADE)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
 
     title = CharField(max_length=200)
     keywords = CharField(blank = True,max_length=255)
@@ -102,3 +103,30 @@ class Images(models.Model):
     def image_tag(self):
         return mark_safe(f'<img src="{self.image.url}" height = "50"')
     image_tag.short_description = "Image"
+
+
+
+
+
+class Comment(models.Model):
+    STATUS = (
+        ('New','Yeni'),
+        ('True','Evet'),
+        ('False','Hayır'),
+    )
+    product = ForeignKey(Product,on_delete=models.CASCADE)
+    user = ForeignKey(User,on_delete=models.CASCADE)
+    subject = CharField(max_length=50,blank=True)
+    comment = TextField(max_length=200,blank=True)
+    rate = IntegerField(blank=True)
+    status = CharField(max_length=10,choices=STATUS,default='New')
+    ip = CharField(blank=True,max_length=20)
+    created_at = DateTimeField(auto_now_add=True)
+    update_at = DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.subject
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields=['subject','comment','rate']

@@ -1,4 +1,4 @@
-from product.models import Category, Images, Product
+from product.models import Category, Comment, Images, Product
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin,DraggableMPTTAdmin
 from django.utils.html import format_html
@@ -54,7 +54,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['status','category']
     inlines = [ProductImageInline]
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['user','rate','product']
 
+
+admin.site.register(Comment,CommentAdmin)
 
 admin.site.register(Category,CategoryAdmin)
 

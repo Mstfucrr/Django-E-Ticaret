@@ -11,179 +11,226 @@
 
 {% block content %}
 
+<style>
+  /*  
+   * Rating styles
+   */
+  .rating {
+
+    display: inline-block;
+
+    margin: 0 auto 1em;
+    font-size: 45px;
+    overflow: hidden;
+  }
+
+  .rating input {
+    float: right;
+    opacity: 0;
+    position: absolute;
+  }
+
+  .rating a,
+  .rating label {
+    float: right;
+    color: #aaa;
+    text-decoration: none;
+    -webkit-transition: color .4s;
+    -moz-transition: color .4s;
+    -o-transition: color .4s;
+    transition: color .4s;
+  }
+
+  .rating label:hover~label,
+  .rating input:focus~label,
+  .rating label:hover,
+  .rating a:hover,
+  .rating a:hover~a,
+  .rating a:focus,
+  .rating a:focus~a {
+    color: orange !important;
+    cursor: pointer !important;
+  }
+</style>
+
 <section id="aa-product-details">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="aa-product-details-area">
-                    <div class="aa-product-details-content">
-                        <div class="row">
-                            <!-- Modal view slider -->
-                            <div class="col-md-5 col-sm-5 col-xs-12">
-                                <div class="aa-product-view-slider">
-                                    <div id="demo-1" class="simpleLens-gallery-container">
-                                        <div class="simpleLens-container">
-                                            <div class="simpleLens-big-image-container"><a
-                                                    data-lens-image="{{product.image.url}}"
-                                                    class="simpleLens-lens-image"><img src="{{product.image.url}}"
-                                                        class="simpleLens-big-image"></a></div>
-                                        </div>
-                                        <div class="simpleLens-thumbnails-container">
-
-                                            {% for image in images %}
-
-                                            <a data-big-image="{{image.image.url}}"
-                                                data-lens-image="{{image.image.url}}"
-                                                class="simpleLens-thumbnail-wrapper" href="#">
-                                                <img src="{{image.image.url}}" style="height: 55px;width: 45px;">
-                                            </a>
-                                            {% endfor %}
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Modal view content -->
-                            <div class="col-md-7 col-sm-7 col-xs-12">
-                                <div class="aa-product-view-content">
-                                    <h3>{{product.title}}</h3>
-                                    <div class="aa-price-block">
-                                        <span class="aa-product-view-price">{{product.price}} TL</span>
-                                        <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi,
-                                        veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
-                                    <h4>Size</h4>
-                                    <div class="aa-prod-view-size">
-                                        <a href="#">S</a>
-                                        <a href="#">M</a>
-                                        <a href="#">L</a>
-                                        <a href="#">XL</a>
-                                    </div>
-                                    <h4>Color</h4>
-                                    <div class="aa-color-tag">
-                                        <a href="#" class="aa-color-green"></a>
-                                        <a href="#" class="aa-color-yellow"></a>
-                                        <a href="#" class="aa-color-pink"></a>
-                                        <a href="#" class="aa-color-black"></a>
-                                        <a href="#" class="aa-color-white"></a>
-                                    </div>
-                                    <div class="aa-prod-quantity">
-                                        <form action="">
-                                            <select id="" name="">
-                                                <option selected="1" value="0">1</option>
-                                                <option value="1">2</option>
-                                                <option value="2">3</option>
-                                                <option value="3">4</option>
-                                                <option value="4">5</option>
-                                                <option value="5">6</option>
-                                            </select>
-                                        </form>
-                                        <p class="aa-prod-category">
-                                            Category: <a href="#">Polo T-Shirt</a>
-                                        </p>
-                                    </div>
-                                    <div class="aa-prod-view-bottom">
-                                        <a class="aa-add-to-cart-btn" href="#">Sepete Ekle</a>
-                                        <a class="aa-add-to-cart-btn" href="#">İstek listesi</a>
-                                        <a class="aa-add-to-cart-btn" href="#">Compare</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="aa-product-details-area">
+          <div class="aa-product-details-content">
+            <div class="row">
+              <!-- Modal view slider -->
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <div class="aa-product-view-slider">
+                  <div id="demo-1" class="simpleLens-gallery-container">
+                    <div class="simpleLens-container">
+                      <div class="simpleLens-big-image-container"><a data-lens-image="{{product.image.url}}"
+                          class="simpleLens-lens-image"><img src="{{product.image.url}}"
+                            class="simpleLens-big-image"></a></div>
                     </div>
+                    <div class="simpleLens-thumbnails-container">
 
-                    <div class="aa-product-details-bottom">
-                        <ul class="nav nav-tabs" id="myTab2">
-                          <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">Description</a></li>
-                          <li class=""><a href="#review" data-toggle="tab" aria-expanded="false">Reviews</a></li>                
-                        </ul>
-          
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                          <div class="tab-pane fade active in" id="description">
-                            {{product.detail|safe}}    
-                        
+                      {% for image in images %}
+
+                      <a data-big-image="{{image.image.url}}" data-lens-image="{{image.image.url}}"
+                        class="simpleLens-thumbnail-wrapper" href="#">
+                        <img src="{{image.image.url}}" style="height: 55px;width: 45px;">
+                      </a>
+                      {% endfor %}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal view content -->
+              <div class="col-md-7 col-sm-7 col-xs-12">
+                <div class="aa-product-view-content">
+                  <h3>{{product.title}}</h3>
+                  <div class="aa-price-block">
+                    <span class="aa-product-view-price">{{product.price}} TL</span>
+                    <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                  </div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi,
+                    veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                  <h4>Size</h4>
+                  <div class="aa-prod-view-size">
+                    <a href="#">S</a>
+                    <a href="#">M</a>
+                    <a href="#">L</a>
+                    <a href="#">XL</a>
+                  </div>
+                  <h4>Color</h4>
+                  <div class="aa-color-tag">
+                    <a href="#" class="aa-color-green"></a>
+                    <a href="#" class="aa-color-yellow"></a>
+                    <a href="#" class="aa-color-pink"></a>
+                    <a href="#" class="aa-color-black"></a>
+                    <a href="#" class="aa-color-white"></a>
+                  </div>
+                  <div class="aa-prod-quantity">
+                    <form action="">
+                      <select id="" name="">
+                        <option selected="1" value="0">1</option>
+                        <option value="1">2</option>
+                        <option value="2">3</option>
+                        <option value="3">4</option>
+                        <option value="4">5</option>
+                        <option value="5">6</option>
+                      </select>
+                    </form>
+                    <p class="aa-prod-category">
+                      Category: <a href="#">Polo T-Shirt</a>
+                    </p>
+                  </div>
+                  <div class="aa-prod-view-bottom">
+                    <a class="aa-add-to-cart-btn" href="#">Sepete Ekle</a>
+                    <a class="aa-add-to-cart-btn" href="#">İstek listesi</a>
+                    <a class="aa-add-to-cart-btn" href="#">Compare</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aa-product-details-bottom">
+            <ul class="nav nav-tabs" id="myTab2">
+              <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">Description</a></li>
+              <li class=""><a href="#review" data-toggle="tab" aria-expanded="false">Reviews</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane fade active in" id="description">
+                {{product.detail|safe}}
+
+              </div>
+
+              <div class="tab-pane fade" id="review">
+                <div class="aa-product-review-area">
+                  <h4>{{product.title}} için 2 Yorum</h4>
+                  <ul class="aa-review-nav">
+                    <li>
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="#">
+                            <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                          </a>
                         </div>
-                          <div class="tab-pane fade" id="review">
-                           <div class="aa-product-review-area">
-                             <h4>2 Reviews for T-Shirt</h4> 
-                             <ul class="aa-review-nav">
-                               <li>
-                                  <div class="media">
-                                    <div class="media-left">
-                                      <a href="#">
-                                        <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
-                                      </a>
-                                    </div>
-                                    <div class="media-body">
-                                      <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
-                                      <div class="aa-product-rating">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star-o"></span>
-                                      </div>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li>
-                                  <div class="media">
-                                    <div class="media-left">
-                                      <a href="#">
-                                        <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
-                                      </a>
-                                    </div>
-                                    <div class="media-body">
-                                      <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
-                                      <div class="aa-product-rating">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star-o"></span>
-                                      </div>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    </div>
-                                  </div>
-                                </li>
-                             </ul>
-                             <h4>Add a review</h4>
-                             <div class="aa-your-rating">
-                               <p>Your Rating</p>
-                               <a href="#"><span class="fa fa-star-o"></span></a>
-                               <a href="#"><span class="fa fa-star-o"></span></a>
-                               <a href="#"><span class="fa fa-star-o"></span></a>
-                               <a href="#"><span class="fa fa-star-o"></span></a>
-                               <a href="#"><span class="fa fa-star-o"></span></a>
-                             </div>
-                             <!-- review form -->
-                             <form action="" class="aa-review-form">
-                                <div class="form-group">
-                                  <label for="message">Your Review</label>
-                                  <textarea class="form-control" rows="3" id="message"></textarea>
-                                </div>
-                                <div class="form-group">
-                                  <label for="name">Name</label>
-                                  <input type="text" class="form-control" id="name" placeholder="Name">
-                                </div>  
-                                <div class="form-group">
-                                  <label for="email">Email</label>
-                                  <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
-                                </div>
-          
-                                <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
-                             </form>
-                           </div>
-                          </div>            
+                        <div class="media-body">
+                          <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                          <div class="aa-product-rating">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star-o"></span>
+                          </div>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                         </div>
                       </div>
+                    </li>
+                    <li>
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="#">
+                            <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                          <div class="aa-product-rating">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star-o"></span>
+                            <span class="fa fa-star-o"></span>
+                            <span class="fa fa-star-o"></span>
+                          </div>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <h4>Add a review</h4>
+
+                  <!-- review form -->
+
+                  <form action="/product/addcomment/{{product.id}}" method="POST" class="aa-review-form">
+                    <div class="rating">
+                      <!--
+                              -->  <input name="rate" id="e5" value="5" type="radio"></a><label for="e5">★</label>
+                      <!--
+                                --><input name="rate" id="e4" value="4" type="radio"></a><label for="e4">★</label>
+                      <!--
+                                --><input name="rate" id="e3" value="3" type="radio"></a><label for="e3">★</label>
+                      <!--
+                                --><input name="rate" id="e2" value="2" type="radio"></a><label for="e2">★</label>
+                      <!--
+                                --><input name="rate" id="e1" value="1" type="radio"></a><label for="e1">★</label>
+                    </div>
+                    <div class="form-group">
+                      <label for="message">Yorumunuz</label>
+                      <textarea class="form-control" rows="3" id="message"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" id="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+                    </div>
+
+                    <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                  </form>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
 {% endblock content %}

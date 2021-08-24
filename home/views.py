@@ -28,9 +28,10 @@ def index(request):
     womenCategory = Category.objects.get(title = "Kadın")
     sportsCategory = Category.objects.get(title = "Spor")
     electronicCategory = Category.objects.get(title = "Elektronik")
+    print(electronicCategory)
     images = Images.objects.all()
 
-    slideritems = Product.objects.order_by('?')[:4]
+ 
     
     context['images'] = images
     context['manCategory'] = manCategory
@@ -41,7 +42,7 @@ def index(request):
     context['electronicProducts'] = PullProducts(electronicCategory)[:4]
     context['manProducts'] = PullProducts(manCategory)[:4]
     context['womenProducts'] = PullProducts(womenCategory)[:4]
-    context['slideritems'] = slideritems
+    context['slideritems'] = Product.objects.order_by('?')[:4]
 
     return render(request,'index.html',context)
 
