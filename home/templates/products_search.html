@@ -17,61 +17,18 @@
 
 
 {% block content %}
-<style>
-    li:hover figure .aa-product-img img {
-        transform: scale(1.3);
-    }
-
-    .list li:hover figure figcaption {
-        transform: scale(1);
-    }
-
-
-    .aa-product-img img {
-        transition: 0.4s;
-    }
-</style>
-
-<!-- catg header banner section -->
 <section id="aa-catg-head-banner">
     <img src="{% static 'img/fashion/fashion-header-bg-8.jpg' %}" alt="fashion img">
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content">
-                {% for categor in categories %}
-                <h2>{{categor.title}}</h2>
-                <ol class="breadcrumb">
-                    <li><a href="/">Home</a></li>
-                    {% if categor.parent %}
-                    {% if categor.parent.parent %}
-                    {% if categor.parent.parent.parent %}
-                    <li><a
-                            href="/category/{{categor.parent.parent.parent.id}}/{{categor.parent.parent.parent.slug}}">{{categor.parent.parent.parent.title}}</a>
-                    </li>
-                    {% endif %}
-                    <li><a
-                            href="/category/{{categor.parent.parent.id}}/{{categor.parent.parent.slug}}">{{categor.parent.parent.title}}</a>
-                    </li>
-                    {% endif %}
-                    <li><a href="/category/{{categor.parent.id}}/{{categor.parent.slug}}">{{categor.parent.title}}</a>
-                    </li>
-
-                    {% endif %}
-                    <li class="active">{{categor.title}}</li>
-
-                </ol>
-                {% endfor %}
-
-                <hr>
-
+                
+                <h2>"{{key}}" için arama sonuçları</h2>
+                
             </div>
         </div>
     </div>
 </section>
-<!-- / catg header banner section -->
-
-
-
 
 
 <section id="aa-product-category">
@@ -136,9 +93,6 @@
                                 <!-- <span class="aa-badge aa-sale" href="#">SALE!</span> -->
                                 <!-- <span class="aa-badge aa-sold-out" href="#">Sold Out!</span> -->
                                 <!-- <span class="aa-badge aa-hot" href="#">HOT!</span> -->
-
-
-
 
 
                                 <div class="modal fade" id="{{product.slug}}" tabindex="-1" role="dialog"
@@ -280,21 +234,21 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
                 <aside class="aa-sidebar">
                     <!-- single sidebar -->
-                    <div class="aa-sidebar-widget">
+                     <!-- <div class="aa-sidebar-widget">
 
-                        {% for categories in categories %}
+                         <h3>Kategoriler</h3>
+                        {% for product in products %}
 
-                        <h3>{{categories.title}}</h3>
                         {% endfor %}
 
                         <ul class="aa-catg-nav">
 
-                            {% for child in category_children %}
-                            <li><a href="/category/{{child.id}}/{{child.slug}}">{{ child.title }}</a>
+                            {% for child in products %}
+                            <li><a href="/category/{{child.category.id}}/{{child.category.slug}}">{{ child.category.title }}</a>
                                 {% endfor %}
 
                         </ul>
-                    </div>
+                    </div> -->
                     <!-- single sidebar -->
                     <!-- <div class="aa-sidebar-widget">
                         <h3>Tags</h3>
@@ -419,24 +373,8 @@
 
 
 
-<script>
-    var allDropAltLiAlta = document.querySelectorAll("li a")
-    for (let a of allDropAltLiAlta) {
-
-        if (a.text.trim().length == 0 && a.children.length == 0) {
-            a.parentElement.remove()
-
-        }
-    }
-
-</script>
-
-
 {% endblock content %}
-
-
-
-
+    
 {% block footer %}
 {% include 'footer.html' %}
 

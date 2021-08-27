@@ -42,12 +42,12 @@
   }
 
   .rating label:hover~label,
-  .rating input:focus~label,
+  .rating input:checked~label,
   .rating label:hover,
   .rating a:hover,
   .rating a:hover~a,
-  .rating a:focus,
-  .rating a:focus~a {
+  .rating a:checked,
+  .rating a:checked~a {
     color: orange !important;
     cursor: pointer !important;
   }
@@ -120,7 +120,15 @@
                       </select>
                     </form>
                     <p class="aa-prod-category">
-                      Category: <a href="#">Polo T-Shirt</a>
+                      Category:
+
+                      {% if product.category.parent %}
+                      <a
+                        href="/category/{{product.category.parent.id}}/{{product.category.parent.slug}}">{{product.category.parent.title}}/</a>
+
+                      {% endif %}
+                      <a
+                        href="/category/{{product.category.id}}/{{product.category.slug}}">{{product.category.title}}</a>
                     </p>
                   </div>
                   <div class="aa-prod-view-bottom">
@@ -148,77 +156,73 @@
 
               <div class="tab-pane fade" id="review">
                 <div class="aa-product-review-area">
-                  <h4>{{product.title}} için 2 Yorum</h4>
+                  <h4>{{product.title}} için <span></span> Yorum</h4>
                   <ul class="aa-review-nav">
+
+                    {% for comment in comments %}
+
+
+
+                    {% if comment.status == "True" %}
                     <li>
                       <div class="media">
                         <div class="media-left">
                           <a href="#">
-                            <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                            <img class="media-object" src="{% static 'img/testimonial-img-3.jpg' %}" alt="girl image">
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                          <h4 class="media-heading"><strong>{{comment.user}} </strong> -
+                            <span>{{comment.created_at}}</span>
+                          </h4>
                           <div class="aa-product-rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
+
+
+                            {% for ra in "12345"|make_list %}
+
+                            {% if ra > comment.rate|stringformat:"i" %}
+
                             <span class="fa fa-star-o"></span>
+                            {% else %}
+                            <span class="fa fa-star"></span>
+                            {% endif %}
+
+                            {% endfor %}
+
+
+
+
                           </div>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                          <p>{{comment.comment}}</p>
                         </div>
                       </div>
                     </li>
-                    <li>
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="#">
-                            <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
-                          <div class="aa-product-rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star-o"></span>
-                            <span class="fa fa-star-o"></span>
-                            <span class="fa fa-star-o"></span>
-                          </div>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        </div>
-                      </div>
-                    </li>
+                    {% endif %}
+
+
+                    {% endfor %}
                   </ul>
-                  <h4>Add a review</h4>
+                  <h4>Yorum ekle</h4>
 
                   <!-- review form -->
-
-                  <form action="/product/addcomment/{{product.id}}" method="POST" class="aa-review-form">
+                  <form action="{% url 'addcomment' product.id %}" method="post" class="aa-review-form">
+                    {% csrf_token %}
                     <div class="rating">
-                      <!--
-                              -->  <input name="rate" id="e5" value="5" type="radio"></a><label for="e5">★</label>
-                      <!--
-                                --><input name="rate" id="e4" value="4" type="radio"></a><label for="e4">★</label>
-                      <!--
-                                --><input name="rate" id="e3" value="3" type="radio"></a><label for="e3">★</label>
-                      <!--
-                                --><input name="rate" id="e2" value="2" type="radio"></a><label for="e2">★</label>
-                      <!--
-                                --><input name="rate" id="e1" value="1" type="radio"></a><label for="e1">★</label>
+                      <input name="rate" id="e5" value="5" type="radio"><label for="e5">★</label>
+                      <input name="rate" id="e4" value="4" type="radio"><label for="e4">★</label>
+                      <input name="rate" id="e3" value="3" type="radio"><label for="e3">★</label>
+                      <input name="rate" id="e2" value="2" type="radio"><label for="e2">★</label>
+                      <input name="rate" id="e1" value="1" type="radio"><label for="e1">★</label>
                     </div>
+
                     <div class="form-group">
-                      <label for="message">Yorumunuz</label>
-                      <textarea class="form-control" rows="3" id="message"></textarea>
+                      <label for="subject">Konu</label>
+                      <input type="text" class="form-control" name="subject" id="subject" placeholder="Konu">
                     </div>
+
                     <div class="form-group">
-                      <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+                      <label for="comment">Yorumunuz</label>
+                      <textarea class="form-control" name="comment" rows="3" id="comment"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
@@ -232,6 +236,12 @@
     </div>
   </div>
 </section>
+
+<script>
+  lengthArea = document.querySelector(".aa-product-review-area h4 span")
+  lengthArea.innerHTML = document.querySelectorAll("li .media").length
+
+</script>
 
 {% endblock content %}
 

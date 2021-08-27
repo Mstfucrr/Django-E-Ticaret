@@ -55,7 +55,8 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline]
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['user','rate','product']
+    list_display = ['user','rate','product','status']
+    list_filter = ['status']
 
 
 admin.site.register(Comment,CommentAdmin)

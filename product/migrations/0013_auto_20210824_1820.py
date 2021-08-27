@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='slug',
-            field=django_extensions.db.fields.AutoSlugField(blank=True, editable=False, populate_from='title'),
+            field=django_extensions.db.fields.AutoSlugField(blank=True, editable=True, populate_from='title'),
         ),
         migrations.CreateModel(
             name='Comment',

@@ -1,9 +1,8 @@
-from product.models import Category, Images, Product
+from product.models import Category, Comment, Images, Product
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from home.models import Contact, ContactForm, Setting
-
-
+from django.contrib import messages
 
 
 # Create your views here.
@@ -18,7 +17,6 @@ def SettingsFunc():
     return context
 
 
-
 def index(request):
     context = SettingsFunc()
 
@@ -28,7 +26,6 @@ def index(request):
     womenCategory = Category.objects.get(title = "Kadın")
     sportsCategory = Category.objects.get(title = "Spor")
     electronicCategory = Category.objects.get(title = "Elektronik")
-    print(electronicCategory)
     images = Images.objects.all()
 
  
@@ -47,10 +44,11 @@ def index(request):
     return render(request,'index.html',context)
 
 def category_product(request,id,slug):
+
     context = SettingsFunc()
     categories = Category.objects.filter(id=id)
     category = Category.objects.get(id=id)
-
+    
     current_category = Category.objects.get(pk=id)
     category_children = current_category.get_children()
     images = Images.objects.all()
@@ -64,6 +62,19 @@ def category_product(request,id,slug):
     
 
     return render(request,'products.html',context)
+
+def search_product(request):
+    context = SettingsFunc()
+    key = request.GET.get('searchArea')
+    print("key : ",key)
+    if request.method == 'GET' and key:
+        products = Product.objects.filter(title__contains = key)
+        print("products : ",products,len(products))
+        context['products'] = products
+        images = Images.objects.all()
+        context['images'] = images
+        context['key'] = key
+    return render(request,'products_search.html',context)
 
 
 def PullProducts(category):
@@ -103,12 +114,12 @@ def product_detail(request,id,slug):
     context = SettingsFunc()
     product = Product.objects.get(pk=id)
     images = Images.objects.filter(product_id = id)
-
+    comments = Comment.objects.filter(product_id = id)
     context['product'] = product
     context['images'] = images
+    context['comments'] = comments
 
     return render(request,"product_detail.html",context)
-
 
 
 def contactUs(request):

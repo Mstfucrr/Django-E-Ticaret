@@ -79,7 +79,7 @@ class Product(models.Model):
     slug = AutoSlugField(populate_from='title')
 
     def slugify_function(self, content):
-        return str(unidecode(str(content.replace(' ', '-')).lower()))
+        return str(unidecode(str(content.replace(' ', '-').replace(',','-')).lower()))
     
     created_at = DateTimeField(auto_now_add=True)
     update_at = DateTimeField(auto_now=True)
