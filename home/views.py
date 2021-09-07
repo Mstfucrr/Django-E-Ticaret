@@ -1,8 +1,9 @@
 from product.models import Category, Comment, Images, Product
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from home.models import Contact, ContactForm, Setting
 from django.contrib import messages
+import json
 
 
 # Create your views here.
@@ -66,15 +67,32 @@ def category_product(request,id,slug):
 def search_product(request):
     context = SettingsFunc()
     key = request.GET.get('searchArea')
-    print("key : ",key)
     if request.method == 'GET' and key:
         products = Product.objects.filter(title__contains = key)
-        print("products : ",products,len(products))
         context['products'] = products
         images = Images.objects.all()
         context['images'] = images
         context['key'] = key
     return render(request,'products_search.html',context)
+
+
+def search_auto(request):
+  if request.is_ajax():
+    q = request.GET.get('term', '')
+    products = Product.objects.filter(title__contains=q)
+    results = []
+    for product in products:
+      products_json = {}
+      products_json = product.title
+      results.append(products_json)
+      
+    data = json.dumps(results)
+
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)
+
 
 
 def PullProducts(category):

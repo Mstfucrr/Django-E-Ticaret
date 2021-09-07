@@ -1,4 +1,9 @@
 {% block header %} {% load static %}
+<!-- jQuery !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 <!-- Start header section -->
 <header id="aa-header">
@@ -13,7 +18,8 @@
                             <!-- start language -->
                             <div class="aa-language">
                                 <div class="dropdown">
-                                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <img src="{% static 'img/flag/english.jpg' %}" alt="english flag">ENGLISH
                                         <span class="caret"></span>
                                     </a>
@@ -22,7 +28,8 @@
                                             <a href="#"><img src="{% static 'img/flag/french.jpg' %}" alt="">FRENCH</a>
                                         </li>
                                         <li>
-                                            <a href="#"><img src="{% static 'img/flag/english.jpg' %}" alt="">ENGLISH</a>
+                                            <a href="#"><img src="{% static 'img/flag/english.jpg' %}"
+                                                    alt="">ENGLISH</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -32,7 +39,8 @@
                             <!-- start currency -->
                             <div class="aa-currency">
                                 <div class="dropdown">
-                                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <i class="fa fa-usd"></i>USD
                                         <span class="caret"></span>
                                     </a>
@@ -93,7 +101,8 @@
                             <div class="aa-cartbox-summary">
                                 <ul>
                                     <li>
-                                        <a class="aa-cartbox-img" href="#"><img src="{% static 'img/woman-small-2.jpg' %}" alt="img"></a>
+                                        <a class="aa-cartbox-img" href="#"><img
+                                                src="{% static 'img/woman-small-2.jpg' %}" alt="img"></a>
                                         <div class="aa-cartbox-info">
                                             <h4><a href="#">Product Name</a></h4>
                                             <p>1 x $250</p>
@@ -101,7 +110,8 @@
                                         <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
                                     </li>
                                     <li>
-                                        <a class="aa-cartbox-img" href="#"><img src="{% static 'img/woman-small-1.jpg' %}" alt="img"></a>
+                                        <a class="aa-cartbox-img" href="#"><img
+                                                src="{% static 'img/woman-small-1.jpg' %}" alt="img"></a>
                                         <div class="aa-cartbox-info">
                                             <h4><a href="#">Product Name</a></h4>
                                             <p>1 x $250</p>
@@ -124,13 +134,37 @@
                         <!-- search box -->
                         <div class="aa-search-box">
                             <form action="/search/" method="GET">
-                                
-                                <input type="text" name="searchArea" id="" placeholder="Search here ex. 'man' " required>
-                                <button type="submit"><span class="fa fa-search"></span></button>
 
+                                <input type="text" name="searchArea" id="searchArea"
+                                    placeholder="Search here ex. 'man' " required>
+                                <button type="submit"><span class="fa fa-search"></span></button>
+                                <!-- <script>
+
+                                    $(function () {
+                                        $("#searchArea").autocomplete({
+                                            source: "/search_auto/",
+                                            select: function (event, ui) { //item selected
+                                                AutoCompleteSelect(event, ui)
+                                            },
+                                            minLength: 2,
+                                            
+
+                                        });
+                                    });
+
+                                    function AutoCompleteSelect(event, ui) {
+
+                                        var selectedObj = ui.item;
+
+                                    }
+
+
+
+                                </script> -->
+                                
                             </form>
 
-                                
+
                         </div>
                         <!-- / search box -->
                     </div>
