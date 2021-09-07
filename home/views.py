@@ -96,37 +96,16 @@ def search_auto(request):
 
 
 def PullProducts(category):
-    lastlen = 0
-    Mycategor = []
-    ListCategory = []
-    for cate in Category.objects.all():
-        ListCategory.append(cate)
-        if str(category) in str(ListCategory[lastlen::]):
-            lastlen = len(ListCategory)
-            Mycategor.append(cate)
-
+    Mycategor = [cate for cate in Category.objects.all() if str(category) in str(cate)]
     productslist = []
     for idm in Mycategor:
         try:
             for index in Product.objects.filter(category_id = idm.id):
                 productslist.append(index)
-            
         except Exception as e:
             print(e)
     return productslist
 
-def PullCategory(category):
-    lastlen = 0
-    Mycategor = []
-    ListCategory = []
-    for cate in Category.objects.all():
-        ListCategory.append(cate)
-        if str(category) in str(ListCategory[lastlen::]):
-            lastlen = len(ListCategory)
-            Mycategor.append(cate)
-    
-    print(Mycategor)
-    return Mycategor
 
 def product_detail(request,id,slug):
     context = SettingsFunc()
