@@ -93,12 +93,14 @@
                   </div>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi,
                     veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
-                  <h4>Size</h4>
-                  <div class="aa-prod-view-size">
-                    <a href="#">S</a>
-                    <a href="#">M</a>
-                    <a href="#">L</a>
-                    <a href="#">XL</a>
+                  <div id="sizeArea">
+                    <h4>Size</h4>
+                    <div class="aa-prod-view-size">
+                      <a href="#">S</a>
+                      <a href="#">M</a>
+                      <a href="#">L</a>
+                      <a href="#">XL</a>
+                    </div>
                   </div>
                   <h4>Color</h4>
                   <div class="aa-color-tag">
@@ -131,6 +133,7 @@
                         href="/category/{{product.category.id}}/{{product.category.slug}}">{{product.category.title}}</a>
                     </p>
                   </div>
+                  
                   <div class="aa-prod-view-bottom">
                     <a class="aa-add-to-cart-btn" href="#">Sepete Ekle</a>
                     <a class="aa-add-to-cart-btn" href="#">İstek listesi</a>
@@ -242,6 +245,16 @@
   lengthArea.innerHTML = document.querySelectorAll("li .media").length
 
 </script>
+
+<!-- category giyim ise size kısmını gösterir -->
+<script>
+  categor = document.getElementsByClassName("aa-prod-category")
+  if (!categor[0].innerText.includes("Giyim")) {
+    sizeArea = document.getElementById("sizeArea")
+    sizeArea.style.display = "none"
+  }
+</script>
+<!-- / -->
 
 {% endblock content %}
 

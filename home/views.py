@@ -77,21 +77,20 @@ def search_product(request):
 
 
 def search_auto(request):
-  if request.is_ajax():
-    q = request.GET.get('term', '')
-    products = Product.objects.filter(title__contains=q)
-    results = []
-    for product in products:
-      products_json = {}
-      products_json = product.title
-      results.append(products_json)
-      
-    data = json.dumps(results)
-
-  else:
-    data = 'fail'
-  mimetype = 'application/json'
-  return HttpResponse(data, mimetype)
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        products = Product.objects.filter(title__contains=q)
+        results = []
+        for product in products:
+            products_json = {}
+            products_json = product.title
+            results.append(products_json)
+        data = json.dumps(results)
+        print(q)
+    else:
+      data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 
 
