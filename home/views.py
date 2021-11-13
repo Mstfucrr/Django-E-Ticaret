@@ -86,7 +86,6 @@ def search_auto(request):
             products_json = product.title
             results.append(products_json)
         data = json.dumps(results)
-        print(q)
     else:
       data = 'fail'
     mimetype = 'application/json'
@@ -95,7 +94,7 @@ def search_auto(request):
 
 
 def PullProducts(category):
-    Mycategor = [cate for cate in Category.objects.all() if str(category) in str(cate)]
+    Mycategor = [cate for cate in Category.objects.all() if str(category.title) in str(cate)]
     productslist = []
     for idm in Mycategor:
         try:
