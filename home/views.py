@@ -5,7 +5,7 @@ from django.shortcuts import render
 from home.models import Contact, ContactForm, Setting
 from django.contrib import messages
 import json
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def SettingsFunc():
@@ -161,4 +161,7 @@ def login_view(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
     return HttpResponseRedirect('/')
