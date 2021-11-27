@@ -3,14 +3,14 @@
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body">                   
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Login or Register</h4>
-                <form class="aa-login-form" method="post" action="login/">
+                <h4>Giriş Yap veya Kayıt Ol</h4>
+                <form class="aa-login-form" action="/login/" method="post">
                     {% csrf_token %}
                     <label for="">E-posta Adresi<span>*</span></label>
                     <input type="text" name="email" placeholder="E-posta Adresi">
-                    <label for="">Parola</label>*</span></label>
+                    <label for="password">Parola</label>*</span></label>
                     <input type="password" name="password" placeholder="Parola">
                     <button class="aa-browse-btn" type="submit">Giriş Yap</button>
                     <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Beni hatırla

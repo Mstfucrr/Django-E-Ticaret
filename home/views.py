@@ -150,18 +150,23 @@ def references(request):
 
 def account(request):
     context = SettingsFunc()
+    print("----------------------------------------------------------------")
     return render(request,'account.html',context)
 
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-
 def login_view(request):
+    context = SettingsFunc()
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-    return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/')
+        else:
+            messages.warning(request,'E-posta adresiniz veya paralonız hatalı!')
+            return render(request,'account.html',context)
+            
