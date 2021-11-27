@@ -60,11 +60,23 @@
                         <!-- / header top left -->
                         <div class="aa-header-top-right">
                             <ul class="aa-head-top-nav-right">
-                                <li><a href="account.html">Hesabım</a></li>
+
+
+                                {% if request.user.id %}
+                                <li><a style="color: #970001" href=" {% url 'account' %} ">{{request.user}}</a></li>
+
+                                {% endif %}
+
+
+
                                 <li class="hidden-xs"><a href="wishlist.html">İstek listesi</a></li>
                                 <li class="hidden-xs"><a href="cart.html">Sepetim</a></li>
-                                <li class="hidden-xs"><a href="checkout.html">Ödeme</a></li>
+                                <li class="hidden-xs"><a href="checkout.html">Ödeme</a></li>                                
+                                {% if request.user.id %}
+                                <li class="hidden-xs"><a href="{% url 'logout' %}">Çıkış Yap</a></li>
+                                {% else %}
                                 <li><a href="" data-toggle="modal" data-target="#login-modal">Giriş Yap</a></li>
+                                {% endif %}
                             </ul>
                         </div>
 
@@ -148,7 +160,7 @@
                                                 AutoCompleteSelect(event, ui)
                                             },
                                             minLength: 2,
-                                            
+
 
                                         });
                                     });
@@ -156,13 +168,13 @@
                                     function AutoCompleteSelect(event, ui) {
 
                                         var selectedObj = ui.item;
-                                        
+
                                     }
 
 
 
                                 </script>
-                                
+
                             </form>
 
 

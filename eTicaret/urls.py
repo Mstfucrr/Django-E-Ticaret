@@ -33,6 +33,9 @@ urlpatterns = [
     path('product/<int:id>/<slug:slug>/',views.product_detail,name='product_detail'),
     path('search/', views.search_product, name='search_product'),
     path('search_auto/', views.search_auto, name='search_auto'),
+    path('account/', views.account, name='account'),
+    path('logout/', views.logout_view, name='logout'),
+    path('login/', views.login_view, name='login'),
 ]
 
 if settings.DEBUG:

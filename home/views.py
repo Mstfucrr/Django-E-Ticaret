@@ -5,7 +5,7 @@ from django.shortcuts import render
 from home.models import Contact, ContactForm, Setting
 from django.contrib import messages
 import json
-
+from django.contrib.auth import logout
 
 # Create your views here.
 def SettingsFunc():
@@ -148,5 +148,17 @@ def references(request):
     context = SettingsFunc()
     return render(request,'references.html',context)
 
+def account(request):
+    context = SettingsFunc()
+    return render(request,'account.html',context)
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+    return HttpResponseRedirect('/')
