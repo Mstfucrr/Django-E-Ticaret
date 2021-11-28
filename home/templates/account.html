@@ -3,7 +3,13 @@
 {% block head %}
 {% include 'head.html' %}
 {% block title %}
+
+{% if request.user.id %}
+Hesabım
+{% else %}
 Üye ol & Giriş Yap
+{% endif %}
+
 {% endblock %}
 {% endblock head %}
 {% block content %}
@@ -45,11 +51,25 @@
             <div class="col-md-6">
               <div class="aa-myaccount-register">
                 <h4>Kayıt Ol</h4>
-                <form action="" class="aa-login-form">
+                <form action="/register/" method="post" class="aa-login-form">
+                  {% csrf_token %}
+                  <label for="firstname">Ad<span>*</span></label>
+                  <input type="text" placeholder="Ad" min="2" required name="firstname">
+
+                  <label for="lastname">Soyad<span>*</span></label>
+                  <input type="text" placeholder="Soyad" required min="1" name="lastname">
+<!-- 
+                  <label for="username">Kullanıcı Adı<span>*</span></label>
+                  <input type="text" placeholder="Kullanıcı adı" required min="1" name="username"> -->
+
                   <label for="">E-posta Adresi<span>*</span></label>
-                  <input type="text" placeholder="E-posta Adresi">
-                  <label for="">Parola<span>*</span></label>
-                  <input type="password" placeholder="Password">
+                  <input name="email" type="email" min="5" required
+                    style="border: 1px solid #ccc;font-size: 16px;height: 40px;margin-bottom: 15px;padding: 10px;width: 100%;"
+                    placeholder="E-posta Adresi">
+
+                  <label for="password">Parola<span>*</span></label>
+                  <input name="password" type="password" min="15" required placeholder="Parola">
+
                   <button type="submit" class="aa-browse-btn">Kayıt Ol</button>
                 </form>
               </div>
@@ -61,7 +81,17 @@
   </div>
 </section>
 <!-- / Cart view section -->
+<section id="logged-in-myAccount">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
 
+      </div>
+    </div>
+  </div>
+  </div>
+
+</section>
 
 
 {% endblock content %}

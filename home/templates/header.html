@@ -63,7 +63,7 @@
 
 
                                 {% if request.user.id %}
-                                <li><a style="color: #970001" href=" {% url 'account' %} ">{{request.user}}</a></li>
+                                <li><a style="color: #970001" href=" {% url 'account' %} ">{{request.user.first_name}}</a></li>
 
                                 {% endif %}
 
