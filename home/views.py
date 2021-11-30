@@ -160,8 +160,6 @@ def login_view(request):
         password = request.POST['password']
         # username none değeri olmadığı için değeri email'e eiştlendi
         user = authenticate(request, username=email, email=email, password=password)
-        
-        
         if user is None:
             messages.warning(request,'E-posta adresiniz veya paralonız hatalı!')
             return redirect('account')
