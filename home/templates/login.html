@@ -6,7 +6,7 @@
             <div class="modal-body">                   
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Giriş Yap veya Kayıt Ol</h4>
-                <form class="aa-login-form" action="/login/" method="post">
+                <form class="aa-login-form" action="{% url 'login' %}" method="post">
                     {% csrf_token %}
                     <label for="email">E-posta Adresi<span>*</span></label>
                     <input type="text" name="email" placeholder="E-posta Adresi">

@@ -19,7 +19,7 @@
   
                   {% endif %}
   
-                  <form action="/login/" method="post" class="aa-login-form">
+                  <form action="{% url 'login' %}" method="post" class="aa-login-form">
                     {% csrf_token %}
                     <label for="email">E-posta Adresi<span>*</span></label>
                     <input type="text" name="email" placeholder="E-posta Adresi">
@@ -35,7 +35,7 @@
               <div class="col-md-6">
                 <div class="aa-myaccount-register">
                   <h4>Kayıt Ol</h4>
-                  <form action="/register/" method="post" class="aa-login-form">
+                  <form action="{% url 'register' %}" method="post" class="aa-login-form">
                     {% csrf_token %}
                     <label for="firstname">Ad<span>*</span></label>
                     <input type="text" placeholder="Ad" min="2" required name="firstname">

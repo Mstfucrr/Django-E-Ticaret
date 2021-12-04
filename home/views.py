@@ -1,11 +1,8 @@
-from typing import List
 from product.models import Category, Comment, Images, Product
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render
-from home.models import Contact, ContactForm, Setting
-from django.contrib import messages
+from django.shortcuts import render
+from home.models import ContactForm, Setting
 import json
-from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def SettingsFunc():
@@ -143,48 +140,4 @@ def about(request):
 def references(request):
     context = SettingsFunc()
     return render(request,'references.html',context)
-
-def account(request):
-    context = SettingsFunc()
-    print("----------------------------------------------------------------")
-    return render(request,'account.html',context)
-
-def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect('/')
-
-def login_view(request):
-    context = SettingsFunc()
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        # username none değeri olmadığı için değeri email'e eiştlendi
-        user = authenticate(request, username=email, email=email, password=password)
-        if user is None:
-            messages.warning(request,'E-posta adresiniz veya paralonız hatalı!')
-            return redirect('account')
-        
-        login(request, user)
-        
-
-        return HttpResponseRedirect('/')
-
-from django.contrib.auth.models import User
-def register_view(request): 
-    context = SettingsFunc()
-    if request.method == 'POST':
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        email = request.POST['email']
-        password = request.POST['password']
-        # username = request.POST['username']
-
-        new_user = User(username=email, first_name=firstname, last_name=lastname, email=email)
-        new_user.set_password(password)
-        new_user.save()
-
-        login(request, new_user)
-
-        return HttpResponseRedirect('/')
-
 

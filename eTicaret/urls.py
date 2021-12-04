@@ -25,6 +25,7 @@ urlpatterns = [
     path('',include('home.urls')),
     path('home/',include('home.urls')),
     path('product/',include('product.urls')),
+    path('account/',include('user.urls')),
     path('^ckeditor/', include('ckeditor_uploader.urls')),
     path('about/',views.about,name='about'),
     path('references/',views.references,name='references'),
@@ -33,10 +34,6 @@ urlpatterns = [
     path('product/<int:id>/<slug:slug>/',views.product_detail,name='product_detail'),
     path('search/', views.search_product, name='search_product'),
     path('search_auto/', views.search_auto, name='search_auto'),
-    path('account/', views.account, name='account'),
-    path('logout/', views.logout_view, name='logout'),
-    path('login/', views.login_view, name='login'),
-    path('register/', views.register_view, name='register'),
 ]
 
 if settings.DEBUG:
