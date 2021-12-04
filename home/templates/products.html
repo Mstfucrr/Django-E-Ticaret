@@ -166,15 +166,15 @@
                                                                     <div class="simpleLens-thumbnails-container">
 
                                                                         {% for image in images %}
-                                                                        
+
                                                                         {% if image.product_id == product.id %}
-                                                                            
-                                                                            
+
+
                                                                         <a href="#" class="simpleLens-thumbnail-wrapper"
                                                                             data-lens-image="{{image.image.url}}"
                                                                             data-big-image="{{image.image.url}}">
-                                                                            <img
-                                                                                src="{{image.image.url}}" style="height: 55px;width: 45px;">
+                                                                            <img src="{{image.image.url}}"
+                                                                                style="height: 55px;width: 45px;">
                                                                         </a>
                                                                         {% endif %}
 
@@ -195,7 +195,8 @@
                                                                     <span class="aa-product-view-price">$34.99</span>
                                                                     <p class="aa-product-avilability">Avilability:
                                                                         <span>In
-                                                                            stock</span></p>
+                                                                            stock</span>
+                                                                    </p>
                                                                 </div>
                                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing
                                                                     elit.
@@ -221,21 +222,24 @@
                                                                         </select>
                                                                     </form>
                                                                     <p class="aa-prod-category">
-                                                                        Category: 
-                                                                        
+                                                                        Category:
+
                                                                         {% if product.category.parent %}
-                                                                        <a href="/category/{{product.category.parent.id}}/{{product.category.parent.slug}}">{{product.category.parent.title}}/</a>
-                                                                        
+                                                                        <a
+                                                                            href="/category/{{product.category.parent.id}}/{{product.category.parent.slug}}">{{product.category.parent.title}}/</a>
+
                                                                         {% endif %}
-                                                                        <a href="/category/{{product.category.id}}/{{product.category.slug}}">{{product.category.title}}</a>
-                                                                            
+                                                                        <a
+                                                                            href="/category/{{product.category.id}}/{{product.category.slug}}">{{product.category.title}}</a>
+
                                                                     </p>
                                                                 </div>
                                                                 <div class="aa-prod-view-bottom">
                                                                     <a href="#" class="aa-add-to-cart-btn"><span
                                                                             class="fa fa-shopping-cart"></span>Sepete
                                                                         Ekle</a>
-                                                                    <a href="/product/{{product.id}}/{{product.slug}}" class="aa-add-to-cart-btn">Detaylı İncele</a>
+                                                                    <a href="/product/{{product.id}}/{{product.slug}}"
+                                                                        class="aa-add-to-cart-btn">Detaylı İncele</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -308,16 +312,24 @@
                             <a href="#">Pen Drive</a>
                         </div>
                     </div> -->
-                    <!-- single sidebar -->
+
                     <div class="aa-sidebar-widget">
                         <h3>Shop By Price</h3>
                         <!-- price range -->
                         <div class="aa-sidebar-price-range">
                             <form action="">
                                 <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                                    <div class="noUi-base">
+                                        <div class="noUi-origin noUi-connect" style="left: 20%;">
+                                            <div class="noUi-handle noUi-handle-lower"></div>
+                                        </div>
+                                        <div class="noUi-origin noUi-background" style="left: 70%;">
+                                            <div class="noUi-handle noUi-handle-upper"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <span id="skip-value-lower" class="example-val">30.00</span>
-                                <span id="skip-value-upper" class="example-val">100.00</span>
+                                <span id="skip-value-lower" class="example-val">10.00</span>
+                                <span id="skip-value-upper" class="example-val">70.00</span>
                                 <button class="aa-filter-btn" type="submit">Filter</button>
                             </form>
                         </div>
