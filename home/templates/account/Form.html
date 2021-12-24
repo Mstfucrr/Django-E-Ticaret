@@ -1,0 +1,63 @@
+{% load static %}
+<section id="aa-myaccount">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-myaccount-area">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="aa-myaccount-login">
+                  <h4>Giriş Yap</h4>
+  
+                  {% if messages %}
+  
+                  {% for message in messages %}
+                  <div class="alert alert-{{message.tags}}">
+                    {{message}}
+                  </div>
+                  {% endfor %}
+  
+                  {% endif %}
+  
+                  <form action="{% url 'login' %}" method="post" class="aa-login-form">
+                    {% csrf_token %}
+                    <label for="email">E-posta Adresi<span>*</span></label>
+                    <input type="text" name="email" placeholder="E-posta Adresi">
+                    <label for="password">Parola<span>*</span></label>
+                    <input type="password" name="password" placeholder="Parola">
+                    <button type="submit" class="aa-browse-btn">Giriş Yap</button>
+                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Beni hatırla
+                    </label>
+                    <p class="aa-lost-password"><a href="#">Parolanızı mı unuttunuz ?</a></p>
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="aa-myaccount-register">
+                  <h4>Kayıt Ol</h4>
+                  <form action="{% url 'register' %}" method="post" class="aa-login-form">
+                    {% csrf_token %}
+                    <label for="firstname">Ad<span>*</span></label>
+                    <input type="text" placeholder="Ad" min="2" required name="firstname">
+  
+                    <label for="lastname">Soyad<span>*</span></label>
+                    <input type="text" placeholder="Soyad" required min="1" name="lastname">
+  
+                    <label for="">E-posta Adresi<span>*</span></label>
+                    <input name="email" type="email" min="5" required
+                      style="border: 1px solid #ccc;font-size: 16px;height: 40px;margin-bottom: 15px;padding: 10px;width: 100%;"
+                      placeholder="E-posta Adresi">
+  
+                    <label for="password">Parola<span>*</span></label>
+                    <input name="password" type="password" min="15" required placeholder="Parola">
+  
+                    <button type="submit" class="aa-browse-btn">Kayıt Ol</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

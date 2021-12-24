@@ -1,0 +1,54 @@
+{% load static %}
+
+<section id="logged-in-myAccount" style="float:left; width:100%;">
+    <div class="container" style="margin-top:120px; margin-bottom:150px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>Hesabım</h2>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">Kullanıcı bilgilerim</a>
+                                <a href="#" class="list-group-item">Siparişlerim</a>
+                                <a href="#" class="list-group-item">Değerlendirmelerim</a>
+                                <a href="#" class="list-group-item">Daily Cüzdan</a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            
+                            <div id="userInfo" style="display: none;">
+                            {% block UserInfo %}
+                                {% include './Loggedin/userInfo.html' %}
+
+                            {% endblock UserInfo %}
+                                
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    listgroupitem = document.querySelectorAll(".list-group-item")
+
+    
+    eventlist()
+
+    function eventlist() {
+        listgroupitem[0].addEventListener("click", userInfo)
+    }
+    function userInfo() {
+        document.getElementById("userInfo").style.display = "block"
+    }
+    
+        
+
+</script>

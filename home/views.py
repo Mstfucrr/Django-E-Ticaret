@@ -1,10 +1,8 @@
 from product.models import Category, Comment, Images, Product
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from home.models import Contact, ContactForm, Setting
-from django.contrib import messages
+from home.models import ContactForm, Setting
 import json
-
 
 # Create your views here.
 def SettingsFunc():
@@ -21,16 +19,12 @@ def SettingsFunc():
 def index(request):
     context = SettingsFunc()
 
-
-
     manCategory = Category.objects.get(title = "Erkek")
     womenCategory = Category.objects.get(title = "Kadın")
     sportsCategory = Category.objects.get(title = "Spor")
     electronicCategory = Category.objects.get(title = "Elektronik")
     images = Images.objects.all()
 
- 
-    
     context['images'] = images
     context['manCategory'] = manCategory
     context['womenCategory'] = womenCategory
@@ -47,11 +41,11 @@ def index(request):
 def category_product(request,id,slug):
 
     context = SettingsFunc()
-    categories = Category.objects.filter(id=id)
+    categories = Category.objects.filter(id=id) #treequeryset
     category = Category.objects.get(id=id)
-    
-    current_category = Category.objects.get(pk=id)
-    category_children = current_category.get_children()
+
+    category_children = category.get_children()
+
     images = Images.objects.all()
     context['categories'] = categories
     context['images'] = images
@@ -60,15 +54,17 @@ def category_product(request,id,slug):
     products = PullProducts(category)
     context['products'] = products
 
-    
-
     return render(request,'products.html',context)
 
 def search_product(request):
     context = SettingsFunc()
     key = request.GET.get('searchArea')
     if request.method == 'GET' and key:
-        products = Product.objects.filter(title__contains = key)
+        categorys = Category.objects.filter(title__contains = key)
+        products = []
+        for category in categorys:
+            products += PullProducts(category)
+        context['Category'] = category
         context['products'] = products
         images = Images.objects.all()
         context['images'] = images
@@ -79,13 +75,14 @@ def search_product(request):
 def search_auto(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
-        products = Product.objects.filter(title__contains=q)
+        categorys = Category.objects.filter(title__contains=q)
         results = []
-        for product in products:
-            products_json = {}
-            products_json = product.title
-            results.append(products_json)
+        for category in categorys:
+            categorys_json = {}
+            categorys_json = category.title
+            results.append(categorys_json)
         data = json.dumps(results)
+
     else:
       data = 'fail'
     mimetype = 'application/json'
@@ -94,7 +91,7 @@ def search_auto(request):
 
 
 def PullProducts(category):
-    Mycategor = [cate for cate in Category.objects.all() if str(category.title) in str(cate)]
+    Mycategor = [cate for cate in Category.objects.all() if str(category) in str(cate)]
     productslist = []
     for idm in Mycategor:
         try:
@@ -143,6 +140,4 @@ def about(request):
 def references(request):
     context = SettingsFunc()
     return render(request,'references.html',context)
-
-
 

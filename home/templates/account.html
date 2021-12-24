@@ -1,0 +1,40 @@
+{% extends 'homebase.html' %}
+{% load static %}
+{% block head %}
+{% include 'head.html' %}
+{% block title %}
+
+{% if request.user.id %}
+Hesabım
+{% else %}
+Üye ol & Giriş Yap
+{% endif %}
+
+{% endblock %}
+{% endblock head %}
+{% block content %}
+
+<!-- Cart view section -->
+
+{% block account %}
+  
+{% endblock account %}
+  
+{% if request.user.id %}
+{% include 'account/loggedIn.html' %}
+{% else %}
+
+{% include 'account/Form.html' %}
+
+<!-- / Cart view section -->
+
+{% endif %}
+  
+
+
+
+{% endblock content %}
+{% block footer %}
+{% include 'footer.html' %}
+
+{% endblock footer %}

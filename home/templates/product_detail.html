@@ -211,11 +211,11 @@
                   <form action="{% url 'addcomment' product.id %}" method="post" class="aa-review-form">
                     {% csrf_token %}
                     <div class="rating">
-                      <input name="rate" id="e5" value="5" type="radio"><label for="e5">★</label>
-                      <input name="rate" id="e4" value="4" type="radio"><label for="e4">★</label>
-                      <input name="rate" id="e3" value="3" type="radio"><label for="e3">★</label>
-                      <input name="rate" id="e2" value="2" type="radio"><label for="e2">★</label>
-                      <input name="rate" id="e1" value="1" type="radio"><label for="e1">★</label>
+                      <input required name="rate" id="e5" value="5" type="radio"><label for="e5">★</label>
+                      <input required name="rate" id="e4" value="4" type="radio"><label for="e4">★</label>
+                      <input required name="rate" id="e3" value="3" type="radio"><label for="e3">★</label>
+                      <input required name="rate" id="e2" value="2" type="radio"><label for="e2">★</label>
+                      <input required name="rate" id="e1" value="1" type="radio"><label for="e1">★</label>
                     </div>
 
                     <div class="form-group">
