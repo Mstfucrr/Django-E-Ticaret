@@ -10,13 +10,13 @@
             <div class="form-group-sm">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="ad">Ad</label>
-                        <input name="ad" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{request.user.first_name}}">
+                        <label for="name">Ad</label>
+                        <input name="name" id="name" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{request.user.first_name}}">
 
                     </div>
                     <div class="col-md-6">
-                        <label for="soyad">Soyad</label><br>
-                        <input name="soyad" class="form-control" style="padding: 23px; font-size: 17px;" type="text" value="{{request.user.last_name}}">
+                        <label for="lastname">Soyad</label><br>
+                        <input name="lastname" id="lastname" class="form-control" style="padding: 23px; font-size: 17px;" type="text" value="{{request.user.last_name}}">
 
                     </div>
                 </div>
@@ -39,12 +39,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="email">E-posta Adresi</label>
-                            <input name="email" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{request.user.email}}">
+                            <input name="email" id="email" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{request.user.email}}">
                         </div>
                         <div class="col-md-6">
 
                             <label for="phone">Telefon Numarası</label>
-                            <input name="phone" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{customer.phone}}">
+                            <input name="phone" id="phone" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{customer.phone}}">
                         </div>
                     </div>
                 </div>
@@ -93,8 +93,8 @@
 </div>
 
 <script>
-    nameInput = document.getElementsByName("ad")[0]
-    lastnameInput = document.getElementsByName("soyad")[0]
+    nameInput = document.getElementsByName("name")[0]
+    lastnameInput = document.getElementsByName("lastname")[0]
     emailInput = document.getElementsByName("email")[0]
     phoneInput = document.getElementsByName("phone")[0]
     addressInput = document.getElementsByName("address")[0]
