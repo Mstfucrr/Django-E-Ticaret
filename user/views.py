@@ -11,6 +11,8 @@ from user.models import UserProfile
 
 def account(request):
     context = SettingsFunc()
+    customer = UserProfile.objects.get(user_id=request.user.id)
+    context['customer'] = customer
     return render(request,'account.html',context)
 
 def logout_view(request):
@@ -47,8 +49,8 @@ def register_view(request):
 
         new_user = User(username=email, first_name=firstname, last_name=lastname, email=email)
         new_user.set_password(password)
-        customer = UserProfile(user=new_user,phone = phone, address=address, city=city, country=country,image=profileImage)
         new_user.save()
+        customer = UserProfile(user=new_user,phone = phone, address=address, city=city, country=country,image=profileImage)
         customer.save()
 
         login(request, new_user)

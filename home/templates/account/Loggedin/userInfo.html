@@ -1,8 +1,6 @@
-{% load static %}
+{% load static %} {% block UserInfo %}
 
-{% block UserInfo %}
-    
-    
+
 <div class="card w-75">
     <div class="card-header">
         <h2 style="font-size:25px">Üyelik Bilgilerim</h2>
@@ -13,14 +11,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="ad">Ad</label>
-                        <input name="ad" class="form-control" style="padding:23px; font-size: 17px;" type="text"
-                            value="{{request.user.first_name}}">
+                        <input name="ad" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{request.user.first_name}}">
 
                     </div>
                     <div class="col-md-6">
                         <label for="soyad">Soyad</label><br>
-                        <input name="soyad" class="form-control" style="padding: 23px; font-size: 17px;" type="text"
-                            value="{{request.user.last_name}}">
+                        <input name="soyad" class="form-control" style="padding: 23px; font-size: 17px;" type="text" value="{{request.user.last_name}}">
 
                     </div>
                 </div>
@@ -41,10 +37,14 @@
             <form action="">
                 <div class="form-group-sm">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label for="email">E-posta Adresi</label>
-                            <input name="email" class="form-control" style="padding:23px; font-size: 17px;" type="text"
-                                value="{{request.user.email}}">
+                            <input name="email" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{request.user.email}}">
+                        </div>
+                        <div class="col-md-6">
+
+                            <label for="phone">Telefon Numarası</label>
+                            <input name="phone" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{customer.phone}}">
                         </div>
                     </div>
                 </div>
@@ -57,259 +57,49 @@
     </div>
 </div>
 
-<section id="checkout">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="checkout-area">
-            <form action="#" method="post">
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="checkout-left">
-                    <div class="panel-group" id="accordion">
-                      <div class="panel panel-default aa-checkout-coupon">
-                        <div class="panel-heading">
-                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">Have a Coupon?</a></h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-                            <input type="text" placeholder="Coupon Code" class="aa-coupon-code">
-                            <input type="submit" value="Apply Coupon" class="aa-browse-btn">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default aa-checkout-login">
-                        <div class="panel-heading">
-                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">Client Login</a></h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatibus modi pariatur qui reprehenderit asperiores fugiat deleniti praesentium enim incidunt.</p>
-                            <input type="text" placeholder="Username or email">
-                            <input type="password" placeholder="Password">
-                            <button type="submit" class="aa-browse-btn">Login</button>
-                            <label for="rememberme">
-                              <input type="checkbox" id="rememberme">
-                              Remember me</label>
-                            <p class="aa-lost-password"><a href="https://www.free-css.com/free-css-templates">Lost your password?</a></p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default aa-checkout-billaddress">
-                        <div class="panel-heading">
-                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="" aria-expanded="true">Billing Details</a></h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse in" aria-expanded="true" style="">
-                          <div class="panel-body">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="First Name*">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="Last Name*">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="Company name">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="email" placeholder="Email Address*">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="tel" placeholder="Phone*">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="aa-checkout-single-bill">
-                                  <textarea cols="8" rows="3">Address*</textarea>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="aa-checkout-single-bill">
-                                  <select>
-                                    <option value="0">Select Your Country</option>
-                                    <option value="1">Australia</option>
-                                    <option value="2">Afganistan</option>
-                                    <option value="3">Bangladesh</option>
-                                    <option value="4">Belgium</option>
-                                    <option value="5">Brazil</option>
-                                    <option value="6">Canada</option>
-                                    <option value="7">China</option>
-                                    <option value="8">Denmark</option>
-                                    <option value="9">Egypt</option>
-                                    <option value="10">India</option>
-                                    <option value="11">Iran</option>
-                                    <option value="12">Israel</option>
-                                    <option value="13">Mexico</option>
-                                    <option value="14">UAE</option>
-                                    <option value="15">UK</option>
-                                    <option value="16">USA</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="Appartment, Suite etc.">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="City / Town*">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="District*">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="Postcode / ZIP*">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default aa-checkout-billaddress">
-                        <div class="panel-heading">
-                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="collapsed" aria-expanded="false"> Shippping Address</a></h4>
-                        </div>
-                        <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false">
-                          <div class="panel-body">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="First Name*">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="Last Name*">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="Company name">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="email" placeholder="Email Address*">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="tel" placeholder="Phone*">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="aa-checkout-single-bill">
-                                  <textarea cols="8" rows="3">Address*</textarea>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="aa-checkout-single-bill">
-                                  <select>
-                                    <option value="0">Select Your Country</option>
-                                    <option value="1">Australia</option>
-                                    <option value="2">Afganistan</option>
-                                    <option value="3">Bangladesh</option>
-                                    <option value="4">Belgium</option>
-                                    <option value="5">Brazil</option>
-                                    <option value="6">Canada</option>
-                                    <option value="7">China</option>
-                                    <option value="8">Denmark</option>
-                                    <option value="9">Egypt</option>
-                                    <option value="10">India</option>
-                                    <option value="11">Iran</option>
-                                    <option value="12">Israel</option>
-                                    <option value="13">Mexico</option>
-                                    <option value="14">UAE</option>
-                                    <option value="15">UK</option>
-                                    <option value="16">USA</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="Appartment, Suite etc.">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="City / Town*">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="District*">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="aa-checkout-single-bill">
-                                  <input type="text" placeholder="Postcode / ZIP*">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="aa-checkout-single-bill">
-                                  <textarea cols="8" rows="3">Special Notes</textarea>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-              </div>
-            </form>
-          </div>
+
+<div id="addressInfo" class="mt-5">
+    <div class="card w-75">
+        <div class="card-header">
+            <h2 style="font-size:25px">Adres Bilgilerim</h2>
         </div>
-      </div>
+        <div class="card-body">
+            <form action="">
+                <div class="form-group-sm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="address">Adres</label>
+                            <textarea name="address" class="form-control" style="padding:23px; font-size: 17px;">{{customer.address}}</textarea>
+                            <br>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="country">Ülke</label><br>
+                            <input type="text" class="form-control" name="country" id="country" value="{{customer.country}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="city">Şehir</label><br>
+                            <input type="text" class="form-control" name="city" id="city" value="{{customer.city}}">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div style="margin:18px ;text-align: center">
+                    <a class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;" href="">Güncelle</a>
+                </div>
+            </form>
+        </div>
     </div>
-  </section>
+</div>
 
 <script>
     nameInput = document.getElementsByName("ad")[0]
     lastnameInput = document.getElementsByName("soyad")[0]
     emailInput = document.getElementsByName("email")[0]
+    phoneInput = document.getElementsByName("phone")[0]
+    addressInput = document.getElementsByName("address")[0]
+    countryInput = document.getElementsByName("country")[0]
+    cityInput = document.getElementsByName("city")[0]
 
     eventlist()
 
@@ -317,20 +107,28 @@
         nameInput.addEventListener("input", btnShow)
         lastnameInput.addEventListener("input", btnShow)
         emailInput.addEventListener("input", btnShow)
+        phoneInput.addEventListener("input", btnShow)
+        addressInput.addEventListener("input", btnShow)
+        countryInput.addEventListener("input", btnShow)
+        cityInput.addEventListener("input", btnShow)
+
     }
 
     function btnShow(e) {
-        if (nameInput.value != "{{request.user.first_name}}" || lastnameInput.value != "{{request.user.last_name}}" || emailInput.value != "{{request.user.email}}") {
+        if (nameInput.value != "{{request.user.first_name}}" ||
+            lastnameInput.value != "{{request.user.last_name}}" ||
+            emailInput.value != "{{request.user.email}}" ||
+            phoneInput.value != "{{customer.phone}}" ||
+            addressInput.value != "{{customer.address}}" ||
+            countryInput.value != "{{customer.country}}" ||
+            cityInput.value != "{{customer.city}}"
+        ) {
 
             e.target.parentElement.parentElement.parentElement.parentElement.children[1].children[0].classList.remove("disabled")
-        }
-        else {
+        } else {
             e.target.parentElement.parentElement.parentElement.parentElement.children[1].children[0].classList.add("disabled")
 
         }
     }
-    
-        
-
 </script>
 {% endblock UserInfo %}
