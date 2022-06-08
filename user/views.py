@@ -36,31 +36,30 @@ def login_view(request):
 
 def UserUpdate(request):
     if request.method == 'POST':
-    
         data = json.loads(request.body)
-        print(data)
-        action = data['action']
         customer_id = data['customer']
         user = get_object_or_404(User, id=customer_id)
         customer = get_object_or_404(UserProfile, user_id = customer_id)
-        print("data['infoUpdate']['name'] : ",data['infoUpdate']['name'])
-        if ( action == "info"):
-            user.first_name = data['infoUpdate']['name']
-            user.last_name = data['infoUpdate']['lastname']
-        elif (action == "contact"):
-            customer.email = data['infoUpdate']['email']
-            customer.phone = data['infoUpdate']['phone']
-        elif (action == 'address'):
-            customer.address = data['infoUpdate']['address']
-            customer.country = data['infoUpdate']['country']
-            customer.city = data['infoUpdate']['city']
-
-        # user.save()
-        # customer.save()
+        user.first_name = safe(data,user.first_name,'name')
+        user.last_name = safe(data,user.last_name,'lastname')
+        user.email = safe(data,user.email,'email')
+        customer.phone = safe(data,customer.phone,'phone')
+        customer.address = safe(data,customer.address,'address')
+        customer.country = safe(data,customer.country,'country')
+        customer.city = safe(data,customer.city,'city')
+        user.save()
+        customer.save()
         messages.success(request,"Bilgileriniz başarıyla güncellendi !")
         request.method = "GET"
         return redirect("account")
     return HttpResponseRedirect('/')
+
+def safe(data,default,key):
+    try:
+        return data['infoUpdate'][key]
+    except: 
+        return default
+
 
 def register_view(request): 
     if request.method == 'POST':

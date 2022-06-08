@@ -41,8 +41,14 @@
                     </div>
                 </div>
             </div>
+
             <div style="margin:18px ;text-align: center">
-                <button type="submit" class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;">Güncelle</button>
+                <button type="submit" class="btn aa-browse-btn" disabled data-toggle="collapse" aria-expanded="false" data-target="#infoCollapse" style="width:90% ; border-radius: 15px;">Güncelle</button>
+            </div>
+            <div class="bg-success text-center ml-1 mr-1 collapse" id="infoCollapse">
+                <div class="p-3">
+                    Bilgileriniz başarıyla güncellendi
+                </div>
             </div>
         </form>
     </div>
@@ -71,7 +77,12 @@
                 </div>
 
                 <div style="margin:18px ;text-align: center">
-                    <button type="submit" class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;">Güncelle</button>
+                    <button type="submit" class="btn aa-browse-btn" disabled data-toggle="collapse" aria-expanded="false" data-target="#contactCollapse" style="width:90% ; border-radius: 15px;">Güncelle</button>
+                </div>
+                <div class="bg-success text-center ml-1 mr-1 collapse" id="contactCollapse">
+                    <div class="p-3">
+                        Bilgileriniz başarıyla güncellendi
+                    </div>
                 </div>
             </form>
         </div>
@@ -107,7 +118,12 @@
                 </div>
 
                 <div style="margin:18px ;text-align: center">
-                    <button type="submit" class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;">Güncelle</button>
+                    <button type="submit" class="btn aa-browse-btn" disabled data-toggle="collapse" aria-expanded="false" data-target="#addressCollapse" style="width:90% ; border-radius: 15px;">Güncelle</button>
+                </div>
+                <div class="bg-success text-center ml-1 mr-1 collapse" id="addressCollapse">
+                    <div class="p-3">
+                        Bilgileriniz başarıyla güncellendi
+                    </div>
                 </div>
             </form>
         </div>
@@ -143,10 +159,57 @@
             countryInput.value != "{{customer.country}}" ||
             cityInput.value != "{{customer.city}}"
         ) {
-            e.target.parentElement.parentElement.parentElement.parentElement.children[2].children[0].classList.remove("disabled")
+            e.target.parentElement.parentElement.parentElement.parentElement.children[2].children[0].disabled = false
         } else {
-            e.target.parentElement.parentElement.parentElement.parentElement.children[2].children[0].classList.add("disabled")
+            e.target.parentElement.parentElement.parentElement.parentElement.children[2].children[0].disabled = true
+
+
         }
+    }
+
+    Form = document.getElementsByClassName("form-inline");
+    for (var i = 0; i < Form.length; i++) {
+        Form[i].addEventListener('submit', function(e) {
+            e.preventDefault();
+            var action = this.dataset.action;
+            var id = this.dataset.customer;
+            var updateData = {};
+            if (action === 'info') {
+                updateData = {
+                    'name': document.getElementById("name").value,
+                    'lastname': document.getElementById("lastname").value,
+                };
+            } else if (action === 'contact') {
+                updateData = {
+                    'email': document.getElementById("email").value,
+                    'phone': document.getElementById("phone").value,
+                };
+            } else if (action === 'address') {
+                updateData = {
+                    'address': document.getElementById("address").value,
+                    'country': document.getElementById("country").value,
+                    'city': document.getElementById("city").value,
+                };
+            }
+
+            fetch("UserUpdate/", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
+                    'customer': id,
+                    'action': action,
+                    'infoUpdate': updateData
+                })
+            }).then(() => {
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500)
+
+            })
+        })
     }
 </script>
 {% endblock UserInfo %}
