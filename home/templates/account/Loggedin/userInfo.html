@@ -1,12 +1,32 @@
 {% load static %} {% block UserInfo %}
 
+<script type="text/javascript">
+    var user = '{{request.user}}'
 
+    function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+</script>
 <div class="card w-75">
     <div class="card-header">
         <h2 style="font-size:25px">Üyelik Bilgilerim</h2>
     </div>
     <div class="card-body">
-        <form action="" class="form-inline">
+        <form id="infoForm" class="form-inline" data-action="info" data-customer="{{request.user.id}}">
+            {% csrf_token %}
             <div class="form-group-sm">
                 <div class="row">
                     <div class="col-md-6">
@@ -22,7 +42,7 @@
                 </div>
             </div>
             <div style="margin:18px ;text-align: center">
-                <a class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;" href="">Güncelle</a>
+                <button type="submit" class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;">Güncelle</button>
             </div>
         </form>
     </div>
@@ -34,7 +54,8 @@
             <h2 style="font-size:25px">İletişim Bilgilerim</h2>
         </div>
         <div class="card-body">
-            <form action="">
+            <form id="contactForm" class="form-inline" data-action="contact" data-customer="{{request.user.id}}">
+                {% csrf_token %}
                 <div class="form-group-sm">
                     <div class="row">
                         <div class="col-md-6">
@@ -50,7 +71,7 @@
                 </div>
 
                 <div style="margin:18px ;text-align: center">
-                    <a class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;" href="">Güncelle</a>
+                    <button type="submit" class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;">Güncelle</button>
                 </div>
             </form>
         </div>
@@ -64,12 +85,13 @@
             <h2 style="font-size:25px">Adres Bilgilerim</h2>
         </div>
         <div class="card-body">
-            <form action="">
+            <form id="addressForm" class="form-inline" data-action="address" data-customer="{{request.user.id}}">
+                {% csrf_token %}
                 <div class="form-group-sm">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="address">Adres</label>
-                            <textarea name="address" class="form-control" style="padding:23px; font-size: 17px;">{{customer.address}}</textarea>
+                            <textarea id="address" name="address" class="form-control" style="padding:23px; font-size: 17px;">{{customer.address}}</textarea>
                             <br>
                         </div>
                         <div class="col-md-6">
@@ -85,7 +107,7 @@
                 </div>
 
                 <div style="margin:18px ;text-align: center">
-                    <a class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;" href="">Güncelle</a>
+                    <button type="submit" class="btn aa-browse-btn disabled" style="width:90% ; border-radius: 15px;">Güncelle</button>
                 </div>
             </form>
         </div>
@@ -100,7 +122,6 @@
     addressInput = document.getElementsByName("address")[0]
     countryInput = document.getElementsByName("country")[0]
     cityInput = document.getElementsByName("city")[0]
-
     eventlist()
 
     function eventlist() {
@@ -111,7 +132,6 @@
         addressInput.addEventListener("input", btnShow)
         countryInput.addEventListener("input", btnShow)
         cityInput.addEventListener("input", btnShow)
-
     }
 
     function btnShow(e) {
@@ -123,11 +143,9 @@
             countryInput.value != "{{customer.country}}" ||
             cityInput.value != "{{customer.city}}"
         ) {
-
-            e.target.parentElement.parentElement.parentElement.parentElement.children[1].children[0].classList.remove("disabled")
+            e.target.parentElement.parentElement.parentElement.parentElement.children[2].children[0].classList.remove("disabled")
         } else {
-            e.target.parentElement.parentElement.parentElement.parentElement.children[1].children[0].classList.add("disabled")
-
+            e.target.parentElement.parentElement.parentElement.parentElement.children[2].children[0].classList.add("disabled")
         }
     }
 </script>

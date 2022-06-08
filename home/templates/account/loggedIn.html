@@ -3,6 +3,15 @@
 <section id="logged-in-myAccount" style="float:left; width:100%;">
     <div class="container" style="margin-top:120px; margin-bottom:150px">
         <div class="row">
+            <br> {% if messages %}
+            <div class="messages" style="list-style: none;">
+                {% for message in messages %} {% if message.tags == "info" %}
+                <div class="alert alert-danger">{{message}}</div>
+                {% else %}
+                <div class="alert alert-{{ message.tags }}"> {{message}} </div>
+                {% endif %} {% endfor %}
+            </div>
+            {% endif %}
             <div class="col-md-12">
                 <div class="container">
                     <div class="row">
@@ -16,13 +25,10 @@
                             </div>
                         </div>
                         <div class="col-md-8">
-                            
-                            <div id="userInfo" style="display: none;">
-                            {% block UserInfo %}
-                                {% include './Loggedin/userInfo.html' %}
 
-                            {% endblock UserInfo %}
-                                
+                            <div id="userInfo" style="display: none;">
+                                {% block UserInfo %} {% include './Loggedin/userInfo.html' %} {% endblock UserInfo %}
+
                             </div>
 
 
@@ -39,16 +45,14 @@
 <script>
     listgroupitem = document.querySelectorAll(".list-group-item")
 
-    
+
     eventlist()
 
     function eventlist() {
         listgroupitem[0].addEventListener("click", userInfo)
     }
+
     function userInfo() {
         document.getElementById("userInfo").style.display = "block"
     }
-    
-        
-
 </script>

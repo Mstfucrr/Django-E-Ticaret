@@ -1,118 +1,105 @@
-{% extends 'homebase.html' %}
-{% load static %}
-{% block head %}
-{% include 'head.html' %}
-{% block title %}
-
-{{product.title}}
-
-{% endblock %}
-{% endblock head %}
-
-{% block content %}
+{% extends 'homebase.html' %} {% load static %} {% block head %} {% include 'head.html' %} {% block title %} {{product.title}} {% endblock %} {% endblock head %} {% block content %}
 
 <style>
-  /*  
+    /*  
    * Rating styles
    */
-  .rating {
-
-    display: inline-block;
-
-    margin: 0 auto 1em;
-    font-size: 45px;
-    overflow: hidden;
-  }
-
-  .rating input {
-    float: right;
-    opacity: 0;
-    position: absolute;
-  }
-
-  .rating a,
-  .rating label {
-    float: right;
-    color: #aaa;
-    text-decoration: none;
-    -webkit-transition: color .4s;
-    -moz-transition: color .4s;
-    -o-transition: color .4s;
-    transition: color .4s;
-  }
-
-  .rating label:hover~label,
-  .rating input:checked~label,
-  .rating label:hover,
-  .rating a:hover,
-  .rating a:hover~a,
-  .rating a:checked,
-  .rating a:checked~a {
-    color: orange !important;
-    cursor: pointer !important;
-  }
+    
+    .rating {
+        display: inline-block;
+        margin: 0 auto 1em;
+        font-size: 45px;
+        overflow: hidden;
+    }
+    
+    .rating input {
+        float: right;
+        opacity: 0;
+        position: absolute;
+    }
+    
+    .rating a,
+    .rating label {
+        float: right;
+        color: #aaa;
+        text-decoration: none;
+        -webkit-transition: color .4s;
+        -moz-transition: color .4s;
+        -o-transition: color .4s;
+        transition: color .4s;
+    }
+    
+    .rating label:hover~label,
+    .rating input:checked~label,
+    .rating label:hover,
+    .rating a:hover,
+    .rating a:hover~a,
+    .rating a:checked,
+    .rating a:checked~a {
+        color: orange !important;
+        cursor: pointer !important;
+    }
 </style>
 
 <section id="aa-product-details">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="aa-product-details-area">
-          <div class="aa-product-details-content">
-            <div class="row">
-              <!-- Modal view slider -->
-              <div class="col-md-5 col-sm-5 col-xs-12">
-                <div class="aa-product-view-slider">
-                  <div id="demo-1" class="simpleLens-gallery-container">
-                    <div class="simpleLens-container">
-                      <div class="simpleLens-big-image-container"><a data-lens-image="{{product.image.url}}"
-                          class="simpleLens-lens-image"><img src="{{product.image.url}}"
-                            class="simpleLens-big-image"></a></div>
-                    </div>
-                    <div class="simpleLens-thumbnails-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-product-details-area">
+                    <div class="aa-product-details-content">
+                        <div class="row">
+                            <!-- Modal view slider -->
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="aa-product-view-slider">
+                                    <div id="demo-1" class="simpleLens-gallery-container">
+                                        <div class="simpleLens-container">
+                                            <div class="simpleLens-big-image-container">
+                                                <a data-lens-image="{{product.image.url}}" class="simpleLens-lens-image"><img src="{{product.image.url}}" class="simpleLens-big-image"></a>
+                                            </div>
+                                        </div>
 
-                      {% for image in images %}
+                                        <div class="simpleLens-thumbnails-container">
 
-                      <a data-big-image="{{image.image.url}}" data-lens-image="{{image.image.url}}"
-                        class="simpleLens-thumbnail-wrapper" href="#">
-                        <img src="{{image.image.url}}" style="height: 55px;width: 45px;">
-                      </a>
-                      {% endfor %}
+                                            {% for image in images %}
 
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Modal view content -->
-              <div class="col-md-7 col-sm-7 col-xs-12">
-                <div class="aa-product-view-content">
-                  <h3>{{product.title}}</h3>
-                  <div class="aa-price-block">
-                    <span class="aa-product-view-price">{{product.price}} TL</span>
-                    <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
-                  </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi,
-                    veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
-                  <div id="sizeArea">
-                    <h4>Size</h4>
-                    <div class="aa-prod-view-size">
-                      <a href="#">S</a>
-                      <a href="#">M</a>
-                      <a href="#">L</a>
-                      <a href="#">XL</a>
-                    </div>
-                  </div>
-                  <h4>Color</h4>
-                  <div class="aa-color-tag">
-                    <a href="#" class="aa-color-green"></a>
-                    <a href="#" class="aa-color-yellow"></a>
-                    <a href="#" class="aa-color-pink"></a>
-                    <a href="#" class="aa-color-black"></a>
-                    <a href="#" class="aa-color-white"></a>
-                  </div>
-                  <div class="aa-prod-quantity">
-                    <form action="">
-                      <select id="" name="">
+                                            <a data-big-image="{{image.image.url}}" data-lens-image="{{image.image.url}}" class="simpleLens-thumbnail-wrapper" href="#">
+                                                <img src="{{image.image.url}}" style="height: 55px;width: 45px;">
+                                            </a>
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal view content -->
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="aa-product-view-content">
+                                    <h3>{{product.title}}</h3>
+                                    <div class="aa-price-block">
+                                        <span class="aa-product-view-price">{{product.price}} TL</span>
+                                        <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                                    </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                                    <div id="sizeArea">
+                                        <h4>Size</h4>
+                                        <div class="aa-prod-view-size">
+                                            <a href="#">S</a>
+                                            <a href="#">M</a>
+                                            <a href="#">L</a>
+                                            <a href="#">XL</a>
+                                        </div>
+                                    </div>
+                                    <h4>Color</h4>
+                                    <div class="aa-color-tag">
+                                        <a href="#" class="aa-color-green"></a>
+                                        <a href="#" class="aa-color-yellow"></a>
+                                        <a href="#" class="aa-color-pink"></a>
+                                        <a href="#" class="aa-color-black"></a>
+                                        <a href="#" class="aa-color-white"></a>
+                                    </div>
+                                    <div class="aa-prod-quantity">
+                                        <form action="">
+                                            <select id="" name="">
                         <option selected="1" value="0">1</option>
                         <option value="1">2</option>
                         <option value="2">3</option>
@@ -120,145 +107,120 @@
                         <option value="4">5</option>
                         <option value="5">6</option>
                       </select>
-                    </form>
-                    <p class="aa-prod-category">
-                      Category:
+                                        </form>
+                                        <p class="aa-prod-category">
+                                            Category: {% if product.category.parent %}
+                                            <a href="/category/{{product.category.parent.id}}/{{product.category.parent.slug}}">{{product.category.parent.title}}/</a> {% endif %}
+                                            <a href="/category/{{product.category.id}}/{{product.category.slug}}">{{product.category.title}}</a>
+                                        </p>
+                                    </div>
 
-                      {% if product.category.parent %}
-                      <a
-                        href="/category/{{product.category.parent.id}}/{{product.category.parent.slug}}">{{product.category.parent.title}}/</a>
-
-                      {% endif %}
-                      <a
-                        href="/category/{{product.category.id}}/{{product.category.slug}}">{{product.category.title}}</a>
-                    </p>
-                  </div>
-                  
-                  <div class="aa-prod-view-bottom">
-                    <a class="aa-add-to-cart-btn" href="#">Sepete Ekle</a>
-                    <a class="aa-add-to-cart-btn" href="#">İstek listesi</a>
-                    <a class="aa-add-to-cart-btn" href="#">Compare</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="aa-product-details-bottom">
-            <ul class="nav nav-tabs" id="myTab2">
-              <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">Description</a></li>
-              <li class=""><a href="#review" data-toggle="tab" aria-expanded="false">Reviews</a></li>
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div class="tab-pane fade active in" id="description">
-                {{product.detail|safe}}
-
-              </div>
-
-              <div class="tab-pane fade" id="review">
-                <div class="aa-product-review-area">
-                  <h4>{{product.title}} için <span></span> Yorum</h4>
-                  <ul class="aa-review-nav">
-
-                    {% for comment in comments %}
-
-
-
-                    {% if comment.status == "True" %}
-                    <li>
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="#">
-                            <img class="media-object" src="{% static 'img/testimonial-img-3.jpg' %}" alt="girl image">
-                          </a>
+                                    <div class="aa-prod-view-bottom">
+                                        <a class="aa-add-to-cart-btn" href="#">Sepete Ekle</a>
+                                        <a class="aa-add-to-cart-btn" href="#">İstek listesi</a>
+                                        <a class="aa-add-to-cart-btn" href="#">Compare</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><strong>{{comment.user}} </strong> -
-                            <span>{{comment.created_at}}</span>
-                          </h4>
-                          <div class="aa-product-rating">
+                    </div>
+
+                    <div class="aa-product-details-bottom">
+                        <ul class="nav nav-tabs" id="myTab2">
+                            <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">Description</a></li>
+                            <li class=""><a href="#review" data-toggle="tab" aria-expanded="false">Reviews</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="description">
+                                {{product.detail|safe}}
+
+                            </div>
+
+                            <div class="tab-pane fade" id="review">
+                                <div class="aa-product-review-area">
+                                    <h4>{{product.title}} için <span></span> Yorum</h4>
+                                    <ul class="aa-review-nav">
+
+                                        {% for comment in comments %} {% if comment.status == "True" %}
+                                        <li>
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a href="#">
+                                                        <img class="media-object" src="{% static 'img/testimonial-img-3.jpg' %}" alt="girl image">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"><strong>{{comment.user}} </strong> -
+                                                        <span>{{comment.created_at}}</span>
+                                                    </h4>
+                                                    <div class="aa-product-rating">
 
 
-                            {% for ra in "12345"|make_list %}
+                                                        {% for ra in "12345"|make_list %} {% if ra > comment.rate|stringformat:"i" %}
 
-                            {% if ra > comment.rate|stringformat:"i" %}
-
-                            <span class="fa fa-star-o"></span>
-                            {% else %}
-                            <span class="fa fa-star"></span>
-                            {% endif %}
-
-                            {% endfor %}
+                                                        <span class="fa fa-star-o"></span> {% else %}
+                                                        <span class="fa fa-star"></span> {% endif %} {% endfor %}
 
 
 
 
-                          </div>
-                          <p>{{comment.comment}}</p>
+                                                    </div>
+                                                    <p>{{comment.comment}}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endif %} {% endfor %}
+                                    </ul>
+                                    <h4>Yorum ekle</h4>
+
+                                    <!-- review form -->
+                                    <form action="{% url 'addcomment' product.id %}" method="post" class="aa-review-form">
+                                        {% csrf_token %}
+                                        <div class="rating">
+                                            <input required name="rate" id="e5" value="5" type="radio"><label for="e5">★</label>
+                                            <input required name="rate" id="e4" value="4" type="radio"><label for="e4">★</label>
+                                            <input required name="rate" id="e3" value="3" type="radio"><label for="e3">★</label>
+                                            <input required name="rate" id="e2" value="2" type="radio"><label for="e2">★</label>
+                                            <input required name="rate" id="e1" value="1" type="radio"><label for="e1">★</label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="subject">Konu</label>
+                                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Konu">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="comment">Yorumunuz</label>
+                                            <textarea class="form-control" name="comment" rows="3" id="comment"></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </li>
-                    {% endif %}
-
-
-                    {% endfor %}
-                  </ul>
-                  <h4>Yorum ekle</h4>
-
-                  <!-- review form -->
-                  <form action="{% url 'addcomment' product.id %}" method="post" class="aa-review-form">
-                    {% csrf_token %}
-                    <div class="rating">
-                      <input required name="rate" id="e5" value="5" type="radio"><label for="e5">★</label>
-                      <input required name="rate" id="e4" value="4" type="radio"><label for="e4">★</label>
-                      <input required name="rate" id="e3" value="3" type="radio"><label for="e3">★</label>
-                      <input required name="rate" id="e2" value="2" type="radio"><label for="e2">★</label>
-                      <input required name="rate" id="e1" value="1" type="radio"><label for="e1">★</label>
                     </div>
-
-                    <div class="form-group">
-                      <label for="subject">Konu</label>
-                      <input type="text" class="form-control" name="subject" id="subject" placeholder="Konu">
-                    </div>
-
-                    <div class="form-group">
-                      <label for="comment">Yorumunuz</label>
-                      <textarea class="form-control" name="comment" rows="3" id="comment"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
-                  </form>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <script>
-  lengthArea = document.querySelector(".aa-product-review-area h4 span")
-  lengthArea.innerHTML = document.querySelectorAll("li .media").length
-
+    lengthArea = document.querySelector(".aa-product-review-area h4 span")
+    lengthArea.innerHTML = document.querySelectorAll("li .media").length
 </script>
 
 <!-- category giyim ise size kısmını gösterir -->
 <script>
-  categor = document.getElementsByClassName("aa-prod-category")
-  if (!categor[0].innerText.includes("Giyim")) {
-    sizeArea = document.getElementById("sizeArea")
-    sizeArea.style.display = "none"
-  }
+    categor = document.getElementsByClassName("aa-prod-category")
+    if (!categor[0].innerText.includes("Giyim")) {
+        sizeArea = document.getElementById("sizeArea")
+        sizeArea.style.display = "none"
+    }
 </script>
 <!-- / -->
 
-{% endblock content %}
-
-{% block footer %}
-{% include 'footer.html' %}
-
-{% endblock footer %}
+{% endblock content %} {% block footer %} {% include 'footer.html' %} {% endblock footer %}

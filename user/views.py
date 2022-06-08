@@ -1,8 +1,8 @@
-from email.mime import image
+import json
 from home.views import SettingsFunc
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
@@ -33,6 +33,34 @@ def login_view(request):
         
 
         return HttpResponseRedirect('/')
+
+def UserUpdate(request):
+    if request.method == 'POST':
+    
+        data = json.loads(request.body)
+        print(data)
+        action = data['action']
+        customer_id = data['customer']
+        user = get_object_or_404(User, id=customer_id)
+        customer = get_object_or_404(UserProfile, user_id = customer_id)
+
+        if ( action == "info"):
+            user.first_name = data['infoUpdate']['name']
+            user.last_name = data['infoUpdate']['lastname']
+        elif (action == "contact"):
+            customer.email = data['infoUpdate']['email']
+            customer.phone = data['infoUpdate']['phone']
+        elif (action == 'address'):
+            customer.address = data['infoUpdate']['address']
+            customer.country = data['infoUpdate']['country']
+            customer.city = data['infoUpdate']['city']
+
+        # user.save()
+        # customer.save()
+        messages.success(request,"Bilgileriniz başarıyla güncellendi !")
+        request.method = "GET"
+        return redirect("account")
+    return HttpResponseRedirect('/')
 
 def register_view(request): 
     if request.method == 'POST':

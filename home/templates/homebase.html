@@ -50,22 +50,13 @@
 <body>
 
 
-    {% include 'header.html' %}
-
-    {% include 'menu.html' %}
-
-    {% block slider %} {% endblock slider %}
-
-
-    {% block content %} {% endblock content %}
-
-    {% block footer %} {% endblock footer %}
+    {% include 'header.html' %} {% include 'menu.html' %}
+    <br> {% block slider %} {% endblock slider %}
+    <br> {% block content %} {% endblock content %}
+    <br> {% block footer %} {% endblock footer %}
+    <br> {% block login-modal %} {% include 'login.html' %} {% endblock login-modal %}
 
 
-
-    {% block login-modal %} {% include 'login.html' %} {% endblock login-modal %}
-
-   
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'js/bootstrap.js' %}"></script>
@@ -85,6 +76,7 @@
     <script type="text/javascript" src="{% static 'js/nouislider.js' %}"></script>
     <!-- Custom js -->
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/account.js' %}"></script>
 
 
 
