@@ -43,7 +43,7 @@ def UserUpdate(request):
         customer_id = data['customer']
         user = get_object_or_404(User, id=customer_id)
         customer = get_object_or_404(UserProfile, user_id = customer_id)
-
+        print("data['infoUpdate']['name'] : ",data['infoUpdate']['name'])
         if ( action == "info"):
             user.first_name = data['infoUpdate']['name']
             user.last_name = data['infoUpdate']['lastname']

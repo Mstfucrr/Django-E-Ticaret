@@ -33,10 +33,7 @@ for (var i = 0; i < Form.length; i++) {
                 'customer': id,
                 'action': action,
                 'infoUpdate': updateData
-            }).then((response) => {
-                window.location.reload();
             })
-
         })
     })
 }
