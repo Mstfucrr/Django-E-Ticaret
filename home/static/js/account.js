@@ -31,22 +31,22 @@ for (var i = 0; i < Form.length; i++) {
             console.log(document.getElementById("imgupload").files[0]);
         }
 
-        // fetch("UserUpdate/", {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-Type': 'application/json; charset=utf-8',
-        //         'X-CSRFToken': csrftoken,
-        //     },
-        //     body: JSON.stringify({
-        //         'customer': id,
-        //         'action': action,
-        //         'infoUpdate': updateData
-        //     })
-        // }).then(() => {
-        //     setTimeout(() => {
-        //         window.location.reload()
-        //     }, 1500)
+        fetch("UserUpdate/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'customer': id,
+                'action': action,
+                'infoUpdate': updateData
+            })
+        }).then(() => {
+            setTimeout(() => {
+                window.location.reload()
+            }, 1500)
 
-        // })
+        })
     })
 }
