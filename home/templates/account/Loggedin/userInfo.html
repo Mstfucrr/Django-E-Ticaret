@@ -20,37 +20,67 @@
     }
     const csrftoken = getToken('csrftoken');
 </script>
-<div class="card w-75">
-    <div class="card-header">
-        <h2 style="font-size:25px">Üyelik Bilgilerim</h2>
+<div id="imageInfo">
+    <div class="card w-75">
+        <div class="card-header">
+            <h2 style="font-size:25px">Profil Resmi</h2>
+        </div>
+        <div class="card-body">
+            <div class="" style="display: flex;align-items: center;flex-direction: column;">
+                <img class="" id="UserImage" style="border-radius: 56%;width: 200px;height: 200px;object-fit: cover;" src="{{customer.image.url}}" alt="Resminiz bulunmuyor">
+                <form method="POST" action="{% url 'upload' request.user.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <label for="upload" class="btn aa-browse-btn mt-4">Resim Değiş</label>
+                    <input type="file" name="upload" accept="image/*" id="upload" class="form-control" style="display: none;" oninput="UserImage.src=window.URL.createObjectURL(this.files[0]);cancel_confirm_btns.style.display = 'block';">
+                    <div id="cancel_confirm_btns" style="display: none;">
+                        <button type="submit" id="confirmImage" class="btn btn-success mt-4" data-toggle="collapse" aria-expanded="false" data-target="#imageCollapse" style="width: 125px;"> Onayla </button>
+                        <button type="button" id="cancelImage" class="btn btn-danger mt-4" style="width: 125px;"> iptal et </button>
+                    </div>
+                </form>
+                <div class="bg-success text-center mt-3 ml-1 mr-1 collapse" id="imageCollapse">
+                    <div class="p-3">
+                        Bilgileriniz başarıyla güncellendi
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <form id="infoForm" class="form-inline" data-action="info" data-customer="{{request.user.id}}">
-            {% csrf_token %}
-            <div class="form-group-sm">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="name">Ad</label>
-                        <input name="name" id="name" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{request.user.first_name}}">
+</div>
 
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastname">Soyad</label><br>
-                        <input name="lastname" id="lastname" class="form-control" style="padding: 23px; font-size: 17px;" type="text" value="{{request.user.last_name}}">
+<div id="UserInfo" class="mt-5">
+    <div class="card w-75">
+        <div class="card-header">
+            <h2 style="font-size:25px">Üyelik Bilgilerim</h2>
+        </div>
+        <div class="card-body">
+            <form id="infoForm" class="form-inline" data-action="info" data-customer="{{request.user.id}}">
+                {% csrf_token %}
+                <div class="form-group-sm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name">Ad</label>
+                            <input name="name" id="name" class="form-control" style="padding:23px; font-size: 17px;" type="text" value="{{request.user.first_name}}">
 
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastname">Soyad</label><br>
+                            <input name="lastname" id="lastname" class="form-control" style="padding: 23px; font-size: 17px;" type="text" value="{{request.user.last_name}}">
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div style="margin:18px ;text-align: center">
-                <button type="submit" class="btn aa-browse-btn" disabled data-toggle="collapse" aria-expanded="false" data-target="#infoCollapse" style="width:90% ; border-radius: 15px;">Güncelle</button>
-            </div>
-            <div class="bg-success text-center ml-1 mr-1 collapse" id="infoCollapse">
-                <div class="p-3">
-                    Bilgileriniz başarıyla güncellendi
+                <div style="margin:18px ;text-align: center">
+                    <button type="submit" class="btn aa-browse-btn" disabled data-toggle="collapse" aria-expanded="false" data-target="#infoCollapse" style="width:90% ; border-radius: 15px;">Güncelle</button>
                 </div>
-            </div>
-        </form>
+                <div class="bg-success text-center ml-1 mr-1 collapse" id="infoCollapse">
+                    <div class="p-3">
+                        Bilgileriniz başarıyla güncellendi
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -165,51 +195,6 @@
 
 
         }
-    }
-
-    Form = document.getElementsByClassName("form-inline");
-    for (var i = 0; i < Form.length; i++) {
-        Form[i].addEventListener('submit', function(e) {
-            e.preventDefault();
-            var action = this.dataset.action;
-            var id = this.dataset.customer;
-            var updateData = {};
-            if (action === 'info') {
-                updateData = {
-                    'name': document.getElementById("name").value,
-                    'lastname': document.getElementById("lastname").value,
-                };
-            } else if (action === 'contact') {
-                updateData = {
-                    'email': document.getElementById("email").value,
-                    'phone': document.getElementById("phone").value,
-                };
-            } else if (action === 'address') {
-                updateData = {
-                    'address': document.getElementById("address").value,
-                    'country': document.getElementById("country").value,
-                    'city': document.getElementById("city").value,
-                };
-            }
-
-            fetch("UserUpdate/", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'X-CSRFToken': csrftoken,
-                },
-                body: JSON.stringify({
-                    'customer': id,
-                    'action': action,
-                    'infoUpdate': updateData
-                })
-            }).then(() => {
-                setTimeout(() => {
-                    window.location.reload()
-                }, 1500)
-
-            })
-        })
     }
 </script>
 {% endblock UserInfo %}

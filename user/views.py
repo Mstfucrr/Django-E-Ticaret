@@ -5,6 +5,8 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.core.files.storage import FileSystemStorage
+
 
 from user.models import UserProfile
 # Create your views here.
@@ -43,16 +45,27 @@ def UserUpdate(request):
         user.first_name = safe(data,user.first_name,'name')
         user.last_name = safe(data,user.last_name,'lastname')
         user.email = safe(data,user.email,'email')
+        user.username = safe(data,user.email,'email')
         customer.phone = safe(data,customer.phone,'phone')
         customer.address = safe(data,customer.address,'address')
         customer.country = safe(data,customer.country,'country')
         customer.city = safe(data,customer.city,'city')
         user.save()
         customer.save()
-        messages.success(request,"Bilgileriniz başarıyla güncellendi !")
         request.method = "GET"
         return redirect("account")
     return HttpResponseRedirect('/')
+
+def upload(request,id):
+    if request.method == "POST":
+        customer = get_object_or_404(UserProfile, user_id = id)
+        upload = request.FILES['upload']
+        customer.image = upload
+        customer.save()
+        return redirect("account")
+    return HttpResponseRedirect('/')
+
+
 
 def safe(data,default,key):
     try:
