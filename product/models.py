@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.fields import CharField, DateTimeField, FloatField, IntegerField, SlugField, TextField
+from django.db.models.fields import CharField, DateTimeField, FloatField, IntegerField, TextField
 from django.db.models.fields.files import ImageField
 from django.db.models.fields.related import ForeignKey
 from django.utils.safestring import mark_safe
@@ -103,9 +103,6 @@ class Images(models.Model):
     def image_tag(self):
         return mark_safe(f'<img src="{self.image.url}" height = "50"')
     image_tag.short_description = "Image"
-
-
-
 
 
 class Comment(models.Model):

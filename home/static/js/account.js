@@ -22,15 +22,7 @@ for (var i = 0; i < Form.length; i++) {
                 'country': document.getElementById("country").value,
                 'city': document.getElementById("city").value,
             };
-        } else if (action === 'image') {
-            updateData = {
-                'url': document.getElementById("imgupload").files[0]
-            }
-            console.dir(document.getElementById("imgupload"));
-            console.log(document.getElementById("imgupload").files[0]);
-            console.log(document.getElementById("imgupload").files[0]);
         }
-
         fetch("UserUpdate/", {
             method: "POST",
             headers: {
