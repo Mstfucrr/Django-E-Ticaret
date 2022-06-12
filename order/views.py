@@ -5,6 +5,7 @@ from home.views import SettingsFunc
 import json
 
 from order.models import ShopCart
+from product.models import Product
 
 # Create your views here.
 
@@ -27,18 +28,16 @@ def addToCart(request,id):
         
 
 def UpdateItem(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        
-        productId = data['productId']
-        action = data['action']
-        cart = ShopCart.objects.filter(user_id=request.user.id, product_id = productId)
-
-        if action == 'add':
-            cart.quantity += 1
-        elif action == 'remove':
-            cart.quantity -= 1
-
-        cart.save()
-
+    data = json.loads(request.body)
+    productId = data['productid']
+    action = data['action']
+    cart = ShopCart.objects.get_or_create(user_id=request.user.id, product_id = productId)[0]
+    print(cart)
+    if action == 'add':
+        cart.quantity += 1
+    elif action == 'remove':
+        cart.quantity -= 1
+    cart.save()
+    if cart.quantity <= 0 :
+        cart.delete()
     return JsonResponse('Item was update',safe=False)

@@ -9,7 +9,26 @@ Sepetim
 Üye ol & Giriş Yap
 {% endif %}
 {% endblock title %} {% endblock head %} {% block content %}
+<script>
+    var user = '{{request.user}}'
 
+    function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+</script>
 <section id="aa-catg-head-banner"><img src="{% static 'img/fashion/fashion-header-bg-8.jpg' %}"
         alt="website template image">
     <div class="aa-catg-head-banner-area">
@@ -47,8 +66,8 @@ Sepetim
 
                                         {% for cartItem in cart %}
                                         <tr>
-                                            <td><a class="remove" href="https://www.free-css.com/free-css-templates">
-                                                    <fa class="fa fa-close"></fa>
+                                            <td><a href="https://www.free-css.com/free-css-templates">
+                                                    <i class="fa fa-close"></i>
                                                 </a></td>
                                             <td><a href="/product/{{cartItemproduct.id}}/{{product.slug}}"><img
                                                         src="{{cartItem.product.image.url}}"
@@ -57,8 +76,20 @@ Sepetim
                                                     href="/product/{{cartItemproduct.id}}/{{product.slug}}">{{cartItem.product}}</a>
                                             </td>
                                             <td>{{cartItem.product.price}}</td>
-                                            <td><input name="quantity" class="aa-cart-quantity" data-quan="{{cartItem.quantity}}" data-productid="{{cartItem.product_id}}" type="number" min="1"
-                                                    value="{{cartItem.quantity}}"></td>
+                                            <td>
+                                            <td>
+
+                                                <div
+                                                    style="display: flex;justify-content: space-evenly;align-items: flex-start;">
+                                                    <i class="fa fa-solid fa-plus-circle fa-1x btn btn-success update_item"
+                                                        data-productid="{{cartItem.product_id}}" data-action="add"></i>
+
+                                                    <p id="{{cartItem.product_id}}-quantity">{{cartItem.quantity}}</p>
+                                                    <i class="fa fa-duotone fa-minus-circle fa-1x btn btn-danger update_item"
+                                                        data-productid="{{cartItem.product_id}}" data-action="remove"></i>
+                                                </div>
+                                            </td>
+                                            
                                             <td>{{cartItem.amount}}</td>
                                         </tr>
                                         {% endfor %}
@@ -89,5 +120,41 @@ Sepetim
         </div>
     </div>
 </section>
+
+<script>
+    updateBtns = document.getElementsByClassName('update_item')
+
+for (let i = 0; i < updateBtns.length; i++) {
+    
+    console.log(updateBtns[i])
+    updateBtns[i].addEventListener('click', function () {
+        var productid = this.dataset.productid
+        var action = this.dataset.action
+        updateItem(productid, action)
+    })
+};
+
+function updateItem(productid, action) {
+    fetch("/order/UpdateItem/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({
+            productid: productid,
+            action: action
+        })
+    }).then((response) => {
+        return response.json()
+        
+    })
+    .then((data) => {
+        console.log('Data:',data);
+        location.reload()
+    })
+
+}
+</script>
 
 {% endblock content %} {% block footer %} {% include 'footer.html' %} {% endblock footer %}

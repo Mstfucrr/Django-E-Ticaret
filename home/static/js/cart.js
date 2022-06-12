@@ -1,38 +1,33 @@
-updateBtns = document.getElementsByName('quantity')
-updateBtns.forEach(updateBtn => {
+updateBtns = document.getElementsByClassName('update_item')
 
-    updateBtn.addEventListener('change', function (e) {
-        var quantit = this.dataset.quan
+for (let i = 0; i < updateBtns.length; i++) {
+    
+    console.log(updateBtns[i])
+    updateBtns[i].addEventListener('click', function () {
         var productid = this.dataset.productid
-        console.log(e);
-        var action = ""
-        if ( quantit < updateBtn.value ) 
-            action = 'add'
-        else 
-            action = 'remove'
-        console.log(action + this.dataset.productid + " " + quantit);
-        // updateItem(productid, action)
+        var action = this.dataset.action
+        updateItem(productid, action)
     })
-});
+};
 
-
-
-
-
-function updateItem(productid,action) {
-
-    fetch("/UpdateItem/", {
+function updateItem(productid, action) {
+    fetch("/order/UpdateItem/", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            'X-CSRFToken': csrftoken,
+            'X-CSRFToken':csrftoken,
         },
         body: JSON.stringify({
-            productid : productid,
-            action : action
+            productid: productid,
+            action: action
         })
+    }).then((response) => {
+        return response.json()
+        
+    })
+    .then((data) => {
+        console.log('Data:',data);
+        location.reload()
     })
 
 }
-
-

@@ -12,6 +12,7 @@
     <!-- Font awesome -->
     <link rel="icon" href="{% block icon %} {{setting.icon.url}} {% endblock %}" type="image/x-icon" />
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+
     <!-- Bootstrap -->
     <!-- <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"> -->
     <link href="{% static 'css/bootstrapp.css' %}" rel="stylesheet">
@@ -35,7 +36,27 @@
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <script src="https://kit.fontawesome.com/8d11be13db.js" crossorigin="anonymous"></script>
 
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+        function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
+    </script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
