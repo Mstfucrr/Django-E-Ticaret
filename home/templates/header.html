@@ -70,7 +70,7 @@
 
 
                                 <li class="hidden-xs"><a href="wishlist.html">İstek listesi</a></li>
-                                <li class="hidden-xs"><a href="cart.html">Sepetim</a></li>
+                                <li class="hidden-xs"><a href=" {% url 'order' %} ">Sepetim</a></li>
                                 <li class="hidden-xs"><a href="checkout.html">Ödeme</a></li>                                
                                 {% if request.user.id %}
                                 <li class="hidden-xs"><a href="{% url 'logout' %}">Çıkış Yap</a></li>

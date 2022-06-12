@@ -1,0 +1,93 @@
+{% extends 'homebase.html' %}
+{% load static %}
+{% block head %}
+{% include 'head.html' %}
+{% block title %}
+{% if request.user.id %}
+Sepetim
+{% else %}
+Üye ol & Giriş Yap
+{% endif %}
+{% endblock title %} {% endblock head %} {% block content %}
+
+<section id="aa-catg-head-banner"><img src="{% static 'img/fashion/fashion-header-bg-8.jpg' %}"
+        alt="website template image">
+    <div class="aa-catg-head-banner-area">
+        <div class="container">
+            <div class="aa-catg-head-banner-content">
+                <h2>Sepetim</h2>
+                <ol class="breadcrumb">
+                    <li><a href="/">Ana Sayfa</a></li>
+                    <li class="active">Sepet</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="#" method="post">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Ürün</th>
+                                            <th>Birim Fiyat</th>
+                                            <th>Adet</th>
+                                            <th>Toplam Fiyat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {% for cartItem in cart %}
+                                        <tr>
+                                            <td><a class="remove" href="https://www.free-css.com/free-css-templates">
+                                                    <fa class="fa fa-close"></fa>
+                                                </a></td>
+                                            <td><a href="/product/{{cartItemproduct.id}}/{{product.slug}}"><img
+                                                        src="{{cartItem.product.image.url}}"
+                                                        alt="website template image"></a></td>
+                                            <td><a class="aa-cart-title"
+                                                    href="/product/{{cartItemproduct.id}}/{{product.slug}}">{{cartItem.product}}</a>
+                                            </td>
+                                            <td>{{cartItem.product.price}}</td>
+                                            <td><input name="quantity" class="aa-cart-quantity" data-quan="{{cartItem.quantity}}" data-productid="{{cartItem.product_id}}" type="number" min="1"
+                                                    value="{{cartItem.quantity}}"></td>
+                                            <td>{{cartItem.amount}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                        <div class="cart-view-total">
+                            <h4>Cart Totals</h4>
+                            <table class="aa-totals-table">
+                                <tbody>
+                                    <tr>
+                                        <th>Subtotal</th>
+                                        <td>$450</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>$450</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="https://www.free-css.com/free-css-templates" class="aa-cart-view-btn">Proced to
+                                Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %} {% block footer %} {% include 'footer.html' %} {% endblock footer %}
