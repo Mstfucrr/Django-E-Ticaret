@@ -14,7 +14,8 @@ def order(request):
     cart = ShopCart.objects.filter(user_id=request.user.id)
     context = SettingsFunc()
     context['cart'] = cart
-    print("order created")
+    total = [x.amount for x in cart]
+    context['total'] = sum(total)
     return render(request,"cart.html",context)
 
 @login_required(login_url='/login')

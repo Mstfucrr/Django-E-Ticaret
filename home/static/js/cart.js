@@ -1,21 +1,19 @@
 updateBtns = document.getElementsByClassName('update_item')
-
 for (let i = 0; i < updateBtns.length; i++) {
-    
-    console.log(updateBtns[i])
-    updateBtns[i].addEventListener('click', function () {
+    updateBtns[i].addEventListener('click', function (e) {
         var productid = this.dataset.productid
         var action = this.dataset.action
-        updateItem(productid, action)
+        updateItem(e,productid, action)
     })
+
 };
 
-function updateItem(productid, action) {
+function updateItem(e,productid, action) {
     fetch("/order/UpdateItem/", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            'X-CSRFToken':csrftoken,
+            'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify({
             productid: productid,
@@ -23,11 +21,59 @@ function updateItem(productid, action) {
         })
     }).then((response) => {
         return response.json()
-        
-    })
-    .then((data) => {
-        console.log('Data:',data);
-        location.reload()
+
+    }).then(() => {
+        if (e.target.classList.contains("fa")){
+            location.reload()
+        }
     })
 
+}
+//sepete ekle tuşları
+addtocartBtns = document.getElementsByClassName('add_to_cart')
+for (let cartBtn = 0; cartBtn < addtocartBtns.length; cartBtn++) {
+    addtocartBtns[cartBtn].addEventListener('click', function (e) {
+        var imgurl = e.target.parentNode.children[0].children[0].src
+        var title = e.target.parentNode.children[2].children[0].children[0].innerText
+        var price = e.target.parentNode.children[2].children[1].innerText
+        viewerCreator(imgurl,title,price)
+    })
+
+}
+
+function viewerCreator(imgurl,title,price) {
+    var body = document.getElementsByTagName('body')[0]
+    var viewer = document.createElement("div")
+        viewer.style =` z-index: 100;
+        position: fixed;
+        display: flex;
+        top: 85%;
+        left: 75%;
+        width: 400px;
+        height: 130px;
+        background-color: mediumaquamarine;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;`
+        viewer.innerHTML = ` 
+    <div>
+        <img src= "` +imgurl+` " style=" width: 75px;height:auto ;object-fit:cover;">
+    </div>
+    <div style="width: 66%; display:flex; flex-direction: column;">
+
+        <h4 style="color: white; font-size: large; margin-top: 0px;">` +title+`</h4>
+        <h5 style="color: white; font-size: large; margin-top: 0px;">` +price+`</h5>
+        <div class="btns" style="display: flex;flex-direction: row;justify-content: space-evenly;">
+            <button class="btn btn-danger">iptal et</button>
+            <a href="/order/" class="btn btn-success">Sepeti Görüntüle</a>
+        </div>
+    </div>
+    `
+    body.appendChild(viewer)
+    viewer.addEventListener('mouseleave',() => {
+        setTimeout(() => {
+            body.removeChild(viewer)
+        }, 3000)
+    })
+    
 }

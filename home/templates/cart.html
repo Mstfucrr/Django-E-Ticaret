@@ -52,6 +52,7 @@ Sepetim
                         <form action="#" method="post">
                             <div class="table-responsive">
                                 <table class="table">
+
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -69,11 +70,11 @@ Sepetim
                                             <td><a href="https://www.free-css.com/free-css-templates">
                                                     <i class="fa fa-close"></i>
                                                 </a></td>
-                                            <td><a href="/product/{{cartItemproduct.id}}/{{product.slug}}"><img
+                                            <td><a href="/product/{{cartItem.product_id}}/{{cartItem.product.slug}}"><img
                                                         src="{{cartItem.product.image.url}}"
                                                         alt="website template image"></a></td>
                                             <td><a class="aa-cart-title"
-                                                    href="/product/{{cartItemproduct.id}}/{{product.slug}}">{{cartItem.product}}</a>
+                                                    href="/product/{{cartItem.product_id}}/{{cartItem.product.slug}}">{{cartItem.product}}</a>
                                             </td>
                                             <td>{{cartItem.product.price}}</td>
                                             <td>
@@ -98,16 +99,12 @@ Sepetim
                             </div>
                         </form>
                         <div class="cart-view-total">
-                            <h4>Cart Totals</h4>
+                            <h4>Sepet Tutarı</h4>
                             <table class="aa-totals-table">
                                 <tbody>
                                     <tr>
-                                        <th>Subtotal</th>
-                                        <td>$450</td>
-                                    </tr>
-                                    <tr>
                                         <th>Total</th>
-                                        <td>$450</td>
+                                        <td>{{total}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -121,7 +118,7 @@ Sepetim
     </div>
 </section>
 
-<script>
+<!-- <script>
     updateBtns = document.getElementsByClassName('update_item')
 
 for (let i = 0; i < updateBtns.length; i++) {
@@ -155,6 +152,6 @@ function updateItem(productid, action) {
     })
 
 }
-</script>
+</script> -->
 
 {% endblock content %} {% block footer %} {% include 'footer.html' %} {% endblock footer %}
