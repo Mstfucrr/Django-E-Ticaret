@@ -63,7 +63,8 @@
 
 
                                 {% if request.user.id %}
-                                <li><a style="color: #970001" href=" {% url 'account' %} ">{{request.user.first_name}}</a></li>
+                                <li><a style="color: #970001"
+                                        href=" {% url 'account' %} ">{{request.user.first_name}}</a></li>
 
                                 {% endif %}
 
@@ -71,7 +72,7 @@
 
                                 <li class="hidden-xs"><a href="wishlist.html">İstek listesi</a></li>
                                 <li class="hidden-xs"><a href=" {% url 'order' %} ">Sepetim</a></li>
-                                <li class="hidden-xs"><a href="checkout.html">Ödeme</a></li>                                
+                                <li class="hidden-xs"><a href="checkout.html">Ödeme</a></li>
                                 {% if request.user.id %}
                                 <li class="hidden-xs"><a href="{% url 'logout' %}">Çıkış Yap</a></li>
                                 {% else %}
@@ -106,37 +107,37 @@
                         <!-- / logo  -->
                         <!-- cart box -->
                         <div class="aa-cartbox">
-                            <a class="aa-cart-link" href="#">
+                            <a class="aa-cart-link" href="/order/">
                                 <span class="fa fa-shopping-basket"></span>
                                 <span class="aa-cart-title">ALIŞVERİŞ SEPETİ</span>
-                                <span class="aa-cart-notify">2</span>
+                                <span class="aa-cart-notify">{{CartItemCount}}</span>
                             </a>
                             <div class="aa-cartbox-summary">
                                 <ul>
+                                    {% if cart %}
+
+
+                                    {% for cartItem in cart %}
                                     <li>
-                                        <a class="aa-cartbox-img" href="#"><img
-                                                src="{% static 'img/woman-small-2.jpg' %}" alt="img"></a>
+                                        <a class="aa-cartbox-img" href="/product/{{cartItem.product_id}}/{{cartItem.product.slug}}"><img
+                                                src="{{cartItem.product.image.url}}" alt="img"></a>
                                         <div class="aa-cartbox-info">
-                                            <h4><a href="#">Product Name</a></h4>
-                                            <p>1 x $250</p>
+                                            <h4><a href="/product/{{cartItem.product_id}}/{{cartItem.product.slug}}">{{cartItem.product}}</a></h4>
+                                            <p>{{cartItem.quantity}} x {{cartItem.product.price}}</p>
                                         </div>
-                                        <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+                                        <a class="aa-remove-product update_item" data-action="AllRemove" data-productid="{{cartItem.product_id}}" href="#"><span class="fa fa-times"></span></a>
                                     </li>
-                                    <li>
-                                        <a class="aa-cartbox-img" href="#"><img
-                                                src="{% static 'img/woman-small-1.jpg' %}" alt="img"></a>
-                                        <div class="aa-cartbox-info">
-                                            <h4><a href="#">Product Name</a></h4>
-                                            <p>1 x $250</p>
-                                        </div>
-                                        <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                                    </li>
+                                    {% endfor %}
+
+                                    {% else %}
+                                    <h4>Sepetiniz Boş</h4>
+                                    {% endif %}
                                     <li>
                                         <span class="aa-cartbox-total-title">
                                             Total
                                         </span>
                                         <span class="aa-cartbox-total-price">
-                                            $500
+                                            {{total}} TL
                                         </span>
                                     </li>
                                 </ul>

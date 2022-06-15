@@ -1,3 +1,4 @@
+from order.models import ShopCart
 from product.models import Category, Comment, Images, Product
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -5,20 +6,24 @@ from home.models import ContactForm, Setting
 import json
 
 # Create your views here.
-def SettingsFunc():
+def SettingsFunc(request):
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
     context = {
         'setting' : setting,
         'category':category
     }
-
+    if request.user:
+        context['cart'] = ShopCart.objects.filter(user_id=request.user.id)
+        context['total'] = sum([x.amount for x in context['cart']])
+        context['CartItemCount'] = len(context['cart'])
+    
     return context
 
 
 def index(request):
-    context = SettingsFunc()
-
+    context = SettingsFunc(request)
+    
     manCategory = Category.objects.get(title = "Erkek")
     womenCategory = Category.objects.get(title = "Kadın")
     sportsCategory = Category.objects.get(title = "Spor")
@@ -40,7 +45,7 @@ def index(request):
 
 def category_product(request,id,slug):
 
-    context = SettingsFunc()
+    context = SettingsFunc(request)
     categories = Category.objects.filter(id=id) #treequeryset
     category = Category.objects.get(id=id)
 
@@ -57,7 +62,7 @@ def category_product(request,id,slug):
     return render(request,'products.html',context)
 
 def search_product(request):
-    context = SettingsFunc()
+    context = SettingsFunc(request)
     key = request.GET.get('searchArea')
     if request.method == 'GET' and key:
         categorys = Category.objects.filter(title__contains = key)
@@ -103,7 +108,7 @@ def PullProducts(category):
 
 
 def product_detail(request,id,slug):
-    context = SettingsFunc()
+    context = SettingsFunc(request)
     product = Product.objects.get(pk=id)
     images = Images.objects.filter(product_id = id)
     comments = Comment.objects.filter(product_id = id)
@@ -115,7 +120,7 @@ def product_detail(request,id,slug):
 
 
 def contactUs(request):
-    context = SettingsFunc()
+    context = SettingsFunc(request)
     
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -134,10 +139,10 @@ def contactUs(request):
 
 
 def about(request):
-    context = SettingsFunc()
+    context = SettingsFunc(request)
     return render(request,'about.html',context)
 
 def references(request):
-    context = SettingsFunc()
+    context = SettingsFunc(request)
     return render(request,'references.html',context)
 

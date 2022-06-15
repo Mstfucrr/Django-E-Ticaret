@@ -12,9 +12,10 @@ from user.models import UserProfile
 # Create your views here.
 
 def account(request):
-    context = SettingsFunc()
-    customer = UserProfile.objects.get(user_id=request.user.id)
-    context['customer'] = customer
+    context = SettingsFunc(request)
+    if not(request.user.is_anonymous):
+        customer = UserProfile.objects.get(user_id=request.user.id)
+        context['customer'] = customer
     return render(request,'account.html',context)
 
 def logout_view(request):

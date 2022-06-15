@@ -12,7 +12,7 @@ from product.models import Product
 
 def order(request):
     cart = ShopCart.objects.filter(user_id=request.user.id)
-    context = SettingsFunc()
+    context = SettingsFunc(request)
     context['cart'] = cart
     total = [x.amount for x in cart]
     context['total'] = sum(total)
@@ -27,7 +27,7 @@ def addToCart(request,id):
         cart.save()
     return HttpResponseRedirect('/')
         
-
+@login_required(redirect_field_name=None, login_url='/account/')
 def UpdateItem(request):
     data = json.loads(request.body)
     productId = data['productid']
@@ -39,6 +39,6 @@ def UpdateItem(request):
     elif action == 'remove':
         cart.quantity -= 1
     cart.save()
-    if cart.quantity <= 0 :
-        cart.delete()
+    if action == 'AllRemove' or cart.quantity <= 0:
+        cart.delete()   
     return JsonResponse('Item was update',safe=False)

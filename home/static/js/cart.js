@@ -33,9 +33,9 @@ function updateItem(e,productid, action) {
 addtocartBtns = document.getElementsByClassName('add_to_cart')
 for (let cartBtn = 0; cartBtn < addtocartBtns.length; cartBtn++) {
     addtocartBtns[cartBtn].addEventListener('click', function (e) {
-        var imgurl = e.target.parentNode.children[0].children[0].src
-        var title = e.target.parentNode.children[2].children[0].children[0].innerText
-        var price = e.target.parentNode.children[2].children[1].innerText
+        var imgurl = this.dataset.imageurl
+        var title = this.dataset.title
+        var price = this.dataset.price
         viewerCreator(imgurl,title,price)
     })
 
