@@ -72,7 +72,7 @@
 
                                 <li class="hidden-xs"><a href="wishlist.html">İstek listesi</a></li>
                                 <li class="hidden-xs"><a href=" {% url 'order' %} ">Sepetim</a></li>
-                                <li class="hidden-xs"><a href="checkout.html">Ödeme</a></li>
+                                <li class="hidden-xs"><a href="/order/checkout/">Ödeme</a></li>
                                 {% if request.user.id %}
                                 <li class="hidden-xs"><a href="{% url 'logout' %}">Çıkış Yap</a></li>
                                 {% else %}
@@ -141,7 +141,7 @@
                                         </span>
                                     </li>
                                 </ul>
-                                <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Ödeme</a>
+                                <a class="aa-cartbox-checkout aa-primary-btn" href="/order/checkout/">Ödeme</a>
                             </div>
                         </div>
                         <!-- / cart box -->

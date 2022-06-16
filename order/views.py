@@ -6,6 +6,7 @@ import json
 
 from order.models import ShopCart
 from product.models import Product
+from user.models import UserProfile
 
 # Create your views here.
 
@@ -17,6 +18,14 @@ def order(request):
     total = [x.amount for x in cart]
     context['total'] = sum(total)
     return render(request,"cart.html",context)
+
+    
+def Checkout(request):
+    context = SettingsFunc(request)
+    if request.user.is_authenticated:
+        context['customer'] = UserProfile.objects.filter(user_id=request.user.id)[0]
+
+    return render(request,"checkout.html",context)
 
 @login_required(login_url='/login')
 def addToCart(request,id):

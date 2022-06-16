@@ -45,6 +45,9 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
     update_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.user.first_name + ' ' + self.user.last_name
+
 class OrderProduct(models.Model):
     STATUS = (
         ('New','New'),
@@ -55,16 +58,11 @@ class OrderProduct(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     product = models.ForeignKey(Product,on_delete = models.CASCADE)
     quantity = models.IntegerField()
-    # price= models.FloatField()
-    # amount = models.FloatField()
+    price= models.FloatField()
+    amount = models.FloatField()
     status = models.CharField(max_length=10,choices= STATUS, default='New')
     created_at = models.DateTimeField(auto_now_add = True)
     update_at = models.DateTimeField(auto_now=True)
 
-    @property
-    def amount(self):
-        return (self.quantity * self.product.price)
-
-    @property
-    def price(self):
-        return self.product.price
+    def __str__(self):
+        return self.product.title
