@@ -54,7 +54,7 @@
                                                 <a class="aa-product-img"
                                                     href="/product/{{manItem.id}}/{{manItem.slug}}"><img
                                                         src="{{manItem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{manItem.id}}" href="#"><span
+                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{manItem.image.url}}" data-title="{{manItem.title}}" data-price="{{manItem.price}}" data-action="add" data-productid="{{manItem.id}}" href="#"><span
                                                         class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
@@ -92,17 +92,12 @@
                                     <ul class="aa-product-catg">
                                         <!-- start single product item -->
                                         {% for womenitem in womenProducts %}
-                                        
-                                        {% if "Kadın" in womenitem.category %}
-                                        <h2>aaa</h2>                                            
-                                        {% endif %}
-                                            
                                         <li>
                                             <figure>
                                                 <a class="aa-product-img"
                                                     href="/product/{{womenitem.id}}/{{womenitem.slug}}"><img
                                                         src="{{womenitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{womenitem.id}}" href="#"><span
+                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{womenitem.image.url}}" data-title="{{womenitem.title}}" data-price="{{womenitem.price}}" data-action="add" data-productid="{{womenitem.id}}" href="#"><span
                                                         class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
@@ -146,7 +141,7 @@
                                                 <a class="aa-product-img"
                                                     href="/product/{{sportitem.id}}/{{sportitem.slug}}"><img
                                                         src="{{sportitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{sportitem.id}}" href="#"><span
+                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{sportitem.image.url}}" data-title="{{sportitem.title}}" data-price="{{sportitem.price}}" data-action="add" data-productid="{{sportitem.id}}" href="#"><span
                                                         class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
@@ -192,7 +187,7 @@
                                                 <a class="aa-product-img"
                                                     href="/product/{{electronicitem.id}}/{{electronicitem.slug}}"><img
                                                         src="{{electronicitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{electronicitem.id}}" href="#"><span
+                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{electronicitem.image.url}}" data-title="{{electronicitem.title}}" data-price="{{electronicitem.price}}" data-action="add" data-productid="{{electronicitem.id}}" href="#"><span
                                                         class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
