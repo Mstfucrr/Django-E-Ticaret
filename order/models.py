@@ -1,16 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
+from sqlalchemy import false
 from product.models import Product
+from user.models import UserProfile
 
 # Create your models here.
 
 class ShopCart(models.Model):
-    user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
+    customer = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product,on_delete= models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0,null=True)
 
     def __str__(self):
-        return '"user" : {}, "product" : {} , "quantity" : {}'.format(self.user, self.product,self.quantity)
+        return '"user" : {}, "product" : {} , "quantity" : {}'.format(self.customer, self.product,self.quantity)
     
     @property
     def amount(self):
@@ -30,39 +32,56 @@ class Order(models.Model):
         ('Completed','Completed'),
         ('Cancelled','Cancelled'),
     )
-    user = models.ForeignKey(User,on_delete=models.SET_NULL,null =True)
+    customer = models.ForeignKey(UserProfile,on_delete=models.SET_NULL,null =True)
     code = models.CharField(max_length=5,editable=False)
-    first_name = models.CharField(max_length = 20)
-    last_name = models.CharField(max_length= 20)
-    phone = models.CharField(blank=True,max_length=20)
-    address = models.CharField(blank=True,max_length=200)
-    city = models.CharField(blank=True,max_length=30)
-    country = models.CharField(blank =True,choices=STATUS,max_length = 20)
-    total = models.FloatField()
     status = models.CharField(max_length=10,choices=STATUS,default='New')
     ip = models.CharField(blank=True,max_length=20)
     adminnote = models.CharField(blank=True,max_length=150)
+
     created_at = models.DateTimeField(auto_now_add = True)
     update_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def get_cart_total(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_total for item in orderitems])
+        return total
+
+    @property
+    def get_cart_items(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.quantity for item in orderitems])
+        return total
 
     def __str__(self):
-        return self.user.first_name + ' ' + self.user.last_name
+        return self.customer.user.username
 
-class OrderProduct(models.Model):
-    STATUS = (
-        ('New','New'),
-        ('Accepted','Accepted'),
-        ('Cancelled','Cancelled'),
-    )
-    order = models.ForeignKey(Order,on_delete = models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+class OrderItem(models.Model):
     product = models.ForeignKey(Product,on_delete = models.CASCADE)
+    order = models.ForeignKey(Order,on_delete = models.CASCADE)
     quantity = models.IntegerField()
-    price= models.FloatField()
-    amount = models.FloatField()
-    status = models.CharField(max_length=10,choices= STATUS, default='New')
     created_at = models.DateTimeField(auto_now_add = True)
     update_at = models.DateTimeField(auto_now=True)
+
+
+    @property
+    def get_total(self):
+        total = self.product.price * self.quantity
+        return total
 
     def __str__(self):
         return self.product.title
+
+class ShippingAddress(models.Model):
+    customer = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Order,on_delete=models.SET_NULL,null=True)
+    address = models.CharField(max_length=300,null=False)
+    phone = models.CharField(max_length=15, null=True)
+    city = models.CharField(max_length=200,null=False)
+    country = models.CharField(max_length = 100, null =True)
+    state = models.CharField(max_length=200,null=False)
+    zipcode = models.CharField(max_length=200,null=False)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.address

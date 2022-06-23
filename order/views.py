@@ -10,39 +10,33 @@ from user.models import UserProfile
 
 # Create your views here.
 
+def GetCustomer(request):
+    if request.user.is_authenticated:
+        return UserProfile.objects.get(user_id=request.user.id)
+    return None
 
 def order(request):
-    cart = ShopCart.objects.filter(user_id=request.user.id)
     context = SettingsFunc(request)
-    context['cart'] = cart
-    total = [x.amount for x in cart]
-    context['total'] = sum(total)
+    if request.user.is_authenticated:
+        cart = ShopCart.objects.filter(customer_id= GetCustomer(request).id)
+        context['cart'] = cart
+        context['total'] = sum([x.amount for x in cart])
     return render(request,"cart.html",context)
 
     
 def Checkout(request):
     context = SettingsFunc(request)
-    if request.user.is_authenticated:
-        context['customer'] = UserProfile.objects.filter(user_id=request.user.id)[0]
+    context['customer'] = GetCustomer(request)
 
     return render(request,"checkout.html",context)
 
-@login_required(login_url='/login')
-def addToCart(request,id):
-    if request.method == 'POST': 
-        cart = ShopCart()
-        cart.user = request.user.id
-        cart.product = id
-        cart.save()
-    return HttpResponseRedirect('/')
         
 @login_required(redirect_field_name=None, login_url='/account/')
 def UpdateItem(request):
     data = json.loads(request.body)
     productId = data['productid']
     action = data['action']
-    cart = ShopCart.objects.get_or_create(user_id=request.user.id, product_id = productId)[0]
-    print(cart)
+    cart = ShopCart.objects.get_or_create(customer_id=GetCustomer(request).id, product_id = productId)[0]
     if action == 'add':
         cart.quantity += 1
     elif action == 'remove':

@@ -5,6 +5,8 @@ from django.shortcuts import render
 from home.models import ContactForm, Setting
 import json
 
+from user.models import UserProfile
+
 # Create your views here.
 def SettingsFunc(request):
     setting = Setting.objects.get(pk=1)
@@ -13,8 +15,8 @@ def SettingsFunc(request):
         'setting' : setting,
         'category':category
     }
-    if request.user:
-        context['cart'] = ShopCart.objects.filter(user_id=request.user.id)
+    if request.user.is_authenticated:
+        context['cart'] = ShopCart.objects.filter(customer_id= UserProfile.objects.filter(user_id=request.user.id)[0].id)
         context['total'] = sum([x.amount for x in context['cart']])
         context['CartItemCount'] = len(context['cart'])
     
