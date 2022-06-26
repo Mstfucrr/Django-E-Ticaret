@@ -12,7 +12,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="checkout-area">
-          <form action="#" method="post">
+          <form action="" method="post">
+            {% csrf_token %}
             <div class="row">
               <div class="col-md-8">
                 <div class="checkout-left">
@@ -144,6 +145,19 @@
                       </div>
                       <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false">
                         <div class="panel-body">
+                          <div class="card" style="width: 25rem;">
+                            <div class="card-body">
+                              <input type="radio" name="selectAddress" id="myhome" checked>
+                              <h5 class="card-title">Card title</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                              <p class="card-text">Some quick example text to build on the card title and make up the
+                                bulk of the card's content.</p>
+                              <a href="#" class="card-link">Card link</a>
+                              <a href="#" class="card-link">Another link</a>
+                            </div>
+                          </div>
+                          <input type="radio" name="selectAddress" id="newhome">
+                          
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
@@ -193,14 +207,7 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <label for="appartment">Apartman</label>
-                                <input type="text" name="appartment">
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
                                 <label for="city">Şehir</label>
-
                                 <input type="text" name="city" value="{{customer.city}}">
                               </div>
                             </div>
@@ -208,16 +215,16 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <label for="district">Semt</label>
+                                <label for="state">Eyalet</label>
 
-                                <input type="text" name="district">
+                                <input type="text" name="state">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <label for="postcode">Posta kodu</label>
+                                <label for="zipcode">Posta kodu</label>
 
-                                <input type="text" name="postcode">
+                                <input type="text" name="zipcode">
                               </div>
                             </div>
                           </div>
@@ -253,7 +260,8 @@
                         <tr>
                           <td> <a
                               href="/product/{{cartitem.product_id}}/{{cartitem.product.slug}}">{{cartitem.product}}</a>
-                            <strong> x {{cartitem.quantity}}</strong></td>
+                            <strong> x {{cartitem.quantity}}</strong>
+                          </td>
                           <td>{{cartitem.amount}} TL</td>
                         </tr>
                         {% endfor %}
@@ -270,11 +278,11 @@
                   <div class="aa-payment-method">
                     <label for="cashdelivery">
                       <input type="radio" id="cashdelivery" name="optionsRadios">
-                      Cash on Delivery</label>
+                      Kapıda ödeme</label>
                     <label for="paypal">
                       <input type="radio" id="paypal" name="optionsRadios" checked="">
-                      Via Paypal</label>
-                    <img src="../assets/img/pp-cards.jpg" style="border:0;" alt="website template image">
+                      Paypal ile Ödeme</label>
+                    <img src="{% static '/img/paypal.jpg' %}" style="border:0;" alt="website template image">
                     <input type="submit" value="Siparişi Tamamla" class="aa-browse-btn">
                   </div>
                 </div>

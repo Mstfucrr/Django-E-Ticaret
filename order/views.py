@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.crypto import get_random_string
 from home.views import SettingsFunc
 import json
 
-from order.models import ShopCart
+from order.models import Order, OrderItem, ShippingAddress, ShopCart
 from product.models import Product
 from user.models import UserProfile
 
@@ -26,7 +27,43 @@ def order(request):
     
 def Checkout(request):
     context = SettingsFunc(request)
-    context['customer'] = GetCustomer(request)
+    customer = GetCustomer(request)
+    context['customer'] = customer
+    print(customer == None)
+    if request.method == 'POST':
+        cart = ShopCart.objects.filter(customer_id= customer.id)
+
+        newOrder = Order(
+        code = get_random_string(6).upper(),
+        adminnote = request.POST.get('specialnote'),
+        )
+        if customer is not None:
+            newOrder.customer = customer
+            newOrder.ip = 123123
+        
+
+        print(newOrder.adminnote)
+        newOrder.save()
+        for c in cart:
+            orderitem = OrderItem(
+                order=newOrder,
+                product=c.product,
+                quantity= c.quantity,
+
+            )
+            orderitem.save()
+        shippingaddress = ShippingAddress()
+        shippingaddress.customer = customer
+        shippingaddress.order = newOrder
+        shippingaddress.address = request.POST.get('address')
+        shippingaddress.phone = request.POST.get('phone')
+        shippingaddress.city = request.POST.get('city')
+        shippingaddress.country = request.POST.get('country')
+        shippingaddress.state = request.POST.get('state')
+        shippingaddress.zipcode = request.POST.get('zipcode')
+        shippingaddress.save()
+        return redirect("Checkout")
+
 
     return render(request,"checkout.html",context)
 

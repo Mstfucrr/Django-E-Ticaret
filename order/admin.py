@@ -14,7 +14,7 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_display = ['product','quantity','get_total']
     
 class ShippingAdmin(admin.ModelAdmin):
-    list_display = ['customer','city']
+    list_display = ['customer','city','address','country','state','date_added']
 
 admin.site.register(ShopCart,ShopCartAdmin)
 admin.site.register(Order,OrderAdmin)
