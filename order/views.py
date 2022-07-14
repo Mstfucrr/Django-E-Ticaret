@@ -29,8 +29,8 @@ def Checkout(request):
     context = SettingsFunc(request)
     customer = GetCustomer(request)
     context['customer'] = customer
-    print(customer == None)
     if request.method == 'POST':
+        
         cart = ShopCart.objects.filter(customer_id= customer.id)
 
         newOrder = Order(
@@ -40,7 +40,9 @@ def Checkout(request):
         if customer is not None:
             newOrder.customer = customer
             newOrder.ip = 123123
-        
+        else: 
+            # yeni customer
+            pass
 
         print(newOrder.adminnote)
         newOrder.save()
@@ -53,14 +55,24 @@ def Checkout(request):
             )
             orderitem.save()
         shippingaddress = ShippingAddress()
+            
+
         shippingaddress.customer = customer
         shippingaddress.order = newOrder
-        shippingaddress.address = request.POST.get('address')
-        shippingaddress.phone = request.POST.get('phone')
-        shippingaddress.city = request.POST.get('city')
-        shippingaddress.country = request.POST.get('country')
-        shippingaddress.state = request.POST.get('state')
-        shippingaddress.zipcode = request.POST.get('zipcode')
+        isMyAddress = json.loads(request.body)['isMyAddress']
+        if isMyAddress:
+            shippingaddress.address = customer.address
+            shippingaddress.phone = customer.phone
+            shippingaddress.city = customer.city
+            shippingaddress.country = customer.country
+            shippingaddress.zipcode = customer.zipcode
+        else:
+            shippingaddress.address = request.POST['address']
+            shippingaddress.phone = request.POST['phone']
+            shippingaddress.city = request.POST['city']
+            shippingaddress.country = request.POST['country']
+            shippingaddress.state = request.POST['state']
+            shippingaddress.zipcode = request.POST['zipcode']
         shippingaddress.save()
         return redirect("Checkout")
 

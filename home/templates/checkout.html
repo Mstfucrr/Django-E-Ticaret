@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="checkout-area">
-          <form action="" method="post">
+          <form id="checkoutForm"  data-customerId="{{customer.id}}">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-8">
@@ -145,95 +145,105 @@
                       </div>
                       <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false">
                         <div class="panel-body">
-                          <div class="card" style="width: 25rem;">
+                          <div class="card" style="width: 45rem;">
                             <div class="card-body">
                               <input type="radio" name="selectAddress" id="myhome" checked>
-                              <h5 class="card-title">Card title</h5>
-                              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                              <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
-                              <a href="#" class="card-link">Card link</a>
-                              <a href="#" class="card-link">Another link</a>
+                              <h5 class="card-title">KAYITLI ADRES</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">EV</h6>
+                              <p class="card-text">{{customer.address}} {{customer.city}} <br>
+                                <b>{{customer.country}}</b> <br> {{customer.zipcode}}
+                              </p>
+                              <a href="/account/#addressInfo" class="aa-browse-btn card-link">Güncelle</a>
                             </div>
                           </div>
-                          <input type="radio" name="selectAddress" id="newhome">
-                          
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <label for="firstname">Ad</label>
-                                <input type="text" name="firstname" value="{{request.user.first_name}}">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="card-title">
+                                <input type="radio" name="selectAddress" id="newhome" data-toggle="collapse"
+                                  aria-expanded="false" data-target="#newAddress" value="Yeni Adres">
+                                Yeni Adres
                               </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <label for="lastname">Soyad</label>
+                              <div class="collapse" id="newAddress">
 
-                                <input type="text" name="lastname" value="{{request.user.last_name}}">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <label for="email">Eposta Adresi</label>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="firstname">Ad</label>
+                                      <input type="text" name="firstname" value="{{request.user.first_name}}">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="lastname">Soyad</label>
 
-                                <input type="email" name="email" value="{{request.user.email}}">
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <label for="phone">Telefon</label>
-                                <input type="tel" name="phone" value="{{customer.phone}}">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <label for="address">Adres</label>
-                                <textarea cols="8" rows="3" name="address">{{customer.address}}</textarea>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <label for="appartment">Ülke</label>
-                                <input type="text" value="{{customer.country}}">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <label for="city">Şehir</label>
-                                <input type="text" name="city" value="{{customer.city}}">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <label for="state">Eyalet</label>
+                                      <input type="text" name="lastname" value="{{request.user.last_name}}">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="email">Eposta Adresi</label>
 
-                                <input type="text" name="state">
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <label for="zipcode">Posta kodu</label>
+                                      <input type="email" name="email" value="{{request.user.email}}">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="phone">Telefon</label>
+                                      <input type="tel" name="phone" value="{{customer.phone}}">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="address">Adres</label>
+                                      <input type="text" name="address"  value="{{customer.address}}">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="appartment">Ülke</label>
+                                      <input type="text" value="{{customer.country}}">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="city">Şehir</label>
+                                      <input type="text" name="city" value="{{customer.city}}">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="state">Eyalet</label>
 
-                                <input type="text" name="zipcode">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <label for="specialnote">Özel not</label>
+                                      <input type="text" name="state">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="zipcode">Posta kodu</label>
 
-                                <textarea cols="8" rows="3" name="specialnote"></textarea>
+                                      <input type="text" name="zipcode" value="{{customer.zipcode}}">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="aa-checkout-single-bill">
+                                      <label for="specialnote">Özel not</label>
+
+                                      <input cols="8" rows="3" name="specialnote">
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -283,7 +293,7 @@
                       <input type="radio" id="paypal" name="optionsRadios" checked="">
                       Paypal ile Ödeme</label>
                     <img src="{% static '/img/paypal.jpg' %}" style="border:0;" alt="website template image">
-                    <input type="submit" value="Siparişi Tamamla" class="aa-browse-btn">
+                    <button type="submit" value="Siparişi Tamamla" class="aa-browse-btn">Siparişi Tamamla </button>
                   </div>
                 </div>
               </div>

@@ -35,8 +35,8 @@ class Order(models.Model):
     customer = models.ForeignKey(UserProfile,on_delete=models.SET_NULL,null =True)
     code = models.CharField(max_length=5,editable=False)
     status = models.CharField(max_length=10,choices=STATUS,default='New')
-    ip = models.CharField(blank=True,max_length=20)
-    adminnote = models.CharField(blank=True,max_length=150)
+    ip = models.CharField(blank=True,max_length=20,null=True)
+    adminnote = models.CharField(blank=True,max_length=150,null=True)
 
     created_at = models.DateTimeField(auto_now_add = True)
     update_at = models.DateTimeField(auto_now=True)
