@@ -25,7 +25,6 @@ def SettingsFunc(request):
 
 def index(request):
     context = SettingsFunc(request)
-    
     manCategory = Category.objects.get(title = "Erkek")
     womenCategory = Category.objects.get(title = "Kadın")
     sportsCategory = Category.objects.get(title = "Spor")

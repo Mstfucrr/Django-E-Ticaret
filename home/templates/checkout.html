@@ -269,7 +269,7 @@
                         {% for cartitem in cart %}
                         <tr>
                           <td> <a
-                              href="/product/{{cartitem.product_id}}/{{cartitem.product.slug}}">{{cartitem.product}}</a>
+                              href="/product/{{cartitem.product.id}}/{{cartitem.product.slug}}">{{cartitem.product}}</a>
                             <strong> x {{cartitem.quantity}}</strong>
                           </td>
                           <td>{{cartitem.amount}} TL</td>

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.http import JsonResponse
+from django.shortcuts import redirect, render
 from django.utils.crypto import get_random_string
 from home.views import SettingsFunc
 import json
@@ -16,15 +16,41 @@ def GetCustomer(request):
         return UserProfile.objects.get(user_id=request.user.id)
     return None
 
-def order(request):
+
+
+def Cart(request):
     context = SettingsFunc(request)
     if request.user.is_authenticated:
         cart = ShopCart.objects.filter(customer_id= GetCustomer(request).id)
         context['cart'] = cart
         context['total'] = sum([x.amount for x in cart])
+    else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        print("cart : ", cart)
+        items = []
+        total = 0
+        for i in cart:
+            print(i)
+            product = Product.objects.get(id=i)
+            total += product.price * cart[i]["quantity"]
+            item = {
+                'product' : product,
+                'quantity' : cart[i]['quantity'], 
+            }
+            items.append(item)
+
+        context['total'] = total
+        context['cart'] = items
+        
     return render(request,"cart.html",context)
 
     
+
+
+
 def Checkout(request):
     context = SettingsFunc(request)
     customer = GetCustomer(request)

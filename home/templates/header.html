@@ -119,13 +119,13 @@
 
                                     {% for cartItem in cart %}
                                     <li>
-                                        <a class="aa-cartbox-img" href="/product/{{cartItem.product_id}}/{{cartItem.product.slug}}"><img
+                                        <a class="aa-cartbox-img" href="/product/{{cartItem.product.id}}/{{cartItem.product.slug}}"><img
                                                 src="{{cartItem.product.image.url}}" alt="img"></a>
                                         <div class="aa-cartbox-info">
-                                            <h4><a href="/product/{{cartItem.product_id}}/{{cartItem.product.slug}}">{{cartItem.product}}</a></h4>
+                                            <h4><a href="/product/{{cartItem.product.id}}/{{cartItem.product.slug}}">{{cartItem.product}}</a></h4>
                                             <p>{{cartItem.quantity}} x {{cartItem.product.price}}</p>
                                         </div>
-                                        <a class="aa-remove-product update_item" data-action="AllRemove" data-productid="{{cartItem.product_id}}" href="#"><span class="fa fa-times"></span></a>
+                                        <a class="aa-remove-product update_item" data-action="AllRemove" data-productid="{{cartItem.product.id}}" href="#"><span class="fa fa-times"></span></a>
                                     </li>
                                     {% endfor %}
 
