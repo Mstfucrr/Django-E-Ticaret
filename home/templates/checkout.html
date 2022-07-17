@@ -89,25 +89,8 @@
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <select>
-                                  <option value="0">Select Your Country</option>
-                                  <option value="1">Australia</option>
-                                  <option value="2">Afganistan</option>
-                                  <option value="3">Bangladesh</option>
-                                  <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
-                                </select>
+                                <input type="tel" placeholder="country*">
+
                               </div>
                             </div>
                           </div>
@@ -145,6 +128,9 @@
                       </div>
                       <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false">
                         <div class="panel-body">
+                          
+                          {% if user.username %}
+                           
                           <div class="card" style="width: 45rem;">
                             <div class="card-body">
                               <input type="radio" name="selectAddress" id="myhome" checked>
@@ -156,6 +142,8 @@
                               <a href="/account/#addressInfo" class="aa-browse-btn card-link">Güncelle</a>
                             </div>
                           </div>
+                          {% endif %}
+
                           <div class="card">
                             <div class="card-body">
                               <div class="card-title">
@@ -169,14 +157,14 @@
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="firstname">Ad</label>
-                                      <input type="text" name="firstname" value="{{request.user.first_name}}">
+                                      <input type="text" id="firstname" name="firstname" value="{{request.user.first_name}}">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="lastname">Soyad</label>
 
-                                      <input type="text" name="lastname" value="{{request.user.last_name}}">
+                                      <input type="text" id="lastname" name="lastname" value="{{request.user.last_name}}">
                                     </div>
                                   </div>
                                 </div>
@@ -185,13 +173,13 @@
                                     <div class="aa-checkout-single-bill">
                                       <label for="email">Eposta Adresi</label>
 
-                                      <input type="email" name="email" value="{{request.user.email}}">
+                                      <input type="email" id="email" name="email" value="{{request.user.email}}">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="phone">Telefon</label>
-                                      <input type="tel" name="phone" value="{{customer.phone}}">
+                                      <input type="tel" id="phone" name="phone" value="{{customer.phone}}">
                                     </div>
                                   </div>
                                 </div>
@@ -199,7 +187,7 @@
                                   <div class="col-md-12">
                                     <div class="aa-checkout-single-bill">
                                       <label for="address">Adres</label>
-                                      <input type="text" name="address"  value="{{customer.address}}">
+                                      <input type="text" id="address" name="address"  value="{{customer.address}}">
                                     </div>
                                   </div>
                                 </div>
@@ -207,7 +195,7 @@
                                   <div class="col-md-12">
                                     <div class="aa-checkout-single-bill">
                                       <label for="appartment">Ülke</label>
-                                      <input type="text" value="{{customer.country}}">
+                                      <input type="text" name="country" id="country" value="{{customer.country}}">
                                     </div>
                                   </div>
                                 </div>
@@ -215,7 +203,7 @@
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="city">Şehir</label>
-                                      <input type="text" name="city" value="{{customer.city}}">
+                                      <input type="text" id="city" name="city" value="{{customer.city}}">
                                     </div>
                                   </div>
                                 </div>
@@ -223,15 +211,13 @@
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="state">Eyalet</label>
-
-                                      <input type="text" name="state">
+                                      <input type="text" id="state" name="state">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="zipcode">Posta kodu</label>
-
-                                      <input type="text" name="zipcode" value="{{customer.zipcode}}">
+                                      <input type="text" id="zipcode" name="zipcode" value="{{customer.zipcode}}">
                                     </div>
                                   </div>
                                 </div>
@@ -239,8 +225,7 @@
                                   <div class="col-md-12">
                                     <div class="aa-checkout-single-bill">
                                       <label for="specialnote">Özel not</label>
-
-                                      <input cols="8" rows="3" name="specialnote">
+                                      <input id="specialnote" name="specialnote">
                                     </div>
                                   </div>
                                 </div>
@@ -293,7 +278,7 @@
                       <input type="radio" id="paypal" name="optionsRadios" checked="">
                       Paypal ile Ödeme</label>
                     <img src="{% static '/img/paypal.jpg' %}" style="border:0;" alt="website template image">
-                    <button type="submit" value="Siparişi Tamamla" class="aa-browse-btn">Siparişi Tamamla </button>
+                    <button value="Siparişi Tamamla" class="aa-browse-btn" id="complateOrder">Siparişi Tamamla </button>
                   </div>
                 </div>
               </div>

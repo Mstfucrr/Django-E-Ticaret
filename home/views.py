@@ -15,12 +15,39 @@ def SettingsFunc(request):
         'setting' : setting,
         'category':category
     }
-    if request.user.is_authenticated:
-        context['cart'] = ShopCart.objects.filter(customer_id= UserProfile.objects.filter(user_id=request.user.id)[0].id)
-        context['total'] = sum([x.amount for x in context['cart']])
-        context['CartItemCount'] = len(context['cart'])
+    items,total = CookieCart(request)
+
+    context['cart'] = items
+    context['total'] = total
+    context['CartItemCount'] = len(context['cart'])
+
     
     return context
+
+def CookieCart(request): 
+    items = []
+    total = 0
+    if request.user.is_authenticated:
+        print("id : " , request.user.id)
+        customer = UserProfile.objects.get(user_id=request.user.id)
+        items = ShopCart.objects.filter(customer_id= customer.id)
+        total = sum([x.amount for x in items])
+    else: 
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        print("cart : ", cart)
+        
+        for i in cart:
+            product = Product.objects.get(id=i)
+            total += product.price * cart[i]["quantity"]
+            item = {
+                'product' : product,
+                'quantity' : cart[i]['quantity'], 
+            }
+            items.append(item)
+    return items, total
 
 
 def index(request):

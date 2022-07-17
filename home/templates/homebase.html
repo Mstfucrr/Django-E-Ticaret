@@ -59,11 +59,10 @@
         console.log(csrftoken)
 
         var cart = JSON.parse(getToken('cart'))
-        if(cart == undefined)
-        {
+        if (cart == undefined) {
             cart = {}
             console.log("cart created")
-            document.cookie = 'cart=' +JSON.stringify(cart) + ";domain=;path=/"
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
         }
     </script>
 
@@ -108,8 +107,59 @@
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/account.js' %}"></script>
     <script src="{% static 'js/cart.js' %}"></script>
-    <script src="{% static 'js/checkout.js' %}"></script>
+    <!-- <script src="{% static 'js/checkout.js' %}"></script> -->
+    <script>
+        newaddressradio = document.getElementsByName("selectAddress")
+        isMyAddress = true;
+        newaddressradio[0].addEventListener('change', (e) => {
 
+            document.getElementById("newAddress").classList.remove("in")
+            isMyAddress = true;
+        })
+        newaddressradio[1].addEventListener('change', (e) => {
+            isMyAddress = false;
+        })
+
+
+
+        checkoutForm = document.getElementById("complateOrder")
+        checkoutForm.addEventListener('click', (e) => {
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            if (isMyAddress){
+                addressInfo = {}
+            }
+            else {
+                addressInfo = {
+                    'firstname' : document.getElementById("firstname").value,
+                    'lastname' : document.getElementById("lastname").value,
+                    'email' : document.getElementById("email").value,
+                    'phone' : document.getElementById("phone").value,
+                    'address' : document.getElementById("address").value,
+                    'country' : document.getElementById("country").value,
+                    'city' : document.getElementById("city").value,
+                    'state' : document.getElementById("state").value,
+                    'zipcode' : document.getElementById("zipcode").value,
+                    'specialnote' : document.getElementById("specialnote").value,
+                }
+            }
+            fetch('/order/checkout/', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
+                    'isMyAddress': isMyAddress,
+                    'addressInfo' : addressInfo
+                })
+            }).then(() => {
+                console.log("Sipariş Alındı")
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500)
+            })
+        })
+    </script>
 
 
 

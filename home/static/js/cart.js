@@ -3,10 +3,9 @@ for (let i = 0; i < updateBtns.length; i++) {
     updateBtns[i].addEventListener('click', function (e) {
         var productid = this.dataset.productid
         var action = this.dataset.action
-        console.log(user);
         if (user == "AnonymousUser") {
             console.log("not logedin");
-            addItemToCookie(productid, action)
+            addItemToCookie(e,productid, action)
         }
         else {
             updateItem(e, productid, action)
@@ -16,7 +15,7 @@ for (let i = 0; i < updateBtns.length; i++) {
 };
 
 
-function addItemToCookie(productid, action) {
+function addItemToCookie(e,productid, action) {
     console.log('not login');
     if (action == 'add') {
         if (cart[productid] == undefined) {
@@ -33,9 +32,15 @@ function addItemToCookie(productid, action) {
             delete cart[productid]
         }
     }
+    else if (action == 'AllRemove') {
+        delete cart[productid]
+    }
+
     console.log('cart : ', cart);
     document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
-    location.reload()
+    if (e.target.classList.contains("fa")) {
+        location.reload()
+    }
 
 }
 

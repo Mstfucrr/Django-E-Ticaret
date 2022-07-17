@@ -1,3 +1,4 @@
+from os import name
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
@@ -19,64 +20,43 @@ def GetCustomer(request):
 
 
 def Cart(request):
-    context = SettingsFunc(request)
-    if request.user.is_authenticated:
-        cart = ShopCart.objects.filter(customer_id= GetCustomer(request).id)
-        context['cart'] = cart
-        context['total'] = sum([x.amount for x in cart])
-    else:
-        try:
-            cart = json.loads(request.COOKIES['cart'])
-        except:
-            cart = {}
-        print("cart : ", cart)
-        items = []
-        total = 0
-        for i in cart:
-            print(i)
-            product = Product.objects.get(id=i)
-            total += product.price * cart[i]["quantity"]
-            item = {
-                'product' : product,
-                'quantity' : cart[i]['quantity'], 
-            }
-            items.append(item)
-
-        context['total'] = total
-        context['cart'] = items
-        
+    context = SettingsFunc(request)     
+     
     return render(request,"cart.html",context)
-
-    
-
-
 
 def Checkout(request):
     context = SettingsFunc(request)
     customer = GetCustomer(request)
     context['customer'] = customer
+
     if request.method == 'POST':
         
-        cart = ShopCart.objects.filter(customer_id= customer.id)
+        cart = context['cart']
+        data = json.loads(request.body)
+        addressInfo = data['addressInfo']
 
         newOrder = Order(
         code = get_random_string(6).upper(),
-        adminnote = request.POST.get('specialnote'),
+        adminnote = addressInfo['specialnote'],
         )
         if customer is not None:
             newOrder.customer = customer
             newOrder.ip = 123123
         else: 
-            # yeni customer
-            pass
+            customer, created = UserProfile.objects.get_or_create(
+                name = addressInfo['firtname'] + " " + addressInfo['lastname'],
+                email = addressInfo['email']
+            )
+            newOrder.customer = customer
+            newOrder.ip = 123123
+        print(customer)
 
-        print(newOrder.adminnote)
         newOrder.save()
         for c in cart:
             orderitem = OrderItem(
                 order=newOrder,
-                product=c.product,
-                quantity= c.quantity,
+                product= c['product'] if c.product is None else c.product,
+                quantity= c['quantity'] if c.product is None else c.quantity,
 
             )
             orderitem.save()
@@ -93,12 +73,13 @@ def Checkout(request):
             shippingaddress.country = customer.country
             shippingaddress.zipcode = customer.zipcode
         else:
-            shippingaddress.address = request.POST['address']
-            shippingaddress.phone = request.POST['phone']
-            shippingaddress.city = request.POST['city']
-            shippingaddress.country = request.POST['country']
-            shippingaddress.state = request.POST['state']
-            shippingaddress.zipcode = request.POST['zipcode']
+            
+            shippingaddress.address = addressInfo['address']
+            shippingaddress.phone = addressInfo['phone']
+            shippingaddress.city = addressInfo['city']
+            shippingaddress.country = addressInfo['country']
+            shippingaddress.state = addressInfo['state']
+            shippingaddress.zipcode = addressInfo['zipcode']
         shippingaddress.save()
         return redirect("Checkout")
 

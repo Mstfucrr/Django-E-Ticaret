@@ -8,17 +8,26 @@ from django.utils.safestring import mark_safe
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete= models.CASCADE, null = True)
-    phone = models.CharField(blank=True,max_length=20)
-    address = models.CharField(blank=True,max_length=150)
-    city = models.CharField(blank=True,max_length=30)
-    country = models.CharField(blank=True,max_length=30)
+    name = models.CharField(max_length=30,blank = True,null = True)
+    email = models.EmailField(max_length=50,blank = True, null = True)
+    phone = models.CharField(blank=True,max_length=20,null = True)
+    address = models.CharField(blank=True,max_length=150,null = True)
+    city = models.CharField(blank=True,max_length=30,null=True)
+    country = models.CharField(blank=True,max_length=30,null=True)
     zipcode = models.CharField(blank=True,max_length=10,null=True)
-    image = models.ImageField(blank=True,upload_to='images/users/')
+    image = models.ImageField(blank=True,upload_to='images/users/',null=True)
     def __str__(self):
         return self.user.username
 
     def first_name(self):
         return self.user.first_name
+
+    def Name(self):
+        if self.user != None:
+            self.name = self.user.first_name + " " + self.user.last_name
+        else:
+            self.name = ""
+        return self.name
 
     def image_tag(self):
         try:
