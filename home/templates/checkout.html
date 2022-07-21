@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="checkout-area">
-          <form id="checkoutForm"  data-customerId="{{customer.id}}">
+          <form id="checkoutForm">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-8">
@@ -128,43 +128,44 @@
                       </div>
                       <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false">
                         <div class="panel-body">
-                          
-                          {% if user.username %}
-                           
-                          <div class="card" style="width: 45rem;">
-                            <div class="card-body">
-                              <input type="radio" name="selectAddress" id="myhome" checked>
-                              <h5 class="card-title">KAYITLI ADRES</h5>
-                              <h6 class="card-subtitle mb-2 text-muted">EV</h6>
-                              <p class="card-text">{{customer.address}} {{customer.city}} <br>
-                                <b>{{customer.country}}</b> <br> {{customer.zipcode}}
-                              </p>
-                              <a href="/account/#addressInfo" class="aa-browse-btn card-link">Güncelle</a>
-                            </div>
-                          </div>
-                          {% endif %}
-
                           <div class="card">
                             <div class="card-body">
-                              <div class="card-title">
-                                <input type="radio" name="selectAddress" id="newhome" data-toggle="collapse"
-                                  aria-expanded="false" data-target="#newAddress" value="Yeni Adres">
-                                Yeni Adres
-                              </div>
-                              <div class="collapse" id="newAddress">
+
+
+                              {% if request.user.username %}
+
+                              <div class="btn btn-primary" id="getMyAddress">
+                                Adresim
+                              </div> <br><br>
+                              <script>
+                                document.getElementById("getMyAddress").addEventListener("click", (e) => {
+                                  document.getElementById("firstname").value = "{{request.user.first_name}}"
+                                  document.getElementById("lastname").value = "{{request.user.last_name}}"
+                                  document.getElementById("email").value = "{{request.user.email}}"
+                                  document.getElementById("phone").value = "{{customer.phone}}"
+                                  document.getElementById("address").value = "{{customer.address}}"
+                                  document.getElementById("country").value = "{{customer.country}}"
+                                  document.getElementById("city").value = "{{customer.city}}"
+                                  document.getElementById("state").value = ""
+                                  document.getElementById("zipcode").value = "{{customer.zipcode}}"
+                                })
+                              </script>
+                              {% endif %}
+
+                              <div id="newAddress">
 
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="firstname">Ad</label>
-                                      <input type="text" id="firstname" name="firstname" value="{{request.user.first_name}}">
+                                      <input type="text" id="firstname" name="firstname">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="lastname">Soyad</label>
 
-                                      <input type="text" id="lastname" name="lastname" value="{{request.user.last_name}}">
+                                      <input type="text" id="lastname" name="lastname">
                                     </div>
                                   </div>
                                 </div>
@@ -173,13 +174,13 @@
                                     <div class="aa-checkout-single-bill">
                                       <label for="email">Eposta Adresi</label>
 
-                                      <input type="email" id="email" name="email" value="{{request.user.email}}">
+                                      <input type="email" id="email" name="email">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="phone">Telefon</label>
-                                      <input type="tel" id="phone" name="phone" value="{{customer.phone}}">
+                                      <input type="tel" id="phone" name="phone">
                                     </div>
                                   </div>
                                 </div>
@@ -187,7 +188,7 @@
                                   <div class="col-md-12">
                                     <div class="aa-checkout-single-bill">
                                       <label for="address">Adres</label>
-                                      <input type="text" id="address" name="address"  value="{{customer.address}}">
+                                      <input type="text" id="address" name="address">
                                     </div>
                                   </div>
                                 </div>
@@ -195,7 +196,7 @@
                                   <div class="col-md-12">
                                     <div class="aa-checkout-single-bill">
                                       <label for="appartment">Ülke</label>
-                                      <input type="text" name="country" id="country" value="{{customer.country}}">
+                                      <input type="text" name="country" id="country">
                                     </div>
                                   </div>
                                 </div>
@@ -203,7 +204,7 @@
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="city">Şehir</label>
-                                      <input type="text" id="city" name="city" value="{{customer.city}}">
+                                      <input type="text" id="city" name="city">
                                     </div>
                                   </div>
                                 </div>
@@ -217,7 +218,7 @@
                                   <div class="col-md-6">
                                     <div class="aa-checkout-single-bill">
                                       <label for="zipcode">Posta kodu</label>
-                                      <input type="text" id="zipcode" name="zipcode" value="{{customer.zipcode}}">
+                                      <input type="text" id="zipcode" name="zipcode">
                                     </div>
                                   </div>
                                 </div>
@@ -278,7 +279,8 @@
                       <input type="radio" id="paypal" name="optionsRadios" checked="">
                       Paypal ile Ödeme</label>
                     <img src="{% static '/img/paypal.jpg' %}" style="border:0;" alt="website template image">
-                    <button value="Siparişi Tamamla" class="aa-browse-btn" id="complateOrder">Siparişi Tamamla </button>
+                    <button type="submit" value="Siparişi Tamamla" class="aa-browse-btn" id="complateOrder">Siparişi
+                      Tamamla </button>
                   </div>
                 </div>
               </div>

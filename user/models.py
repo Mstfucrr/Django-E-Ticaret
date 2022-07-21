@@ -17,7 +17,7 @@ class UserProfile(models.Model):
     zipcode = models.CharField(blank=True,max_length=10,null=True)
     image = models.ImageField(blank=True,upload_to='images/users/',null=True)
     def __str__(self):
-        return self.user.username
+        return self.name
 
     def first_name(self):
         return self.user.first_name

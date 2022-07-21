@@ -28,58 +28,50 @@ def Checkout(request):
     context = SettingsFunc(request)
     customer = GetCustomer(request)
     context['customer'] = customer
-
     if request.method == 'POST':
         
         cart = context['cart']
         data = json.loads(request.body)
         addressInfo = data['addressInfo']
-
+        print(data)
         newOrder = Order(
         code = get_random_string(6).upper(),
-        adminnote = addressInfo['specialnote'],
         )
         if customer is not None:
             newOrder.customer = customer
             newOrder.ip = 123123
         else: 
             customer, created = UserProfile.objects.get_or_create(
-                name = addressInfo['firtname'] + " " + addressInfo['lastname'],
+                name = addressInfo['firstname'] + " " + addressInfo['lastname'],
                 email = addressInfo['email']
             )
             newOrder.customer = customer
             newOrder.ip = 123123
-        print(customer)
-
         newOrder.save()
         for c in cart:
             orderitem = OrderItem(
                 order=newOrder,
-                product= c['product'] if c.product is None else c.product,
-                quantity= c['quantity'] if c.product is None else c.quantity,
-
             )
+            try:
+                orderitem.product = c.product
+                orderitem.quantity = c.quantity
+            except:
+                orderitem.product = c['product']
+                orderitem.quantity = c['quantity']
+
             orderitem.save()
         shippingaddress = ShippingAddress()
             
 
         shippingaddress.customer = customer
         shippingaddress.order = newOrder
-        isMyAddress = json.loads(request.body)['isMyAddress']
-        if isMyAddress:
-            shippingaddress.address = customer.address
-            shippingaddress.phone = customer.phone
-            shippingaddress.city = customer.city
-            shippingaddress.country = customer.country
-            shippingaddress.zipcode = customer.zipcode
-        else:
-            
-            shippingaddress.address = addressInfo['address']
-            shippingaddress.phone = addressInfo['phone']
-            shippingaddress.city = addressInfo['city']
-            shippingaddress.country = addressInfo['country']
-            shippingaddress.state = addressInfo['state']
-            shippingaddress.zipcode = addressInfo['zipcode']
+        customer.address = shippingaddress.address = addressInfo['address']
+        customer.phone = shippingaddress.phone = addressInfo['phone']
+        customer.city = shippingaddress.city = addressInfo['city']
+        customer.country = shippingaddress.country = addressInfo['country']
+        shippingaddress.state = addressInfo['state']
+        customer.zipcode = shippingaddress.zipcode = addressInfo['zipcode']
+        customer.save()
         shippingaddress.save()
         return redirect("Checkout")
 

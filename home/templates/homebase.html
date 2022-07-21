@@ -109,39 +109,25 @@
     <script src="{% static 'js/cart.js' %}"></script>
     <!-- <script src="{% static 'js/checkout.js' %}"></script> -->
     <script>
-        newaddressradio = document.getElementsByName("selectAddress")
-        isMyAddress = true;
-        newaddressradio[0].addEventListener('change', (e) => {
 
-            document.getElementById("newAddress").classList.remove("in")
-            isMyAddress = true;
-        })
-        newaddressradio[1].addEventListener('change', (e) => {
-            isMyAddress = false;
-        })
-
-
-
-        checkoutForm = document.getElementById("complateOrder")
-        checkoutForm.addEventListener('click', (e) => {
+        checkoutForm = document.getElementById("checkoutForm")
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
             console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            if (isMyAddress){
-                addressInfo = {}
+            addressInfo = {
+                'firstname': document.getElementById("firstname").value,
+                'lastname': document.getElementById("lastname").value,
+                'email': document.getElementById("email").value,
+                'phone': document.getElementById("phone").value,
+                'address': document.getElementById("address").value,
+                'country': document.getElementById("country").value,
+                'city': document.getElementById("city").value,
+                'state': document.getElementById("state").value,
+                'zipcode': document.getElementById("zipcode").value,
+                'specialnote': document.getElementById("specialnote").value,
             }
-            else {
-                addressInfo = {
-                    'firstname' : document.getElementById("firstname").value,
-                    'lastname' : document.getElementById("lastname").value,
-                    'email' : document.getElementById("email").value,
-                    'phone' : document.getElementById("phone").value,
-                    'address' : document.getElementById("address").value,
-                    'country' : document.getElementById("country").value,
-                    'city' : document.getElementById("city").value,
-                    'state' : document.getElementById("state").value,
-                    'zipcode' : document.getElementById("zipcode").value,
-                    'specialnote' : document.getElementById("specialnote").value,
-                }
-            }
+
+            console.log(addressInfo)
             fetch('/order/checkout/', {
                 method: "POST",
                 headers: {
@@ -149,7 +135,6 @@
                     'X-CSRFToken': csrftoken,
                 },
                 body: JSON.stringify({
-                    'isMyAddress': isMyAddress,
                     'addressInfo' : addressInfo
                 })
             }).then(() => {
