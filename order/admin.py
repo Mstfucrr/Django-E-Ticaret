@@ -8,7 +8,7 @@ class ShopCartAdmin(admin.ModelAdmin):
     list_display = ['customer','product','quantity','amount']
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['created_at','customer','status','get_cart_total','get_cart_items']
+    list_display = ['customer','status','get_cart_total']
 
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ['created_at', 'product','quantity','get_total']
