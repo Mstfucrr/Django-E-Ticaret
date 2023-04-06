@@ -1,6 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from sqlalchemy import false
+
 from product.models import Product
 from user.models import UserProfile
 
