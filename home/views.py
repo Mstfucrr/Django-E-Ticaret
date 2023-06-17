@@ -95,9 +95,13 @@ def search_product(request):
     if request.method == 'GET' and key:
         categorys = Category.objects.filter(title__contains = key)
         products = []
-        for category in categorys:
-            products += PullProducts(category)
-        context['Category'] = category
+        if len(categorys) == 0:
+            products = Product.objects.filter(title__contains = key)
+        else:     
+            for category in categorys:
+                print(category)
+                products += PullProducts(category)
+            context['Category'] = category
         context['products'] = products
         images = Images.objects.all()
         context['images'] = images
