@@ -54,8 +54,10 @@ class Order(models.Model):
         total = sum([item.quantity for item in orderitems])
         return total
 
+
     def __str__(self):
-        return self.customer.user.username
+        return self.customer.name
+
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product,on_delete = models.CASCADE)
@@ -86,3 +88,4 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+        
