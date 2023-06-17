@@ -14,7 +14,7 @@ lib64
 *.log
 *.pot
 *.pyc
-__pycache__
+__pycache__/
 
 # Distribution / packaging 
 .Python build/ 
@@ -34,12 +34,6 @@ wheels/
 *.egg 
 *.manifest 
 *.spec 
-eTicaret/__pycache__/*.pyc
-home/__pycache__/*.pyc
-home/migrations/__pycache__/*.pyc
-order/__pycache__/*.pyc
-order/migrations/__pycache__/*.pyc
-product/__pycache__/*.pyc
-product/migrations/__pycache__/*.pyc
-user/__pycache__/*.pyc
-user/migrations/__pycache__/*.pyc
+
+#all .pyc files
+*.pyc
