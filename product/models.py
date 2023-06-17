@@ -1,15 +1,16 @@
-from django.db import models
+import unidecode
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
-from django.db.models.fields import CharField, DateTimeField, FloatField, IntegerField, TextField
+from django.db import models
+from django.db.models.fields import (CharField, DateTimeField, FloatField,
+                                     IntegerField, TextField)
 from django.db.models.fields.files import ImageField
 from django.db.models.fields.related import ForeignKey
+from django.forms import ModelForm
 from django.utils.safestring import mark_safe
-from ckeditor_uploader.fields import RichTextUploadingField
 from django_extensions.db.fields import AutoSlugField
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
-import unidecode
-from django.forms import ModelForm
 from unidecode import unidecode
 
 # Create your models here.
