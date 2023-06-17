@@ -1,11 +1,12 @@
+import json
 from os import name
+
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.crypto import get_random_string
-from home.views import SettingsFunc
-import json
 
+from home.views import SettingsFunc
 from order.models import Order, OrderItem, ShippingAddress, ShopCart
 from product.models import Product
 from user.models import UserProfile
