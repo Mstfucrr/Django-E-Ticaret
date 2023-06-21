@@ -98,15 +98,17 @@ def search_product(request):
     context = SettingsFunc(request)
     key = request.GET.get('searchArea')
     if request.method == 'GET' and key:
-        categorys = Category.objects.filter(title__contains = key)
-        products = []
-        if len(categorys) == 0:
-            products = Product.objects.filter(title__contains = key)
-        else:     
-            for category in categorys:
-                print(category)
-                products += PullProducts(category)
-            context['Category'] = category
+        # önce kategoriye bak eğer yoksa ürünlere bak
+        categories = Category.objects.filter(title__contains=key)
+        products = Product.objects.filter(title__contains=key)
+        # kategorilerin içindeki ürünleri çek
+        for category in categories:
+            products = products | Product.objects.filter(category_id=category.id) # | = union operatorü 
+            # union operatorü ile iki queryseti birleştiriyoruz
+            # union = birleşim
+
+        # productsın içindeki aynı ürünleri sil
+        products = list(dict.fromkeys(products))
         context['products'] = products
         images = Images.objects.all()
         context['images'] = images
@@ -114,8 +116,11 @@ def search_product(request):
     return render(request,'products_search.html',context)
 
 
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
 def search_auto(request):
-    if request.is_ajax():
+    if is_ajax(request):
         q = request.GET.get('term', '')
         categorys = Category.objects.filter(title__contains=q)
         results = []

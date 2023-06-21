@@ -153,22 +153,25 @@
                                     placeholder="Search here ex. 'man' " required>
                                 <button type="submit"><span class="fa fa-search"></span></button>
                                 <script>
-
+                                    //item selected and click to search after go to search page
                                     $(function () {
                                         $("#searchArea").autocomplete({
                                             source: "/search_auto/",
-                                            select: function (event, ui) { //item selected
+                                            select: function (event, ui) {
                                                 AutoCompleteSelect(event, ui)
                                             },
                                             minLength: 2,
-
-
+                                            
                                         });
                                     });
+
 
                                     function AutoCompleteSelect(event, ui) {
 
                                         var selectedObj = ui.item;
+                                        $("#searchArea").val(selectedObj.value);
+                                        event.preventDefault();
+                                        window.location.href = "/search/?searchArea=" + selectedObj.value;
 
                                     }
 
