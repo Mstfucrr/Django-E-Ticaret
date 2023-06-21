@@ -54,7 +54,10 @@
                                                 <a class="aa-product-img"
                                                     href="/product/{{manItem.id}}/{{manItem.slug}}"><img
                                                         src="{{manItem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{manItem.image.url}}" data-title="{{manItem.title}}" data-price="{{manItem.price}}" data-action="add" data-productid="{{manItem.id}}" href="#"><span
+                                                <a class="aa-add-card-btn add_to_cart update_item"
+                                                    data-imageurl="{{manItem.image.url}}" data-title="{{manItem.title}}"
+                                                    data-price="{{manItem.price}}" data-action="add"
+                                                    data-productid="{{manItem.id}}" href="#"><span
                                                         class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
@@ -65,21 +68,20 @@
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"  
-                                                    
-                                                    {% if manItem in wishList %}
-                                                    data-action="remove" data-productid="{{manItem.id}}" class="wishListBtn" >
+                                                    title="Add to Wishlist" {% if manItem in wishList %}
+                                                    data-action="remove" data-productid="{{manItem.id}}"
+                                                    class="wishListBtn">
                                                     <span class="fa fa-heart"></span>
                                                     {% else %}
-                                                    data-action="add" data-productid="{{manItem.id}}" class="wishListBtn" >
+                                                    data-action="add" data-productid="{{manItem.id}}"
+                                                    class="wishListBtn" >
                                                     <span class="fa fa-heart-o"></span>
                                                     {% endif %}
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a href="#" data-toggle2="tooltip" data-placement="top"
-                                                    title="Quick View" data-toggle="modal"
-                                                    data-target="#quick-view-modal"><span
-                                                        class="fa fa-search"></span></a>
+
+                                                    <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" data-productid="{{manItem.id}}"
+                                                        title="Quick View" data-toggle="modal"
+                                                        data-target="#quick-view-modal"><span class="fa fa-search"
+                                                            ></span></a>
                                             </div>
                                             <!-- product badge -->
                                             <span class="aa-badge aa-sale" href="#">SALE!</span>
@@ -105,7 +107,10 @@
                                                 <a class="aa-product-img"
                                                     href="/product/{{womenitem.id}}/{{womenitem.slug}}"><img
                                                         src="{{womenitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{womenitem.image.url}}" data-title="{{womenitem.title}}" data-price="{{womenitem.price}}" data-action="add" data-productid="{{womenitem.id}}" href="#"><span
+                                                <a class="aa-add-card-btn add_to_cart update_item"
+                                                    data-imageurl="{{womenitem.image.url}}"
+                                                    data-title="{{womenitem.title}}" data-price="{{womenitem.price}}"
+                                                    data-action="add" data-productid="{{womenitem.id}}" href="#"><span
                                                         class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
@@ -116,21 +121,20 @@
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"  
-                                                    
-                                                    {% if womenitem in wishList %}
-                                                    data-action="remove" data-productid="{{womenitem.id}}" class="wishListBtn" >
+                                                    title="Add to Wishlist" {% if womenitem in wishList %}
+                                                    data-action="remove" data-productid="{{womenitem.id}}"
+                                                    class="wishListBtn">
                                                     <span class="fa fa-heart"></span>
                                                     {% else %}
-                                                    data-action="add" data-productid="{{womenitem.id}}" class="wishListBtn" >
+                                                    data-action="add" data-productid="{{womenitem.id}}"
+                                                    class="wishListBtn" >
                                                     <span class="fa fa-heart-o"></span>
                                                     {% endif %}
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a href="#" data-toggle2="tooltip" data-placement="top"
-                                                    title="Quick View" data-toggle="modal"
-                                                    data-target="#quick-view-modal"><span
-                                                        class="fa fa-search"></span></a>
+
+                                                    <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" data-productid="{{womenitem.id}}"
+                                                        title="Quick View" data-toggle="modal"
+                                                        data-target="#quick-view-modal"><span class="fa fa-search"
+                                                            ></span></a>
                                             </div>
                                             <!-- product badge -->
                                             <span class="aa-badge aa-sale" href="#">SALE!</span>
@@ -157,7 +161,10 @@
                                                 <a class="aa-product-img"
                                                     href="/product/{{sportitem.id}}/{{sportitem.slug}}"><img
                                                         src="{{sportitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{sportitem.image.url}}" data-title="{{sportitem.title}}" data-price="{{sportitem.price}}" data-action="add" data-productid="{{sportitem.id}}" href="#"><span
+                                                <a class="aa-add-card-btn add_to_cart update_item"
+                                                    data-imageurl="{{sportitem.image.url}}"
+                                                    data-title="{{sportitem.title}}" data-price="{{sportitem.price}}"
+                                                    data-action="add" data-productid="{{sportitem.id}}" href="#"><span
                                                         class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
@@ -168,21 +175,20 @@
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"  
-                                                    
-                                                    {% if sportitem in wishList %}
-                                                    data-action="remove" data-productid="{{sportitem.id}}" class="wishListBtn" >
+                                                    title="Add to Wishlist" {% if sportitem in wishList %}
+                                                    data-action="remove" data-productid="{{sportitem.id}}"
+                                                    class="wishListBtn">
                                                     <span class="fa fa-heart"></span>
                                                     {% else %}
-                                                    data-action="add" data-productid="{{sportitem.id}}" class="wishListBtn" >
+                                                    data-action="add" data-productid="{{sportitem.id}}"
+                                                    class="wishListBtn" >
                                                     <span class="fa fa-heart-o"></span>
                                                     {% endif %}
-                                                    <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a href="#" data-toggle2="tooltip" data-placement="top"
-                                                    title="Quick View" data-toggle="modal"
-                                                    data-target="#quick-view-modal"><span
-                                                        class="fa fa-search"></span></a>
+
+                                                    <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" data-productid="{{sportitem.id}}"
+                                                        title="Quick View" data-toggle="modal"
+                                                        data-target="#quick-view-modal"><span class="fa fa-search"
+                                                            ></span></a>
                                             </div>
                                             <!-- product badge -->
                                             <span class="aa-badge aa-sale" href="#">SALE!</span>
@@ -211,7 +217,11 @@
                                                 <a class="aa-product-img"
                                                     href="/product/{{electronicitem.id}}/{{electronicitem.slug}}"><img
                                                         src="{{electronicitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item" data-imageurl="{{electronicitem.image.url}}" data-title="{{electronicitem.title}}" data-price="{{electronicitem.price}}" data-action="add" data-productid="{{electronicitem.id}}" href="#"><span
+                                                <a class="aa-add-card-btn add_to_cart update_item"
+                                                    data-imageurl="{{electronicitem.image.url}}"
+                                                    data-title="{{electronicitem.title}}"
+                                                    data-price="{{electronicitem.price}}" data-action="add"
+                                                    data-productid="{{electronicitem.id}}" href="#"><span
                                                         class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
@@ -222,25 +232,24 @@
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"  
-                                                    
-                                                    {% if electronicitem in wishList %}
-                                                    data-action="remove" data-productid="{{electronicitem.id}}" class="wishListBtn" >
+                                                    title="Add to Wishlist" {% if electronicitem in wishList %}
+                                                    data-action="remove" data-productid="{{electronicitem.id}}"
+                                                    class="wishListBtn">
                                                     <span class="fa fa-heart"></span>
                                                     {% else %}
-                                                    data-action="add" data-productid="{{electronicitem.id}}" class="wishListBtn" >
+                                                    data-action="add" data-productid="{{electronicitem.id}}"
+                                                    class="wishListBtn" >
                                                     <span class="fa fa-heart-o"></span>
                                                     {% endif %}
-                                                    <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a href="#" data-toggle2="tooltip" data-placement="top"
-                                                    title="Quick View" data-toggle="modal"
-                                                    data-target="#quick-view-modal"><span
-                                                        class="fa fa-search"></span></a>
+
+                                                    <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" data-productid="{{electronicitem.id}}"
+                                                        title="Quick View" data-toggle="modal"
+                                                        data-target="#quick-view-modal"><span class="fa fa-search"
+                                                            ></span></a>
                                             </div>
                                             <!-- product badge -->
                                             <span class="aa-badge aa-sale" href="#">SALE!</span>
-                                            
+
                                         </li>
                                         {% endfor %}
 
@@ -254,7 +263,7 @@
 
                             </div>
                             <!-- quick view modal -->
-                             <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog"
                                 aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -262,7 +271,7 @@
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-hidden="true">&times;</button>
                                             <div class="row">
-                                                
+
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <div class="aa-product-view-slider">
                                                         <div class="simpleLens-gallery-container" id="demo-1">
@@ -282,33 +291,21 @@
                                                                     <img
                                                                         src="{% static 'img/view-slider/thumbnail/polo-shirt-1.png' %}">
                                                                 </a>
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{% static 'img/view-slider/large/polo-shirt-3.png' %}"
-                                                                    data-big-image="{% static 'img/view-slider/medium/polo-shirt-3.png' %}">
-                                                                    <img
-                                                                        src="{% static 'img/view-slider/thumbnail/polo-shirt-3.png' %}">
-                                                                </a>
 
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{% static 'img/view-slider/large/polo-shirt-4.png' %}"
-                                                                    data-big-image="{% static 'img/view-slider/medium/polo-shirt-4.png' %}">
-                                                                    <img
-                                                                        src="{% static 'img/view-slider/thumbnail/polo-shirt-4.png' %}">
-                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <div class="aa-product-view-content">
                                                         <h3>T-Shirt</h3>
                                                         <div class="aa-price-block">
                                                             <span class="aa-product-view-price">$34.99</span>
-                                                            <p class="aa-product-avilability">Avilability: <span>In
-                                                                    stock</span></p>
+                                                            
                                                         </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                        <p class="description">Lorem ipsum dolor sit amet, consectetur
+                                                            adipisicing elit.
                                                             Officiis animi, veritatis quae repudiandae quod nulla porro
                                                             quidem, itaque quis quaerat!</p>
                                                         <h4>Size</h4>
@@ -334,20 +331,19 @@
                                                             </p>
                                                         </div>
                                                         <div class="aa-prod-view-bottom">
-                                                            <a href="#" class="aa-add-to-cart-btn"><span
-                                                                    class="fa fa-shopping-cart"></span>Add To
-                                                                Cart</a>
-                                                            <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                                            <a href="#" class="aa-add-to-cart-btn add_to_cart update_item" data-action="add"><span
+                                                                    class="fa fa-shopping-cart"></span>Sepete Ekle</a>
+                                                            <a href="#" class="aa-add-to-cart-btn viewDeatils">View Details</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
-                                
-                            </div> 
+
+                            </div>
                             <!-- / quick view modal -->
                         </div>
                     </div>
@@ -360,3 +356,4 @@
 
 
 <!-- / Products section -->
+
