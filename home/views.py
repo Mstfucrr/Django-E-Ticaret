@@ -128,6 +128,14 @@ def search_auto(request):
             categorys_json = {}
             categorys_json = category.title
             results.append(categorys_json)
+
+        if len(results) == 0:
+            products = Product.objects.filter(title__contains=q)
+            for product in products:
+                product_json = {}
+                product_json = product.title
+                results.append(product_json)
+
         data = json.dumps(results)
 
     else:
