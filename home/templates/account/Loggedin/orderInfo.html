@@ -9,9 +9,82 @@
             <h2 style="font-size:25px">Siparişlerim</h2>
         </div>
         <div class="card-body">
-            
+            {% for order in user_orders %}
+
+            <section id="cart-view">
+
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <h4 style="color: #970001";>Sipayiş Durumu : 
+                            {% if order.status == 'New' %}
+                            Yeni Sipariş
+                            {% elif order.status == 'Accepted' %}
+                            Siparişiniz Onaylandı
+                            {% elif order.status == 'Preaparing' %}
+                            Siparişiniz Hazırlanıyor
+                            {% elif order.status == 'OnShipping' %}
+                            Siparişiniz Kargoya Verildi
+                            {% elif order.status == 'Completed' %}
+                            Siparişiniz Tamamlandı
+                            {% elif order.status == 'Cancelled' %}
+                            Siparişiniz İptal Edildi
+                            {% endif %}
+                        </h4>
+                        <div class="table-responsive">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Ürün</th>
+                                        <th>Birim Fiyat</th>
+                                        <th>Adet</th>
+                                        <th>Toplam Fiyat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for orderItem in order.orderitem_set.all %}
+                                    <tr>
+
+                                        <td><a href="/product/{{orderItem.product.id}}/{{orderItem.product.slug}}"><img
+                                                    src="{{orderItem.product.image.url}}"
+                                                    alt="website template image"></a></td>
+                                        <td style="width: 250px;"><a class="aa-cart-title"
+                                                href="/product/{{orderItem.product.id}}/{{orderItem.product.slug}}">{{orderItem.product}}</a>
+                                        </td>
+                                        <td>{{orderItem.product.price}}</td>
+                                        <td>
+
+                                            <div
+                                                style="display: flex;justify-content: space-evenly;align-items: flex-start;">
+                                                <p id="{{orderItem.product.id}}-quantity">
+                                                    {{orderItem.quantity}}</p>
+
+                                            </div>
+                                        </td>
+
+                                        <td>{{orderItem.get_total}}</td>
+
+
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                            <h4 style="float: left; color: #970001;">Tarih : {{order.created_at}} </h4>
+                            <h4 style="float: right; color: #970001;">Toplam Tutar : {{order.get_cart_total}} TL </h4>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+
         </div>
     </div>
+
 
 
 

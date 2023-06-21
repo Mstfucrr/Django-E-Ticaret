@@ -16,6 +16,8 @@ def account(request):
     if not(request.user.is_anonymous):
         customer = UserProfile.objects.get(user_id=request.user.id)
         context['customer'] = customer
+        context['user_orders'] = customer.order_set.all()
+        print(context['user_orders'])
     return render(request,'account.html',context)
 
 def logout_view(request):
