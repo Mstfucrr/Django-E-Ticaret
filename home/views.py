@@ -1,4 +1,4 @@
-from order.models import ShopCart
+from order.models import ShopCart, Wishlist
 from product.models import Category, Comment, Images, Product
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -11,6 +11,7 @@ from user.models import UserProfile
 def SettingsFunc(request):
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
+    
     context = {
         'setting' : setting,
         'category':category
@@ -20,6 +21,11 @@ def SettingsFunc(request):
     context['cart'] = items
     context['total'] = total
     context['CartItemCount'] = len(context['cart'])
+    wishList = None
+    if request.user.is_authenticated:
+        customer = UserProfile.objects.get(user_id=request.user.id)
+        wishList = Wishlist.objects.filter(customer_id=customer.id)
+        context['wishList'] = [x.product for x in wishList]
 
     
     return context
@@ -28,7 +34,6 @@ def CookieCart(request):
     items = []
     total = 0
     if request.user.is_authenticated:
-        print("id : " , request.user.id)
         customer = UserProfile.objects.get(user_id=request.user.id)
         items = ShopCart.objects.filter(customer_id= customer.id)
         total = sum([x.amount for x in items])
@@ -37,7 +42,6 @@ def CookieCart(request):
             cart = json.loads(request.COOKIES['cart'])
         except:
             cart = {}
-        print("cart : ", cart)
         
         for i in cart:
             product = Product.objects.get(id=i)
@@ -86,6 +90,7 @@ def category_product(request,id,slug):
 
     products = PullProducts(category)
     context['products'] = products
+    
 
     return render(request,'products.html',context)
 
