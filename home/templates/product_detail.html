@@ -117,9 +117,14 @@
 
                                     <div class="aa-prod-view-bottom">
                                         <a class="aa-add-to-cart-btn add_to_cart update_item" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}" href="#">Sepete Ekle</a>
-                                        <a class="aa-add-to-cart-btn" href="#">İstek listesi</a>
+                                        {% if product in wishList %}
+                                        <a class="aa-add-to-cart-btn wishListBtn" data-action="remove" data-productid="{{product.id}}" href="#">İstek Listesinden Çıkar</a>
+                                        {% else %}
+                                        <a class="aa-add-to-cart-btn wishListBtn" data-action="add" data-productid="{{product.id}}" href="#">İstek Listesine Ekle</a>
+                                        {% endif %}
                                         <a class="aa-add-to-cart-btn" href="#">Compare</a>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>

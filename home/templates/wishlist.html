@@ -1,0 +1,95 @@
+{% extends 'homebase.html' %}
+{% load static %}
+
+{% block head %}
+{% include 'head.html' %}
+{% block title %}
+İstek Listesi
+
+{% endblock title %} {% endblock head %} {% block content %}
+
+<section id="aa-catg-head-banner"><img src="{% static 'img/fashion/fashion-header-bg-8.jpg' %}"
+        alt="website template image">
+    <div class="aa-catg-head-banner-area">
+        <div class="container">
+            <div class="aa-catg-head-banner-content">
+                <h2>İstek Listesi</h2>
+                <ol class="breadcrumb">
+                    <li><a href="/">Ana Sayfa</a></li>
+                    <li class="active">İstek Listesi</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Cart view section -->
+<section id="cart-view" class="mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table aa-wishlist-table">
+                        <form action="">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Ürün</th>
+                                            <th>Fiyat</th>
+                                            <th>Stok Durumu</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for product in products %}
+                                        <tr>
+                                            <td><a class="remove wishListBtn" href="#" data-action="remove" data-productid="{{product.id}}" class="wishListBtn">
+                                                    <fa class="fa fa-close"></fa>
+                                                </a></td>
+                                            <td><a href="/product/{{product.id}}/{{product.slug}}"><img src={{ product.image.url }} alt="img"></a></td>
+                                            <td><a class="aa-cart-title" href="/product/{{product.id}}/{{product.slug}}">
+                                                    {{ product.title }}
+                                            </a></td>
+                                            <td>{{ product.price }}
+                                                TL
+                                            </td>
+
+                                            <td>
+                                                {% if product.amount > 0 %}
+                                                Stokta Var
+                                                {% else %}
+                                                Stokta Yok
+                                                {% endif %}
+                                            </td>
+                                            {% if product.amount > 0 %}
+                                            <td><a href="#" class="aa-add-to-cart-btn add_to_cart update_item " data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}"><span
+                                                class="fa fa-shopping-cart" disabled></span>Sepete
+                                            Ekle</a></td>
+                                            {% else %}
+                                            
+                                            <!--
+                                                a to Button
+                                            -->
+                                            <td><button class="aa-add-to-cart-btn add_to_cart update_item" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}" disabled><span
+                                                class="fa fa-shopping-cart"></span>Stokta Yok</button></td>
+
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / Cart view section -->
+
+{% endblock content %} {% block footer %} {% include 'footer.html' %} {% endblock footer %}

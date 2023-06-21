@@ -81,8 +81,16 @@
                                     </figcaption>
                                 </figure>
                                 <div class="aa-product-hvr-content">
-                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span
-                                            class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top"
+                                                    title="Add to Wishlist"  
+                                                    
+                                                    {% if product in wishList %}
+                                                    data-action="remove" data-productid="{{product.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart"></span>
+                                                    {% else %}
+                                                    data-action="add" data-productid="{{product.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart-o"></span>
+                                                    {% endif %}
                                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
                                             class="fa fa-exchange"></span></a>
                                     <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View"

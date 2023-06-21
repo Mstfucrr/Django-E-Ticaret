@@ -65,7 +65,15 @@
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                                    title="Add to Wishlist"  
+                                                    
+                                                    {% if manItem in wishList %}
+                                                    data-action="remove" data-productid="{{manItem.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart"></span>
+                                                    {% else %}
+                                                    data-action="add" data-productid="{{manItem.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart-o"></span>
+                                                    {% endif %}
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Compare"><span class="fa fa-exchange"></span></a>
                                                 <a href="#" data-toggle2="tooltip" data-placement="top"
@@ -108,7 +116,15 @@
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                                    title="Add to Wishlist"  
+                                                    
+                                                    {% if womenitem in wishList %}
+                                                    data-action="remove" data-productid="{{womenitem.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart"></span>
+                                                    {% else %}
+                                                    data-action="add" data-productid="{{womenitem.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart-o"></span>
+                                                    {% endif %}
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Compare"><span class="fa fa-exchange"></span></a>
                                                 <a href="#" data-toggle2="tooltip" data-placement="top"
@@ -152,8 +168,16 @@
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
+                                                    title="Add to Wishlist"  
+                                                    
+                                                    {% if sportitem in wishList %}
+                                                    data-action="remove" data-productid="{{sportitem.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart"></span>
+                                                    {% else %}
+                                                    data-action="add" data-productid="{{sportitem.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart-o"></span>
+                                                    {% endif %}
+                                                    <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Compare"><span class="fa fa-exchange"></span></a>
                                                 <a href="#" data-toggle2="tooltip" data-placement="top"
                                                     title="Quick View" data-toggle="modal"
@@ -198,8 +222,16 @@
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
+                                                    title="Add to Wishlist"  
+                                                    
+                                                    {% if electronicitem in wishList %}
+                                                    data-action="remove" data-productid="{{electronicitem.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart"></span>
+                                                    {% else %}
+                                                    data-action="add" data-productid="{{electronicitem.id}}" class="wishListBtn" >
+                                                    <span class="fa fa-heart-o"></span>
+                                                    {% endif %}
+                                                    <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Compare"><span class="fa fa-exchange"></span></a>
                                                 <a href="#" data-toggle2="tooltip" data-placement="top"
                                                     title="Quick View" data-toggle="modal"
