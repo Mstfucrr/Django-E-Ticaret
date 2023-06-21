@@ -23,7 +23,7 @@ def Get_product_detail(request):
     return JsonResponse({
         'name': product.title,
         'price': product.price,
-        'description': product.description[:100], # ilk 100 karakter alınacak ,
+        'description': product.description[:500], # ilk 100 karakter alınacak ,
         'image': product.image.url,
         'images' : [image.image.url for image in images],
         'id': product.id,
