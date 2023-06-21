@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.utils.crypto import get_random_string
 
 from home.views import SettingsFunc
-from order.models import Order, OrderItem, ShippingAddress, ShopCart
+from order.models import Order, OrderItem, ShippingAddress, ShopCart, Wishlist
 from product.models import Product
 from user.models import UserProfile
 
@@ -79,7 +79,27 @@ def Checkout(request):
 
     return render(request,"checkout.html",context)
 
-        
+
+
+def WishlistView(request):
+    context = SettingsFunc(request)
+    customer = GetCustomer(request)
+    context['customer'] = customer
+    if customer is not None:
+        wishlist = Wishlist.objects.filter(customer_id=customer.id)
+        products = []
+        for w in wishlist:
+            products.append(Product.objects.get(id=w.product_id))
+        context['products'] = products
+    else:
+        context['products'] = None
+
+    print(context['products'])
+    return render(request,"wishlist.html",context)
+
+
+
+
 @login_required(redirect_field_name=None, login_url='/account/')
 def UpdateItem(request):
     data = json.loads(request.body)
@@ -94,3 +114,20 @@ def UpdateItem(request):
     if action == 'AllRemove' or cart.quantity <= 0:
         cart.delete()   
     return JsonResponse('Item was update',safe=False)
+
+
+@login_required(redirect_field_name=None, login_url='/account/')
+def wishListUpdateItem(request):
+    data = json.loads(request.body)
+    productId = data['productid']
+    action = data['action']
+    # if action == 'add' and productId is not in wishList:
+    wishList = Wishlist.objects.get_or_create(customer_id=GetCustomer(request).id, product_id = productId)[0]
+    if action == 'add' and wishList is not None:
+        wishList.save()
+    elif action == 'remove':
+        wishList.delete()
+    
+    return JsonResponse('Item was update',safe=False)
+
+    # django migration
