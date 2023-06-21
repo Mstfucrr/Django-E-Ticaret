@@ -17,6 +17,7 @@ def account(request):
         customer = UserProfile.objects.get(user_id=request.user.id)
         context['customer'] = customer
         context['user_orders'] = customer.order_set.all()
+        context['user_comments'] = customer.comment_set.all()
         print(context['user_orders'])
     return render(request,'account.html',context)
 

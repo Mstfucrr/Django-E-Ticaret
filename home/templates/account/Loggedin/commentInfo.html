@@ -2,6 +2,67 @@
 {% block CommentInfo %}
 
 
+<div class="card w-100">
+    <div class="card-header">
+        <h2 style="font-size:25px">Yorumlarım</h2>
+    </div>
+    <div class="card-body">
+        <ul class="aa-review-nav">
+
+            {% for comment in user_comments %}
+            <li>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="/product/{{comment.product.id}}/{{comment.product.slug}}">
+                            <img class="media-object" style="width: 60px;height: 60px; object-fit: contain;" src="{{comment.product.image.url}}" alt="image">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><strong>{{comment.product}}</strong> - <br>
+                            <span>{{comment.created_at}}</span>
+                        </h4>
+                        
+                            <div class="aa-product-review-area">
+                                <div class="aa-product-rating">
+
+
+                                    {% for ra in "12345"|make_list %}
+                                    {% if ra > comment.rate|stringformat:"i" %}
+
+                                    <span class="fa fa-star-o"></span>
+                                    {% else %}
+                                    <span class="fa fa-star"></span>
+                                    {% endif %}
+
+                                    {% endfor %}
+
+
+
+                                </div>
+                                <p>{{comment.comment}}</p>
+                                <h5>
+                                    Durumu:
+                                    {% if comment.status == 'New' %}
+                                    Yeni Yorum
+                                    {% elif comment.status == 'True' %}
+                                    Yorum Onaylandı
+                                    {% elif comment.status == 'False' %}
+                                    Yorum Onaylanmadı
+                                    {% endif %}
+        
+                                </h5>
+                            </div>
+                        </div>
+                </div>
+            </li>
+            <br>
+            <hr>
+
+            {% endfor %}
+        </ul>
+
+    </div>
+</div>
 
 
 
