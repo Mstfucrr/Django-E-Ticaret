@@ -13,6 +13,8 @@ from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from unidecode import unidecode
 
+from user.models import UserProfile
+
 # Create your models here.
 
 class Category(MPTTModel):
@@ -113,7 +115,7 @@ class Comment(models.Model):
         ('False','Hayır'),
     )
     product = ForeignKey(Product,on_delete=models.CASCADE)
-    user = ForeignKey(User,on_delete=models.CASCADE)
+    customer = ForeignKey(UserProfile,on_delete=models.CASCADE)
     subject = CharField(max_length=50,blank=True)
     comment = TextField(max_length=200,blank=True)
     rate = IntegerField(blank=True)
