@@ -54,9 +54,22 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['status','category']
     inlines = [ProductImageInline]
 
+
+def make_status_True(modeladmin, request, queryset):
+    queryset.update(status='True')
+make_status_True.short_description = "Mark selected comments as True"
+
+def make_status_False(modeladmin, request, queryset):
+    queryset.update(status='False')
+make_status_False.short_description = "Mark selected comments as False"
+
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['user','rate','product','status']
+    list_display = ['customer','rate','product','status']
     list_filter = ['status']
+    actions = [make_status_True,make_status_False]
+
+
+
 
 
 admin.site.register(Comment,CommentAdmin)
