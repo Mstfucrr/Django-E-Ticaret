@@ -24,6 +24,20 @@ class ShopCart(models.Model):
         return self.product.price
 
 
+class Wishlist(models.Model):
+    customer = models.ForeignKey(UserProfile,on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product,on_delete= models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f'"user" : {self.customer}, "product" : {self.product}'
+    
+    @property
+    def price(self):
+        return self.product.price
+        
+
+
+
 class Order(models.Model):
     STATUS = (
         ('New','New'),
