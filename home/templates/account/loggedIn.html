@@ -8,21 +8,26 @@
                     <div class="row">
                         <div class="col-md-4">
                             <h2>Hesabım</h2>
+                            <!--
+                                Solarak giden list-group-item'lar arasında geçiş yapmak için onclick eventi kullanıldı.
+                            -->
                             <div class="list-group">
-                                <button class="list-group-item">Kullanıcı bilgilerim</button>
-                                <button class="list-group-item">Siparişlerim</button>
-                                <button class="list-group-item">Değerlendirmelerim</button>
-                                <button class="list-group-item">Daily Cüzdan</button>
+                                <button class="list-group-item active" data-show="userInfo">Kullanıcı bilgilerim</button>
+                                <button class="list-group-item" data-show="orderInfo">Siparişlerim</button>
+                                <button class="list-group-item" data-show="commentInfo">Değerlendirmelerim</button>
                             </div>
                         </div>
                         <div class="col-md-8">
 
-                            <div id="userInfo">
+                            <div id="userInfo" style="display: block;">
                                 {% block UserInfo %} {% include './Loggedin/userInfo.html' %} {% endblock UserInfo %}
-
                             </div>
-
-
+                            <div id="orderInfo" style="display: none;">
+                                {% block OrderInfo %} {% include './Loggedin/orderInfo.html' %} {% endblock OrderInfo %}
+                            </div>
+                            <div id="commentInfo" style="display: none;">
+                                {% block CommentInfo %} {% include './Loggedin/commentInfo.html' %} {% endblock CommentInfo %}
+                            </div>
 
                         </div>
                     </div>
