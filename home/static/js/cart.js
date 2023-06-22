@@ -14,6 +14,18 @@ for (let i = 0; i < updateBtns.length; i++) {
 
 };
 
+function UpdateItem(e) {
+    var productid = e.dataset.productid
+    var action = e.dataset.action
+    if (user == "AnonymousUser") {
+        console.log("not logedin");
+        addItemToCookie(e,productid, action)
+    }
+    else {
+        updateItem(e, productid, action)
+    }
+}
+
 
 function addItemToCookie(e,productid, action) {
     console.log('not login');
@@ -66,17 +78,16 @@ function updateItem(e, productid, action) {
     })
 
 }
-//sepete ekle tuşları
-addtocartBtns = document.getElementsByClassName('add_to_cart')
-for (let cartBtn = 0; cartBtn < addtocartBtns.length; cartBtn++) {
-    addtocartBtns[cartBtn].addEventListener('click', function (e) {
-        var imgurl = this.dataset.imageurl
-        var title = this.dataset.title
-        var price = this.dataset.price
-        viewerCreator(imgurl, title, price)
-    })
 
+//sepete ekle tuşları
+
+function AddToCart(e) {
+        var imgurl = e.dataset.imageurl
+        var title = e.dataset.title
+        var price = e.dataset.price
+        viewerCreator(imgurl, title, price)    
 }
+
 
 function viewerCreator(imgurl, title, price) {
     var body = document.getElementsByTagName('body')[0]
