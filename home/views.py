@@ -97,8 +97,8 @@ def category_product(request,id,slug):
 
     products = PullProducts(category)
     context['products'] = products
-    context['minPrice'] = min([x.price for x in products])
-    context['maxPrice'] = max([x.price for x in products])
+    context['minPrice'] = not(len(products) == 0 ) and min([x.price for x in products]) or 0
+    context['maxPrice'] = not(len(products) == 0 ) and max([x.price for x in products]) or 0
 
 
     return render(request,'products.html',context)
@@ -138,6 +138,16 @@ def filter_product(request,displayedProductsIds,minPrice,maxPrice):
     images = Images.objects.all()
     context['images'] = images
     
+    # redirect urlfor products.html 
+    return render(request,'ulProducts.html',context)
+
+def sorter_product(request,displayedProductsIds,sort):
+    displayedProductsIds = displayedProductsIds.split(',')
+    context = SettingsFunc(request)
+    products = Product.objects.filter(id__in=displayedProductsIds).order_by(sort)
+    context['products'] = products
+    images = Images.objects.all()
+    context['images'] = images
     # redirect urlfor products.html 
     return render(request,'ulProducts.html',context)
 
