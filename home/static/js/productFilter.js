@@ -54,3 +54,24 @@ $(".aa-filter-btn").click(function(e){
     });
 
 });
+
+
+
+// sorter
+
+$(".aa-sort-form").change(function (e) {
+    e.preventDefault();
+    var sort = $(".aa-sort-form")[0][0].value;
+    console.log(sort)
+    url = "/sorter_product/" + "displayedProductsIds=" + displayedProductsIds + "&sort=" + sort + "/";
+    console.log(url)
+    $.ajax({
+        type: "GET",
+        // filter_product/minPrice=<str:minPrice>&maxPrice=<str:maxPrice>/
+        url: url,
+        success: function (response) {
+            $(".aa-product-catg-body").empty();
+            $(".aa-product-catg-body").append(response);
+        }
+    });
+});
