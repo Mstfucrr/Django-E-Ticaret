@@ -13,7 +13,7 @@ def index(request):
     return HttpResponse("<h1>Product anasayfa</h1>")
 
 
-def Get_product_detail(request):
+def Get_product_detail(request): # quick view için gerekli olan bilgileri json formatında döndürür
     # body : b'product_id=1'
     body = request.body.decode('utf-8').split('=')[1]
     product_id = int(body)

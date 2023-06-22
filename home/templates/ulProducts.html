@@ -1,0 +1,45 @@
+
+{% load static %}
+<!--
+    This page is for the products that are listed in the products page.
+-->
+
+
+<ul class="aa-product-catg">
+    <!-- start single product item -->
+    {% for product in products %}
+    <li class="product" id="{{product.id}}">
+        <figure>
+            <a class="aa-product-img" href="/product/{{product.id}}/{{product.slug}}"><img
+                    src="{{product.image.url}}" style="height: 230px;"></a>
+            <a class="aa-add-card-btn add_to_cart update_item"
+                data-imageurl="{{product.image.url}}" data-title="{{product.title}}"
+                data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}"
+                href="#"><span class="fa fa-shopping-cart"></span>Sepete Ekle</a>
+            <figcaption style="margin-top: 72px;">
+                <h4 class="aa-product-title"><a
+                        href="/product/{{product.id}}/{{product.slug}}">{{product.title}}</a>
+                </h4>
+                <span class="aa-product-price">{{product.price}} TL</span>
+                <!-- <span class="aa-product-price"><del>$65.50</del></span> -->
+                <p class="aa-product-descrip">{{product.description}}</p>
+            </figcaption>
+        </figure>
+        <div class="aa-product-hvr-content">
+            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" 
+            {% if product in wishList %} 
+            data-action="remove" data-productid="{{product.id}}" class="wishListBtn" onclick="WishListBtn(this)">
+                <span class="fa fa-heart"></span>
+                {% else %}
+                data-action="add" data-productid="{{product.id}}" class="wishListBtn" onclick="WishListBtn(this)" >
+                <span class="fa fa-heart-o"></span>
+                {% endif %}
+
+                <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" onclick="QuickView(this)"
+                    data-productid="{{product.id}}" title="Quick View" data-toggle="modal"
+                    data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+        </div>
+        
+    </li>
+    {% endfor %}
+</ul>
