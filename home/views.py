@@ -4,6 +4,7 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from home.models import ContactForm, Setting
 import json
+from django.db.models import Avg
 
 from user.models import UserProfile
 
@@ -61,17 +62,23 @@ def index(request):
     sportsCategory = Category.objects.get(title = "Spor")
     electronicCategory = Category.objects.get(title = "Elektronik")
     images = Images.objects.all()
+    categoryProducts = {
+        manCategory: PullProducts(manCategory)[:4],
+        womenCategory: PullProducts(womenCategory)[:4],
+        sportsCategory: PullProducts(sportsCategory)[:4],
+        electronicCategory: PullProducts(electronicCategory)[:4],
+    }
+    context['categoryProducts'] = categoryProducts
+
+
 
     context['images'] = images
-    context['manCategory'] = manCategory
-    context['womenCategory'] = womenCategory
-    context['sportsProducts'] = PullProducts(sportsCategory)[:4]
-    context['sportsCategory'] = sportsCategory
-    context['electronicCategory'] = electronicCategory
-    context['electronicProducts'] = PullProducts(electronicCategory)[:4]
-    context['manProducts'] = PullProducts(manCategory)[:4]
-    context['womenProducts'] = PullProducts(womenCategory)[:4]
     context['slideritems'] = Product.objects.order_by('?')[:4]
+    lastProducts = Product.objects.all().order_by('created_at')[:4]
+    context['lastProducts'] = lastProducts
+    # yorum puanı en yüksek olan 4 ürünü ( NoneType olmayanları ) lambda ile sırala
+    popularProducts = sorted(Product.objects.annotate(average=Avg('comment__rate')).filter(average__isnull=False),key=lambda x: x.average,reverse=True)[:4]
+    context['popularProducts'] = popularProducts
 
     return render(request,'index.html',context)
 
