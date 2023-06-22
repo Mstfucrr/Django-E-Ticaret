@@ -82,7 +82,13 @@
                                     <h3>{{product.title}}</h3>
                                     <div class="aa-price-block">
                                         <span class="aa-product-view-price">{{product.price}} TL</span>
-                                        <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                                        {% if product.amount > 0 %}
+                                        <p class="aa-product-avilability">Ürün Durumu : <span>Stokta Var</span></p>
+                                        {% else %}
+                                        <p class="aa-product-avilability">Ürün Durumu : <span>Stokta Yok</span></p>
+                                        {% endif %}
+
+
                                     </div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi,
                                         veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
@@ -131,10 +137,10 @@
                                             data-productid="{{product.id}}" href="#">Sepete Ekle</a>
                                         {% if product in wishList %}
                                         <a class="aa-add-to-cart-btn wishListBtn" data-action="remove"
-                                            data-productid="{{product.id}}" href="#">İstek Listesinden Çıkar</a>
+                                            data-productid="{{product.id}}" href="#" onclick="WishListBtn(this)" >İstek Listesinden Çıkar</a>
                                         {% else %}
                                         <a class="aa-add-to-cart-btn wishListBtn" data-action="add"
-                                            data-productid="{{product.id}}" href="#">İstek Listesine Ekle</a>
+                                            data-productid="{{product.id}}" href="#" onclick="WishListBtn(this)">İstek Listesine Ekle</a>
                                         {% endif %}
                                     </div>
 
