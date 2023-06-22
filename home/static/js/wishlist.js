@@ -28,5 +28,6 @@ function wishListUpdateItem(e, productid, action) {
     }
     ).then((data) => {
         console.log(data);
+        location.reload();
     })
 }
