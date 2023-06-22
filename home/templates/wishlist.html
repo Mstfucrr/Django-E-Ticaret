@@ -47,7 +47,7 @@
                                     <tbody>
                                         {% for product in products %}
                                         <tr>
-                                            <td><a class="remove wishListBtn" href="#" data-action="remove" data-productid="{{product.id}}" class="wishListBtn">
+                                            <td><a class="remove wishListBtn" href="#" data-action="remove" data-productid="{{product.id}}" class="wishListBtn" onclick="WishListBtn(this)">
                                                     <fa class="fa fa-close"></fa>
                                                 </a></td>
                                             <td><a href="/product/{{product.id}}/{{product.slug}}"><img src={{ product.image.url }} alt="img"></a></td>
@@ -66,7 +66,7 @@
                                                 {% endif %}
                                             </td>
                                             {% if product.amount > 0 %}
-                                            <td><a href="#" class="aa-add-to-cart-btn add_to_cart update_item " data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}"><span
+                                            <td><a href="#" class="aa-add-to-cart-btn add_to_cart" onclick="AddToCart(this); UpdateItem(this);" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}"><span
                                                 class="fa fa-shopping-cart" disabled></span>Sepete
                                             Ekle</a></td>
                                             {% else %}
@@ -74,7 +74,7 @@
                                             <!--
                                                 a to Button
                                             -->
-                                            <td><button class="aa-add-to-cart-btn add_to_cart update_item" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}" disabled><span
+                                            <td><button class="aa-add-to-cart-btn add_to_cart" onclick="AddToCart(this); UpdateItem(this);" data-imageurl="{{product.image.url}}" data-title="{{product.title}}" data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}" disabled><span
                                                 class="fa fa-shopping-cart"></span>Stokta Yok</button></td>
 
                                             {% endif %}
