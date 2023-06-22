@@ -1,4 +1,27 @@
 {% block content %}
+
+<style>
+    .aa-product-img img {
+        width: 250px;
+        height: 300px;
+        object-fit: contain;
+        transition: 0.4s;
+    }
+
+    .aa-product-catg li {
+        height: 400px;
+    }
+
+    .aa-product-catg {
+        width: 1224px;
+
+    }
+
+    .tab-pane {
+        text-align: center;
+        padding-bottom: 35px;
+    }
+</style>
 <br> {% include 'content/Products.html' %}
 <br>{% include 'content/Banner.html' %}
 <br>{% include 'content/Popular.html' %}
