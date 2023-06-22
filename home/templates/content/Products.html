@@ -1,30 +1,6 @@
 {% load static %}
 <!-- Products section -->
 
-<style>
-    .aa-product-img img {
-        width: 250px !important;
-        height: 300px !important;
-        object-fit: contain;
-
-    }
-
-    .aa-product-catg li {
-        height: 400px;
-    }
-
-    .aa-product-catg {
-        width: 1224px;
-
-    }
-
-    .tab-pane {
-        text-align: center;
-        padding-bottom: 35px;
-    }
-</style>
-
-
 <section id="aa-product">
     <div class="container">
         <div class="row">
@@ -34,54 +10,58 @@
                         <div class="aa-product-inner">
                             <!-- start prduct navigation -->
                             <ul class="nav nav-tabs aa-products-tab">
-                                <li class="active"><a href="#men" data-toggle="tab">Erkek</a></li>
-                                <li><a href="#women" data-toggle="tab">Kadın</a></li>
-                                <li><a href="#sports" data-toggle="tab">Sport</a></li>
-                                <li><a href="#electronics" data-toggle="tab">Elektronik</a></li>
+                                {% for category,products in categoryProducts.items %}
+                                {% if category.title == "Erkek" %}
+                                <li class="active"><a href="#{{category.title}}" data-toggle="tab">Erkek</a></li>
+                                {% else %}
+                                <li><a href="#{{category.title}}" data-toggle="tab">{{category.title}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                                
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
-
-                                <!-- Start men product category -->
-                                <div class="tab-pane fade in active" id="men">
+                                {% for category,products in categoryProducts.items %}
+                                {% if category.title == "Erkek" %}
+                                <div class="tab-pane fade in active" id="{{category.title}}">
+                                {% else %}
+                                <div class="tab-pane fade" id="{{category.title}}">
+                                {% endif %}
                                     <ul class="aa-product-catg">
                                         <!-- start single product item -->
-
-                                        {% for manItem in manProducts %}
-
+                                        {% for product in products %}
                                         <li>
                                             <figure>
                                                 <a class="aa-product-img"
-                                                    href="/product/{{manItem.id}}/{{manItem.slug}}"><img
-                                                        src="{{manItem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item"
-                                                    data-imageurl="{{manItem.image.url}}" data-title="{{manItem.title}}"
-                                                    data-price="{{manItem.price}}" data-action="add"
-                                                    data-productid="{{manItem.id}}" href="#"><span
-                                                        class="fa fa-shopping-cart"></span>Sepete Ekle</a>
+                                                    href="/product/{{product.id}}/{{product.slug}}"><img
+                                                        src="{{product.image.url}}" alt="polo shirt img"></a>
+                                                        <a class="aa-add-card-btn add_to_cart"
+                                                        data-imageurl="{{product.image.url}}" data-title="{{product.title}}"
+                                                        data-price="{{product.price}}" data-action="add" data-productid="{{product.id}}" onclick="AddToCart(this); UpdateItem(this);"
+                                                        href="#"><span class="fa fa-shopping-cart"></span>Sepete Ekle</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
-                                                            href="/product/{{manItem.id}}/{{manItem.slug}}">{{manItem.title}}</a>
+                                                            href="/product/{{product.id}}/{{product.slug}}">{{product.title}}</a>
                                                     </h4>
-                                                    <span class="aa-product-price">{{manItem.price}} TL</span>
+                                                    <span class="aa-product-price">{{product.price}} TL</span>
                                                 </figcaption>
                                             </figure>
                                             <div class="aa-product-hvr-content">
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist" {% if manItem in wishList %}
-                                                    data-action="remove" data-productid="{{manItem.id}}"
-                                                    class="wishListBtn">
+                                                    title="Add to Wishlist" 
+                                                    {% if product in wishList %}
+                                                    data-action="remove" data-productid="{{product.id}}" class="wishListBtn" onclick="WishListBtn(this)">
                                                     <span class="fa fa-heart"></span>
                                                     {% else %}
-                                                    data-action="add" data-productid="{{manItem.id}}"
-                                                    class="wishListBtn" >
+                                                    data-action="add" data-productid="{{product.id}}" class="wishListBtn" onclick="WishListBtn(this)">
                                                     <span class="fa fa-heart-o"></span>
                                                     {% endif %}
 
-                                                    <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" data-productid="{{manItem.id}}"
-                                                        title="Quick View" data-toggle="modal"
-                                                        data-target="#quick-view-modal"><span class="fa fa-search"
-                                                            ></span></a>
+                                                    <a href="#" data-toggle2="tooltip" data-placement="top"
+                                                        class="quickViewBtn" onclick="QuickView(this)"
+                                                        data-productid="{{product.id}}" title="Quick View"
+                                                        data-toggle="modal" data-target="#quick-view-modal"><span
+                                                            class="fa fa-search"></span></a>
                                             </div>
                                             <!-- product badge -->
                                             <span class="aa-badge aa-sale" href="#">SALE!</span>
@@ -89,262 +69,14 @@
                                         {% endfor %}
                                     </ul>
                                     <a class="aa-browse-btn"
-                                        href="/category/{{manCategory.id}}/{{manCategory.slug}}">Tüm Ürünlere Gözat
+                                        href ="/category/{{category.id}}/{{category.slug}}">Tümünü Gör
                                         <span class="fa fa-long-arrow-right"></span></a>
                                 </div>
 
-
-
-                                <!-- / men product category -->
-
-                                <!-- start women product category -->
-                                <div class="tab-pane fade" id="women">
-                                    <ul class="aa-product-catg">
-                                        <!-- start single product item -->
-                                        {% for womenitem in womenProducts %}
-                                        <li>
-                                            <figure>
-                                                <a class="aa-product-img"
-                                                    href="/product/{{womenitem.id}}/{{womenitem.slug}}"><img
-                                                        src="{{womenitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item"
-                                                    data-imageurl="{{womenitem.image.url}}"
-                                                    data-title="{{womenitem.title}}" data-price="{{womenitem.price}}"
-                                                    data-action="add" data-productid="{{womenitem.id}}" href="#"><span
-                                                        class="fa fa-shopping-cart"></span>Sepete Ekle</a>
-                                                <figcaption>
-                                                    <h4 class="aa-product-title"><a
-                                                            href="/product/{{womenitem.id}}/{{womenitem.slug}}">{{womenitem.title}}</a>
-                                                    </h4>
-                                                    <span class="aa-product-price">{{womenitem.price}} TL</span>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="aa-product-hvr-content">
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist" {% if womenitem in wishList %}
-                                                    data-action="remove" data-productid="{{womenitem.id}}"
-                                                    class="wishListBtn">
-                                                    <span class="fa fa-heart"></span>
-                                                    {% else %}
-                                                    data-action="add" data-productid="{{womenitem.id}}"
-                                                    class="wishListBtn" >
-                                                    <span class="fa fa-heart-o"></span>
-                                                    {% endif %}
-
-                                                    <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" data-productid="{{womenitem.id}}"
-                                                        title="Quick View" data-toggle="modal"
-                                                        data-target="#quick-view-modal"><span class="fa fa-search"
-                                                            ></span></a>
-                                            </div>
-                                            <!-- product badge -->
-                                            <span class="aa-badge aa-sale" href="#">SALE!</span>
-                                        </li>
-
-                                        {% endfor %}
-
-                                    </ul>
-                                    <a class="aa-browse-btn"
-                                        href="/category/{{womenCategory.id}}/{{womenCategory.slug}}">Tüm Ürünlere Gözat
-                                        <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                                <!-- / women product category -->
-
-                                <!-- start sports product category -->
-                                <div class="tab-pane fade" id="sports">
-                                    <ul class="aa-product-catg">
-                                        <!-- start single product item -->
-
-                                        {% for sportitem in sportsProducts %}
-
-                                        <li>
-                                            <figure>
-                                                <a class="aa-product-img"
-                                                    href="/product/{{sportitem.id}}/{{sportitem.slug}}"><img
-                                                        src="{{sportitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item"
-                                                    data-imageurl="{{sportitem.image.url}}"
-                                                    data-title="{{sportitem.title}}" data-price="{{sportitem.price}}"
-                                                    data-action="add" data-productid="{{sportitem.id}}" href="#"><span
-                                                        class="fa fa-shopping-cart"></span>Sepete Ekle</a>
-                                                <figcaption>
-                                                    <h4 class="aa-product-title"><a
-                                                            href="/product/{{sportitem.id}}/{{sportitem.slug}}">{{sportitem.title}}</a>
-                                                    </h4>
-                                                    <span class="aa-product-price">{{sportitem.price}} TL</span>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="aa-product-hvr-content">
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist" {% if sportitem in wishList %}
-                                                    data-action="remove" data-productid="{{sportitem.id}}"
-                                                    class="wishListBtn">
-                                                    <span class="fa fa-heart"></span>
-                                                    {% else %}
-                                                    data-action="add" data-productid="{{sportitem.id}}"
-                                                    class="wishListBtn" >
-                                                    <span class="fa fa-heart-o"></span>
-                                                    {% endif %}
-
-                                                    <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" data-productid="{{sportitem.id}}"
-                                                        title="Quick View" data-toggle="modal"
-                                                        data-target="#quick-view-modal"><span class="fa fa-search"
-                                                            ></span></a>
-                                            </div>
-                                            <!-- product badge -->
-                                            <span class="aa-badge aa-sale" href="#">SALE!</span>
-                                        </li>
-
-                                        {% endfor %}
-
-                                    </ul>
-                                    <a class="aa-browse-btn"
-                                        href="/category/{{sportsCategory.id}}/{{sportsCategory.slug}}">Tüm
-                                        Ürünlere Gözat
-                                        <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                                <!-- / sports product category -->
-
-                                <!-- start electronic product category -->
-                                <div class="tab-pane fade" id="electronics">
-                                    <ul class="aa-product-catg">
-                                        <!-- start single product item -->
-
-                                        {% for electronicitem in electronicProducts %}
-
-
-                                        <li>
-                                            <figure>
-                                                <a class="aa-product-img"
-                                                    href="/product/{{electronicitem.id}}/{{electronicitem.slug}}"><img
-                                                        src="{{electronicitem.image.url}}" alt="polo shirt img"></a>
-                                                <a class="aa-add-card-btn add_to_cart update_item"
-                                                    data-imageurl="{{electronicitem.image.url}}"
-                                                    data-title="{{electronicitem.title}}"
-                                                    data-price="{{electronicitem.price}}" data-action="add"
-                                                    data-productid="{{electronicitem.id}}" href="#"><span
-                                                        class="fa fa-shopping-cart"></span>Sepete Ekle</a>
-                                                <figcaption>
-                                                    <h4 class="aa-product-title"><a
-                                                            href="/product/{{electronicitem.id}}/{{electronicitem.slug}}">{{electronicitem.title}}</a>
-                                                    </h4>
-                                                    <span class="aa-product-price">{{electronicitem.price}} TL</span>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="aa-product-hvr-content">
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist" {% if electronicitem in wishList %}
-                                                    data-action="remove" data-productid="{{electronicitem.id}}"
-                                                    class="wishListBtn">
-                                                    <span class="fa fa-heart"></span>
-                                                    {% else %}
-                                                    data-action="add" data-productid="{{electronicitem.id}}"
-                                                    class="wishListBtn" >
-                                                    <span class="fa fa-heart-o"></span>
-                                                    {% endif %}
-
-                                                    <a href="#" data-toggle2="tooltip" data-placement="top" class="quickViewBtn" data-productid="{{electronicitem.id}}"
-                                                        title="Quick View" data-toggle="modal"
-                                                        data-target="#quick-view-modal"><span class="fa fa-search"
-                                                            ></span></a>
-                                            </div>
-                                            <!-- product badge -->
-                                            <span class="aa-badge aa-sale" href="#">SALE!</span>
-
-                                        </li>
-                                        {% endfor %}
-
-                                    </ul>
-                                    <a class="aa-browse-btn"
-                                        href="/category/{{electronicCategory.id}}/{{electronicCategory.slug}}">Tüm
-                                        Ürünlere Gözat
-                                        <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                                <!-- / electronic product category -->
+                                {% endfor %}
 
                             </div>
-                            <!-- quick view modal -->
-                            <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true">&times;</button>
-                                            <div class="row">
-
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="aa-product-view-slider">
-                                                        <div class="simpleLens-gallery-container" id="demo-1">
-                                                            <div class="simpleLens-container">
-                                                                <div class="simpleLens-big-image-container">
-                                                                    <a class="simpleLens-lens-image"
-                                                                        data-lens-image="{% static 'img/view-slider/large/polo-shirt-1.png' %}">
-                                                                        <img src="{% static 'img/view-slider/medium/polo-shirt-1.png' %}"
-                                                                            class="simpleLens-big-image">
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="simpleLens-thumbnails-container">
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{% static 'img/view-slider/large/polo-shirt-1.png' %}"
-                                                                    data-big-image="{% static 'img/view-slider/medium/polo-shirt-1.png' %}">
-                                                                    <img
-                                                                        src="{% static 'img/view-slider/thumbnail/polo-shirt-1.png' %}">
-                                                                </a>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="aa-product-view-content">
-                                                        <h3>T-Shirt</h3>
-                                                        <div class="aa-price-block">
-                                                            <span class="aa-product-view-price">$34.99</span>
-                                                            
-                                                        </div>
-                                                        <p class="description">Lorem ipsum dolor sit amet, consectetur
-                                                            adipisicing elit.
-                                                            Officiis animi, veritatis quae repudiandae quod nulla porro
-                                                            quidem, itaque quis quaerat!</p>
-                                                        <h4>Size</h4>
-                                                        <div class="aa-prod-view-size">
-                                                            <a href="#">S</a>
-                                                            <a href="#">M</a>
-                                                            <a href="#">L</a>
-                                                            <a href="#">XL</a>
-                                                        </div>
-                                                        <div class="aa-prod-quantity">
-                                                            <form action="">
-                                                                <select name="" id="">
-                                                                    <option value="0" selected="1">1</option>
-                                                                    <option value="1">2</option>
-                                                                    <option value="2">3</option>
-                                                                    <option value="3">4</option>
-                                                                    <option value="4">5</option>
-                                                                    <option value="5">6</option>
-                                                                </select>
-                                                            </form>
-                                                            <p class="aa-prod-category">
-                                                                Category: <a href="#">Polo T-Shirt</a>
-                                                            </p>
-                                                        </div>
-                                                        <div class="aa-prod-view-bottom">
-                                                            <a href="#" class="aa-add-to-cart-btn add_to_cart update_item" data-action="add"><span
-                                                                    class="fa fa-shopping-cart"></span>Sepete Ekle</a>
-                                                            <a href="#" class="aa-add-to-cart-btn viewDeatils">View Details</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <!-- / quick view modal -->
+                            {% include 'quickViewModal.html' %}
                         </div>
                     </div>
                 </div>
