@@ -90,7 +90,9 @@ def category_product(request,id,slug):
 
     products = PullProducts(category)
     context['products'] = products
-    
+    context['minPrice'] = min([x.price for x in products])
+    context['maxPrice'] = max([x.price for x in products])
+
 
     return render(request,'products.html',context)
 
@@ -113,7 +115,24 @@ def search_product(request):
         images = Images.objects.all()
         context['images'] = images
         context['key'] = key
+        context['minPrice'] = min([x.price for x in products])
+        context['maxPrice'] = max([x.price for x in products])
     return render(request,'products_search.html',context)
+
+
+def filter_product(request,displayedProductsIds,minPrice,maxPrice):
+    # görüntülenen ürünlerin fiyat aralığını belirlemek için
+    displayedProductsIds = displayedProductsIds.split(',')
+    
+    context = SettingsFunc(request)
+    products = Product.objects.filter(id__in=displayedProductsIds,price__range=(minPrice,maxPrice))
+    
+    context['products'] = products
+    images = Images.objects.all()
+    context['images'] = images
+    
+    # redirect urlfor products.html 
+    return render(request,'ulProducts.html',context)
 
 
 def is_ajax(request):

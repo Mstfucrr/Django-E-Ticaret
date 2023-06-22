@@ -35,6 +35,7 @@ urlpatterns = [
     path('product/<int:id>/<slug:slug>/',views.product_detail,name='product_detail'),
     path('search/', views.search_product, name='search_product'),
     path('search_auto/', views.search_auto, name='search_auto'),
+    path('filter_product/displayedProductsIds=<str:displayedProductsIds>&minPrice=<str:minPrice>&maxPrice=<str:maxPrice>/',views.filter_product,name='filter_product'),
 ]
 
 if settings.DEBUG:

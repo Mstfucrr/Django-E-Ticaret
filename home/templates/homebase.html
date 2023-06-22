@@ -24,6 +24,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
     <!-- price picker slider -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/nouislider.css' %}">
+    <!-- Price picker slider -->
+    <script type="text/javascript" src="{% static 'js/nouislider.js' %}"></script>
     <!-- Theme color -->
     <link id="switcher" href="{% static 'css/theme-color/dark-red-theme.css' %}" rel="stylesheet">
     <!-- <link id="switcher" href="css/theme-color/bridge-theme.css" rel="stylesheet"> -->
@@ -101,8 +103,7 @@
     <script type="text/javascript" src="{% static 'js/jquery.simpleLens.js' %}"></script>
     <!-- slick slider -->
     <script type="text/javascript" src="{% static 'js/slick.js' %}"></script>
-    <!-- Price picker slider -->
-    <script type="text/javascript" src="{% static 'js/nouislider.js' %}"></script>
+    
     <!-- Custom js -->
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/account.js' %}"></script>
@@ -114,7 +115,6 @@
         checkoutForm = document.getElementById("checkoutForm")
         checkoutForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             addressInfo = {
                 'firstname': document.getElementById("firstname").value,
                 'lastname': document.getElementById("lastname").value,
